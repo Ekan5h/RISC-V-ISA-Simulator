@@ -191,7 +191,22 @@ for line in text:
     if(ins in R):
         textOut[mem] = hex(int(parseR(line,mem,labels),2))
     elif(ins in I):
-        textOut[mem] = hex(int(parseI(line,mem,labels),2))
+        if(ins != 'lw' or (ins =='lw' and re.match(r'.+\(x\d+\)', line))):
+            textOut[mem] = hex(int(parseI(line,mem,labels),2))
+        else:
+            try:
+                ins, register, label = line.split()
+            except:
+                raise Exception("Invalid statement >>" + line)
+            if(label not in dataLocation.keys()):
+                raise Exception("Could not find label >>" + line)
+            textOut[mem] = hex(int(parseU("lui "+register+" "+hex(dataLocation[label])[:-3], mem, labels),2))
+            mem += 4
+            if(int("0x"+hex(dataLocation[label])[7:],0)!=0):
+                textOut[mem] = hex(int(parseI("addi "+register+" "+register+" 0x"+hex(dataLocation[label])[7:], mem, labels),2))
+                mem += 4
+            textOut[mem] = hex(int(parseI("lw "+register+" 0("+register+")", mem, labels),2))
+
     elif(ins in S):
         textOut[mem] = hex(int(parseS(line,mem,labels),2))
     elif(ins in SB):
