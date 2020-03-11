@@ -188,148 +188,148 @@ def parseUJ(instruction,inst,labels={}):
 def parseI(instruction, line_number, table):
     import re
     
-	#I based instructions
-	I = ["addi", "andi", "ori", "lb", "ld", "lh", "lw" , "jalr"]
-	
-	#Get the string based values by splitting
-	immediate = ''
-	try:
-		[operation, rd, rs, immediate] = instruction.split()
-	except:
-		[operation, rd, rs] = instruction.split()
+    #I based instructions
+    I = ["addi", "andi", "ori", "lb", "ld", "lh", "lw" , "jalr"]
     
-	#Check error code for operation
-	if(operation not in I):
-		raise Exception("The entered instruction is not a valid operation")
-		return None
-		
-	#Regular Expression based checking
-	regex = re.compile("x\d+")
-	register = regex.search(rd)
-	#Checking for rd
-	if(register == None or len(register.group()) != len(rd)):
-		raise Exception("Enter a valid destination register")
-		
-	#Checking for rs
-	if(operation in I[3:]):
-		regex = re.compile("(\d+\(x\d+\))|(0x(\d+|[A-Fa-f]+)\(x\d+\))")
-		register = regex.search(rs)
-		if(register == None or len(register.group()) != len(rs)):
-			raise Exception("Enter a valid source register and its offset")
-		
-		fill_imm = True
-		rs = ''
-		for i in register.group():
-		    if(i == '('):
-		        fill_imm = False
-		        continue
-		    if(i == ')'):
-		        continue
-		    if(fill_imm):
-		        immediate = immediate + i
-		    else:
-		        rs = rs + i
-	#Checking for rd
-	else:
-		regex = re.compile("x\d+")
-		register = regex.search(rs)
-		if(register == None or len(register.group()) != len(rs)):
-			raise Exception("Enter a valid destination register")
-			
-			
-	#Get the integer based value of registers
-	rs = int(rs[1:])
-	rd = int(rd[1:])
-	
-	#Exception Handling
-	if(rs < 0 or rs > 32 or rd < 0 or rd > 32):
-		raise Exception("Invalid register value!!! They should be between 1 to 32")
-		
-	#Encoding to binary
-	rs = str(bin(rs))
-	rs = rs[2:]
-	rs = '0' * (5 - len(rs)) + rs
-	
-	rd = str(bin(rd))
-	rd = rd[2:]
-	rd = '0' * (5-len(rd)) + rd
-	
-	#Encoding and checking for immediate
-	try:
-		int(immediate, 0)
-	except:
-		raise Exception('Enter a valid immediate field')
-		
-	if(immediate[0:2] == '0x'):
-		#To get the correct size of immediate field
-		#Sizes smaller than 8 expanded to 8 and larger than 8 are also clipped to 8
-		if(len(immediate[2:]) <= 8):
-			immediate = '0x' + '0'*(8 - len(immediate[2:])) + immediate[2:]
-		else:
-			immediate = '0x' + immediate[len(immediate)-8:len(immediate)]
-		
-		immediate = int(immediate, 0)
-		
-		if(immediate == 4096):
-			immediate = -2048
-		else:
-			immediate = -(immediate & 0x80000000) | (immediate & 0x7fffffff)
-			
-	elif(immediate[0:3] == '-0x'):
-		if(len(immediate[3:]) <= 8):
-			immediate = '0x' + '0' * (8 - len(immediate[3:])) + immediate[3:]
-		else:
-			immediate = '0x' + immediate[len(immediate)-8: len(immediate)]
-			
-		immediate = int(immediate, 0)
-		
-		if(immediate == 4096):
-			immediate = -2048
-		else:
-			immediate = (immediate & 0x80000000) | -(immediate & 0x7fffffff)
-			
-	else:
-		immediate = int(immediate, 0)
-		
-	if(immediate > 2047 or immediate < -2048):
-		raise Exception('Immediate value should be in the range [-2048, 2047]')
-		
-	if(immediate < 0):
-		immediate = -1 * immediate
-		immediate = 4096 - immediate
-		
-	immediate = str(bin(immediate))
-	immediate = immediate[2:]
-	immediate = '0' * (12 - len(immediate)) + immediate
-		
-	opcode = ''
-	funct3 = ''
-	
-	if(operation == 'addi'):
-		opcode = '0010011'
-		funct3 = '000'
-	elif(operation == 'andi'):
-		opcode = '0010011'
-		funct3 = '111'
-	elif(operation == 'ori'):
-		opcode = '0010011'
-		funct3 = '110'
-	elif(operation == 'lb'):
-		opcode = '0000011'
-		funct3 = '000'
-	elif(operation == 'lh'):
-		opcode = '0000011'
-		funct3 = '001'
-	elif(operation == 'lw'):
-		opcode = '0000011'
-		funct3 = '010'
-	elif(operation == 'ld'):
-		opcode = '0000011'
-		funct3 = '011'
-	elif(operation == 'jalr'):
-		opcode = '1100111'
-		funct3 = '000'
-		
-	#Collect the final binary code
-	final_binary = immediate + rs + funct3 + rd + opcode
-	return final_binary
+    #Get the string based values by splitting
+    immediate = ''
+    try:
+        [operation, rd, rs, immediate] = instruction.split()
+    except:
+        [operation, rd, rs] = instruction.split()
+    
+    #Check error code for operation
+    if(operation not in I):
+        raise Exception("The entered instruction is not a valid operation")
+        return None
+        
+    #Regular Expression based checking
+    regex = re.compile("x\d+")
+    register = regex.search(rd)
+    #Checking for rd
+    if(register == None or len(register.group()) != len(rd)):
+        raise Exception("Enter a valid destination register")
+        
+    #Checking for rs
+    if(operation in I[3:]):
+        regex = re.compile("(\d+\(x\d+\))|(0x(\d+|[A-Fa-f]+)\(x\d+\))")
+        register = regex.search(rs)
+        if(register == None or len(register.group()) != len(rs)):
+            raise Exception("Enter a valid source register and its offset")
+        
+        fill_imm = True
+        rs = ''
+        for i in register.group():
+            if(i == '('):
+                fill_imm = False
+                continue
+            if(i == ')'):
+                continue
+            if(fill_imm):
+                immediate = immediate + i
+            else:
+                rs = rs + i
+    #Checking for rd
+    else:
+        regex = re.compile("x\d+")
+        register = regex.search(rs)
+        if(register == None or len(register.group()) != len(rs)):
+            raise Exception("Enter a valid destination register")
+            
+            
+    #Get the integer based value of registers
+    rs = int(rs[1:])
+    rd = int(rd[1:])
+    
+    #Exception Handling
+    if(rs < 0 or rs > 32 or rd < 0 or rd > 32):
+        raise Exception("Invalid register value!!! They should be between 1 to 32")
+        
+    #Encoding to binary
+    rs = str(bin(rs))
+    rs = rs[2:]
+    rs = '0' * (5 - len(rs)) + rs
+    
+    rd = str(bin(rd))
+    rd = rd[2:]
+    rd = '0' * (5-len(rd)) + rd
+    
+    #Encoding and checking for immediate
+    try:
+        int(immediate, 0)
+    except:
+        raise Exception('Enter a valid immediate field')
+        
+    if(immediate[0:2] == '0x'):
+        #To get the correct size of immediate field
+        #Sizes smaller than 8 expanded to 8 and larger than 8 are also clipped to 8
+        if(len(immediate[2:]) <= 8):
+            immediate = '0x' + '0'*(8 - len(immediate[2:])) + immediate[2:]
+        else:
+            immediate = '0x' + immediate[len(immediate)-8:len(immediate)]
+        
+        immediate = int(immediate, 0)
+        
+        if(immediate == 4096):
+            immediate = -2048
+        else:
+            immediate = -(immediate & 0x80000000) | (immediate & 0x7fffffff)
+            
+    elif(immediate[0:3] == '-0x'):
+        if(len(immediate[3:]) <= 8):
+            immediate = '0x' + '0' * (8 - len(immediate[3:])) + immediate[3:]
+        else:
+            immediate = '0x' + immediate[len(immediate)-8: len(immediate)]
+            
+        immediate = int(immediate, 0)
+        
+        if(immediate == 4096):
+            immediate = -2048
+        else:
+            immediate = (immediate & 0x80000000) | -(immediate & 0x7fffffff)
+            
+    else:
+        immediate = int(immediate, 0)
+        
+    if(immediate > 2047 or immediate < -2048):
+        raise Exception('Immediate value should be in the range [-2048, 2047]')
+        
+    if(immediate < 0):
+        immediate = -1 * immediate
+        immediate = 4096 - immediate
+        
+    immediate = str(bin(immediate))
+    immediate = immediate[2:]
+    immediate = '0' * (12 - len(immediate)) + immediate
+        
+    opcode = ''
+    funct3 = ''
+    
+    if(operation == 'addi'):
+        opcode = '0010011'
+        funct3 = '000'
+    elif(operation == 'andi'):
+        opcode = '0010011'
+        funct3 = '111'
+    elif(operation == 'ori'):
+        opcode = '0010011'
+        funct3 = '110'
+    elif(operation == 'lb'):
+        opcode = '0000011'
+        funct3 = '000'
+    elif(operation == 'lh'):
+        opcode = '0000011'
+        funct3 = '001'
+    elif(operation == 'lw'):
+        opcode = '0000011'
+        funct3 = '010'
+    elif(operation == 'ld'):
+        opcode = '0000011'
+        funct3 = '011'
+    elif(operation == 'jalr'):
+        opcode = '1100111'
+        funct3 = '000'
+        
+    #Collect the final binary code
+    final_binary = immediate + rs + funct3 + rd + opcode
+    return final_binary
