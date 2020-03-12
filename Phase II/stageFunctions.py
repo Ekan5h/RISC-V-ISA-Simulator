@@ -23,19 +23,41 @@ def load_program_memory(file_name):
 	except FileNotFoundError:
 		print("Error opening target code!")
 
-load_program_memory('test.mc')
+#load_program_memory('test.mc')
 
-print(MEM)
+#print(MEM)
+def fetch():
+	pass
+def decode():
+	pass
+def execute():
+	pass
+def memory_access():
+	pass
+def write_back():
+	pass
 
-def read(address):
+
+def read(address,num_bytes=1):
 	#Insert Check Bounds Here
-	if address in MEM.keys():
-		return MEM[address]
-	else:
-		return 0
+	for i in range(num_bytes):
+		adr=int(address)+i
+		if adr in MEM.keys():
+			return MEM[adr]
+		else:
+			return 0
 		
 
 def write(address,data):
+	#Address: Hex value of 32 bits
+	#INPUTS:-Data is assumed to be of length , atleast 4 and begin with 0x
 	#Insert Memory Bounds Here
 	#Assuming Byte Addressibility	
-	MEM[address]=data
+	num_bytes=len(data)/2-1
+	for i in range(num_bytes):
+		d_in=int(data[i*(-2)-2:i*(-2)],16)
+		adr=int(address)+i
+		MEM[adr]=d_in
+
+		
+		
