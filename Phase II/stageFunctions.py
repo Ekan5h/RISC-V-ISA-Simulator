@@ -20,12 +20,19 @@ def load_program_memory(file_name):
 		MEM[int(ins[0],0)+1]=0
 		MEM[int(ins[0],0)+2]=0
 		MEM[int(ins[0],0)+3]=0
+		for l in f:
+			if l=='\n':
+				continue
+			else:
+				l=l.split()
+				MEM[int(l[0],0)]=int(l[1],0)
+		
 	except FileNotFoundError:
 		print("Error opening target code!")
 
-#load_program_memory('test.mc')
+load_program_memory('test.mc')
 
-#print(MEM)
+print(MEM)
 def fetch():
 	pass
 def decode():
