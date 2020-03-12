@@ -40,12 +40,12 @@ def write_back():
 
 def read(address,num_bytes=1):
 	#Insert Check Bounds Here
+	val=0
 	for i in range(num_bytes):
 		adr=int(address)+i
 		if adr in MEM.keys():
-			return MEM[adr]
-		else:
-			return 0
+			val=val+MEM[adr]
+	return val
 		
 
 def write(address,data):
