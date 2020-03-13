@@ -109,31 +109,57 @@ class ProcessingUnit:
 		if opcode == 3:
 			if funct3>=0 and funct3<=3:
 				self.MDR=self.read(self.MAR,2**(funct3))
+				self.RY=self.MDR
 		elif opcode== (8*4+3):
 			if funct3>=0 and funct3<=3:
 				self.write(self.MAR,self.MDR,2**(funct3))
-		#For jal, PC_temp updates RY
-		elif opcode == 111:
-			self.RY = self.PC_temp
-		else:	
-			pass
+		else:
+			self.RY=self.RZ
 
 	def write_back(self):
 		#Determine whether write back is used
 		opcode = self.IR&(0x7F)
-		#S and SB check
-		if opcode == 35 or opcode == 99:
+		#S Check
+		if opcode == 35:
 			pass
-		
+		#jal
+		elif opcode==111:
+			#Extract the immediate field and generate the offset
+			immed_20=str((self.IR&0x80000000)>>31)
+			immed_19_12=bin((self.IR&(0x000ff000))>>12)[2:]
+			immed_19_12='0'*(8-len(immed_19_12))+immed_19_12
+			immed_11=str((self.IR&(0x00100000))>>20)
+			immed_10_1=bin((self.IR&(0x7fe00000))>>21)[2:]
+			immed_10_1='0'*(10-len(immed_10_1))+immed_10_1
+			immediate=immed_20*12+immed_19_12+immed_11+immed_10_1+'0'
+			offset=int(immediate,2)
+			if immediate[0]=='1':
+				offset^=0xFFFFFFFF
+				offset+=1
+				offset=-offset
+			#pass the offset to IAG 
+			self.IAG(offset)
+			#set the self.RY to PC_temp
+			self.RY=PC_temp
+		#Handle AUIPC
+		elif opcode==23:
+			self.IAG()
+			self.RY=self.PC+(IR&(0xFFFFF000))
+		#SB		
+		elif opcode == 99 :
+			#Sakskay Calculate The offset for SB
+			self.IAG(offset)
+		#jalr		
+		elif opcode==103:
+			#assuming jalr puts the offset value in RY
+			temp=self.RY
+			self.RY=self.PC+4
+			IAG(temp)
+		else:
+			self.IAG()
 		rd = self.IR&(0xF80)
 		rd = rd/128
-
 		self.RegisterFile[rd] = self.RY
-		
-		#Update PC, if jal, jalr, beq, bne, bge, blt
-		if(opcode == 111 or opcode == 23 or opcode == 99 or opcode == 103):
-			self.IAG(self.RY)
-		
 		return
 
 
