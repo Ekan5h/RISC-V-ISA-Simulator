@@ -2,6 +2,8 @@ class ProcessingUnit:
 	def __init__(self, file_name):
 		#Initialize the Processing Unit
 		self.RegisterFile = [0 for i in range(32)]
+		self.RegisterFile[2]=int('0x7FFFFFF0',0)
+		self.RegisterFile[3]=int('0x10000000',0)
 		self.MEM = {}
 		self.MAR = 0
 		self.MDR = 0
@@ -68,7 +70,11 @@ class ProcessingUnit:
 			d_in=(data>>(8*i))&(0xFF)
 			adr=adr+i
 			self.MEM[adr]=d_in
-		
+	
+	def IAG(self,offset=4):
+		self.PC_temp=self.PC_temp+4
+		self.PC=self.PC+offset
+
 	def fetch(self):
 		pass
 
@@ -81,14 +87,14 @@ class ProcessingUnit:
 		#I format
 		elif(opcode == 3 or opcode == 19 or opcode == 103):
 			rs1 = self.IR&(0xF8000)
-			rs1 = rs1 << 15
+			rs1 = rs1 >> 15
 			self.RA = self.RegisterFile[rs1]
 		#R S SB format
 		else:
 			rs1 = self.IR&(0xF8000)
-			rs1 = rs1 << 15
+			rs1 = rs1 >> 15
 			rs2 = self.IR&(0x1F0000)
-			rs2 = rs2 << 20
+			rs2 = rs2 >> 20
 			self.RA = self.RegisterFile[rs1]
 			self.RB = self.RegisterFile[rs2]
 
@@ -121,6 +127,7 @@ class ProcessingUnit:
 		self.RegisterFile[rd] = self.RY
 
 		return
+
 
 
 
