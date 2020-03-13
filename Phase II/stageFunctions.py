@@ -153,9 +153,9 @@ class ProcessingUnit:
 			# ImmField:  12   10:5     4:1   11
 			# Shifts:    R19  R20      R7    L4
 
-			offset += self.IR&(0x80) << 4
-			offset += self.IR&(0xF00) >> 7
-			offset += self.IR&(0x7E000000) >> 20
+			offset += (self.IR&(0x80)) << 4
+			offset += (self.IR&(0xF00)) >> 7
+			offset += (self.IR&(0x7E000000)) >> 20
 
 			#Working with sign bit
 			if(self.IR&(0x80000000) == 0x80000000):
