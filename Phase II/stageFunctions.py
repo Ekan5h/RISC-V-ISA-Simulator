@@ -156,7 +156,12 @@ class ProcessingUnit:
 			offset += self.IR&(0x80) << 4
 			offset += self.IR&(0xF00) >> 7
 			offset += self.IR&(0x7E000000) >> 20
-			offset += self.IR&(0x80000000) >> 19
+
+			#Working with sign bit
+			if(self.IR&(0x80000000) == 0x80000000):
+				offset = offset ^ 0xFFFFFFFF
+				offset += 1
+				offset = -1 * offset
 
 			self.IAG(offset)
 		#jalr		
