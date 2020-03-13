@@ -106,12 +106,16 @@ class ProcessingUnit:
 		elif opcode== (8*4+3):
 			if funct3>=0 and funct3<=3:
 				self.write(self.MAR,self.MDR,2**(funct3))
+		#For jal, PC_temp updates RY
+		elif opcode == 111:
+			self.RY = self.PC_temp
 		else:	
 			pass
 
 	def write_back(self):
 		#Determine whether write back is used
 		opcode = self.IR&(0x7F)
+		#S and SB check
 		if opcode == 35 or opcode == 99:
 			pass
 		
@@ -119,7 +123,14 @@ class ProcessingUnit:
 		rd = rd/128
 
 		self.RegisterFile[rd] = self.RY
+		
+		#Update Program Counter
+		self.PC += 4
 
+		#Update PC, if jal, jalr, beq, bne, bge, blt
+		if(opcode == 111 or opcode == 23 or opcode == 99 or opcode == 103):
+			self.PC += self.RY
+		
 		return
 
 
