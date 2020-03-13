@@ -76,8 +76,7 @@ class ProcessingUnit:
 		self.PC=self.PC+offset
 
 	def fetch(self):
-		pass
-
+		self.IR=self.read(self.PC,4)
 
 	def decode(self):
 		opcode = self.IR&(0x7F)
