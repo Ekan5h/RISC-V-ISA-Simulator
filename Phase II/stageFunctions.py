@@ -159,7 +159,7 @@ class ProcessingUnit:
 
 			#Working with sign bit
 			if(self.IR&(0x80000000) == 0x80000000):
-				offset = offset ^ 0x1FFF
+				offset = offset ^ 0xFFF
 				offset += 1
 				offset = -1 * offset
 
