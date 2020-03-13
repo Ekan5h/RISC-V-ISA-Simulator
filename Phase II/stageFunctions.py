@@ -139,19 +139,30 @@ class ProcessingUnit:
 			#pass the offset to IAG 
 			self.IAG(offset)
 			#set the self.RY to PC_temp
-			self.RY=PC_temp
+			self.RY=self.PC_temp
 		#Handle AUIPC
 		elif opcode==23:
 			self.IAG()
-			self.RY=self.PC+(IR&(0xFFFFF000))
+			self.RY=self.PC+(self.IR&(0xFFFFF000))
 		#SB		
 		elif opcode == 99 :
-			#Sakskay Calculate The offset for SB
+			offset = 0
+			
+			#Immediate Field Distribution
+			# Array:    [31] [30-25] [11-8] [7]
+			# ImmField:  12   10:5     4:1   11
+			# Shifts:    R19  R20      R7    L4
+
+			offset += self.IR&(0x80) << 4
+			offset += self.IR&(0xF00) >> 7
+			offset += self.IR&(0x7E000000) >> 20
+			offset += self.IR&(0x80000000) >> 19
+
 			self.IAG(offset)
 		#jalr		
 		elif opcode==103:
 			#assuming jalr puts the offset value in RY
-			IAG(self.RY)
+			self.IAG(self.RY)
 			self.RY=self.PC_temp
 		else:
 			self.IAG()
