@@ -130,12 +130,9 @@ class ProcessingUnit:
 
 		self.RegisterFile[rd] = self.RY
 		
-		#Update Program Counter
-		self.PC += 4
-
 		#Update PC, if jal, jalr, beq, bne, bge, blt
 		if(opcode == 111 or opcode == 23 or opcode == 99 or opcode == 103):
-			self.PC += self.RY
+			self.IAG(self.RY)
 		
 		return
 
