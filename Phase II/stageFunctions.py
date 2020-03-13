@@ -152,9 +152,8 @@ class ProcessingUnit:
 		#jalr		
 		elif opcode==103:
 			#assuming jalr puts the offset value in RY
-			temp=self.RY
-			self.RY=self.PC+4
-			IAG(temp)
+			IAG(self.RY)
+			self.RY=self.PC_temp
 		else:
 			self.IAG()
 		rd = self.IR&(0xF80)
