@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<head>
+    <title>RISC-V ISA Simulator</title>
+    <link rel = "stylesheet" href = "main.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+    <basefont color="white">
+    <div class = "mempane">
+        <div class = "memmenu">
+            <div class = "field" style = "width:70%; cursor:pointer;" onclick = "hideMemory();">Registers</div>
+            <select>
+                <option>HEX</option>
+                <option>DEC</option>
+                <option>ASCII</option>
+            </select>
+        </div>
+    </div>
+    <div class = "menubar">
+        <div class = "menu-items">
+            <div class = "btn">Run</div>
+            <div class = "btn">Step</div>
+            <div class = "btn">Prev</div>
+            <div class = "btn">Reset</div>
+            <div class = "btn">Dump</div>
+            
+        </div>
+    </div>
+    <div class = "screen">
+        <div class = "page">
+            <textarea id = "2" onkeydown="insertTab(this, event);" onkeyup = "showHelp();" spellcheck="false"># Your code goes here</textarea>
+        </div>
+        <div class = "page">
+            <div class = "code">
+                <table class = "instructions">
+                    <tr class = "heading">
+                        <th>Original Code</th><th>Basic Code</th><th>Machine Code</th>
+                    </tr>
+                    <tr>
+                        <td>addi sp x0 4</td><td>addi x2 x0 4</td><td>0xabc12334</td>
+                    </tr>
+                    <tr class = "active">
+                        <td>addi sp x0 4</td><td>addi x2 x0 4</td><td>0xabc12334</td>
+                    </tr>
+                    <tr>
+                        <td>addi sp x0 4</td><td>addi x2 x0 4</td><td>0xabc12334</td>
+                    </tr>
+                    <tr>
+                        <td>addi sp x0 4</td><td>addi x2 x0 4</td><td>0xabc12334</td>
+                    </tr>
+                </table>
+            </div>
+            <div class = "memory">
+                <div class = "memcontent">
+                    PC: <div class = "field">0x0000000</div><br><br>
+                    x0&nbsp;&nbsp;: <div class = "field">0x0000000</div><br>
+                    x1&nbsp;&nbsp;: <div class = "field">0x0000000</div><br>
+                    x2&nbsp;&nbsp;: <div class = "field">0x0000000</div><br>
+                    x3&nbsp;&nbsp;: <div class = "field">0x0000000</div><br>
+                    x4&nbsp;&nbsp;: <div class = "field">0x0000000</div><br>
+                    x5&nbsp;&nbsp;: <div class = "field">0x0000000</div><br>
+                    x6&nbsp;&nbsp;: <div class = "field">0x0000000</div><br>
+                    x7&nbsp;&nbsp;: <div class = "field">0x0000000</div><br>
+                    x8&nbsp;&nbsp;: <div class = "field">0x0000000</div><br>
+                    x9&nbsp;&nbsp;: <div class = "field">0x0000000</div><br>
+                    x10: <div class = "field">0x0000000</div><br>
+                    x11: <div class = "field">0x0000000</div><br>
+                    x12: <div class = "field">0x0000000</div><br>
+                    x13: <div class = "field">0x0000000</div><br>
+                    x14: <div class = "field">0x0000000</div><br>
+                    x15: <div class = "field">0x0000000</div><br>
+                    x16: <div class = "field">0x0000000</div><br>
+                    x17: <div class = "field">0x0000000</div><br>
+                    x18: <div class = "field">0x0000000</div><br>
+                    x19: <div class = "field">0x0000000</div><br>
+                    x20: <div class = "field">0x0000000</div><br>
+                    x21: <div class = "field">0x0000000</div><br>
+                    x22: <div class = "field">0x0000000</div><br>
+                    x23: <div class = "field">0x0000000</div><br>
+                    x24: <div class = "field">0x0000000</div><br>
+                    x25: <div class = "field">0x0000000</div><br>
+                    x26: <div class = "field">0x0000000</div><br>
+                    x27: <div class = "field">0x0000000</div><br>
+                </div>
+                <div class = "memmenu">
+                    <div class = "field" style = "width:70%; cursor:pointer;" onclick = "showMemory();">Main Memory</div>
+                    <select>
+                        <option>HEX</option>
+                        <option>DEC</option>
+                        <option>ASCII</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class = "navbar">
+        <img src = "logo.png" style = "margin-left:20px" height = "50px">
+        <div class = "helper">
+            <div class = "command" id = "command">
+                
+            </div>
+        </div>
+        <div class = "navbutton" onclick="showSim();"><p>Simulate<p></span>
+    </div>
+
+    <script>
+        function showMemory(){
+            a = document.getElementsByClassName("mempane")[0];
+            a.style.marginRight = "0px";
+        }
+        function hideMemory(){
+            a = document.getElementsByClassName("mempane")[0];
+            a.style.marginRight = "-25vw";
+        }
+        
+        function requestMC(){
+            var data = new FormData();
+            a = document.getElementsByTagName("textarea")[0];
+            data.append("code",a.value);
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://localhost:5000/api/machine-code/", false);
+            xhr.send(data);
+            resp = JSON.parse(xhr.response)
+            console.log(resp);
+            if(resp['error']){
+                alert(resp['errormsg']);
+                return false;
+            }else{
+                el = document.getElementsByClassName("instructions")[0];
+                el.innerHTML = `
+                    <tr class = "heading">
+                        <th>Original Code</th><th>Basic Code</th><th>Machine Code</th>
+                    </tr>
+                `
+                for (var i = 0; i<resp['original'].length; i=i+1){
+                    if(i==0){
+                        el.innerHTML = el.innerHTML + `
+                        <tr class = "active">
+                            <td>`+resp['original'][i]+`</td><td>`+resp['basic'][i]+`</td><td>`+resp['machine'][i]+`</td>
+                        </tr>
+                        `
+                    }else{
+                        el.innerHTML = el.innerHTML + `
+                        <tr>
+                            <td>`+resp['original'][i]+`</td><td>`+resp['basic'][i]+`</td><td>`+resp['machine'][i]+`</td>
+                        </tr>
+                        `
+                    }
+                }
+                return true;
+            }
+        }
+
+        start = 1;
+        function showSim(){
+            if(start == 1){
+                err = requestMC();
+                if(!err) return 1;
+            }
+            hideMemory();
+            b = document.getElementsByClassName("navbutton")[0];
+            if(start==1){
+                b.innerHTML = "<p>Edit</p>";
+                c = document.getElementsByClassName("menubar")[0];
+                c.style.marginBottom = "0px";
+            }else{
+                b.innerHTML = "<p>Simulate</p>";
+                c = document.getElementsByClassName("menubar")[0];
+                c.style.marginBottom = "-100px";
+            }
+            b = document.getElementById("command");
+            b.innerHTML = "";
+            a = document.getElementsByClassName("screen")[0];
+            a.style.marginLeft = "-"+(50+start*50)+"vw";
+            start *= -1;
+        }
+        function showHelp(){
+            a = document.getElementById("2");
+            b = document.getElementById("command");
+            str = a.value;
+            com = str.split("\n");
+            com = com[com.length - 1];
+            com = com.trim();
+            com = com.split(" ")[0];
+            if(com == "addi"){
+                b.innerHTML = "<font color = \"#5ea9ff\">addi</font> <font color = \"#abd2ff\">rd rs1</font> <font color = \"#ffc15e\">imm</font> -> [rd] = [rs1] + imm";
+            }else{
+                b.innerHTML = "";
+            }
+        }
+
+
+        function insertTab(o, e)
+        {		
+            var kC = e.keyCode ? e.keyCode : e.charCode ? e.charCode : e.which;
+            if (kC == 9 && !e.shiftKey && !e.ctrlKey && !e.altKey)
+            {
+                var oS = o.scrollTop;
+                if (o.setSelectionRange)
+                {
+                    var sS = o.selectionStart;	
+                    var sE = o.selectionEnd;
+                    o.value = o.value.substring(0, sS) + "\t" + o.value.substr(sE);
+                    o.setSelectionRange(sS + 1, sS + 1);
+                    o.focus();
+                }
+                else if (o.createTextRange)
+                {
+                    document.selection.createRange().text = "\t";
+                    e.returnValue = false;
+                }
+                o.scrollTop = oS;
+                if (e.preventDefault)
+                {
+                    e.preventDefault();
+                }
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>

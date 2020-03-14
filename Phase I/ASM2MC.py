@@ -14,11 +14,13 @@ else:
 with open(filename, 'r') as f:
     buffer = f.read()
 buffer = re.sub(r'#.*\n', '\n', buffer)
+buffer = re.sub(r'#[^\n]+', '\n', buffer)
 buffer = re.sub(r':', ':\n', buffer)
 buffer = re.sub(r'\n\s+', '\n', buffer)
 buffer = re.sub(r'^\s+', '', buffer)
 buffer = re.sub(r'\s+$', '', buffer)
-
+if(len(buffer)==0):
+    raise Exception("No code to process!")
 
 lines = [x.strip() for x in buffer.split("\n")]
 
@@ -202,10 +204,7 @@ for line in text:
                 raise Exception("Could not find label >>" + line)
             textOut[mem] = hex(int(parseU("lui "+register+" "+hex(dataLocation[label])[:-3], mem, labels),2))
             mem += 4
-            if(int("0x"+hex(dataLocation[label])[7:],0)!=0):
-                textOut[mem] = hex(int(parseI("addi "+register+" "+register+" 0x"+hex(dataLocation[label])[7:], mem, labels),2))
-                mem += 4
-            textOut[mem] = hex(int(parseI("lw "+register+" 0("+register+")", mem, labels),2))
+            textOut[mem] = hex(int(parseI("lw "+register+" "+str(int("0x"+hex(dataLocation[label])[7:],0))+"("+register+")", mem, labels),2))
 
     elif(ins in S):
         textOut[mem] = hex(int(parseS(line,mem,labels),2))

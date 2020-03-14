@@ -1,0 +1,210 @@
+body{
+    background-color: #23272F;
+    color: #fff;
+    overflow: hidden;
+    width: 200vw;
+    letter-spacing: 1px;
+}
+
+.page{
+    width: 100vw;
+    height:100vh;
+    float: left;
+    position: relative;
+}
+
+textarea{
+    font-family: 'Source Code Pro', monospace;
+    font-size: 16px;
+    display: block;
+    margin-top: 50px;
+    -moz-tab-size : 4;
+      -o-tab-size : 4;
+         tab-size : 4;
+    color: #fff;
+    background: url("num.png");
+    background-attachment: local;
+    background-repeat: no-repeat;
+    padding-left: 45px;
+    padding-top: 13px;
+    background-color: #2F373c;
+    height: 87vh;
+    width: 95vw;
+    border-radius: 10px;
+    border-color: #2F373c;
+    line-height: 19px;
+}
+textarea:focus {outline:0;}
+
+
+.screen{
+    align-content: center;
+    align-items: center;
+    transition: ease-in-out 0.5s;
+}
+
+.navbar{
+    display: block;
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height: 50px;
+    background-color: rgb(22, 27, 37);
+    box-shadow: rgb(22, 27, 37) 0px 5px 3px;
+}
+
+.navbutton{
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    text-align: center;
+    display: inline-block;
+    position: absolute;
+    background-image: radial-gradient(rgb(55, 63, 165),rgb(41, 50, 112));
+    right:0;
+    padding-left: 10px;
+    width: 200px;
+    height:100%;
+}
+.navbutton:hover{
+    background-image: radial-gradient(rgb(40, 45, 122),rgb(60, 74, 161));
+}
+.navbutton:active{
+    color: silver;
+}
+
+.navbutton p{
+    margin-top:12px;
+}
+
+.helper{
+    font-family: 'Roboto', sans-serif;
+    display: inline-block;
+    position: absolute;
+    right:240px;
+    height: 100%;
+    width:400px;
+    background-color: rgb(27, 33, 44);
+}
+
+.command{
+    margin-top: 16px;
+    margin-left: 30px;
+    color:rgb(117, 135, 170);
+}
+
+.code{
+    margin-top: 60px;
+    width:75vw;
+    height:100%;
+    overflow: scroll;
+}
+
+.instructions{
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    width:100%;
+}
+.active{
+    background-color: teal;
+}
+
+.heading{
+    background-color: tomato;
+}
+
+td{
+    padding:10px;
+    padding-left: 30px;
+}
+
+.memory{
+    font-family: 'Roboto', sans-serif;
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 25vw;
+    top:40px;
+    right:0px;
+    background-color: #2F373c;
+}
+
+.memcontent{
+    text-align: center;
+    padding:30px;
+    height: 100%;
+    overflow: auto;
+}
+
+.field{
+    display: inline-block;
+    padding:5px;
+    margin:2px;
+    background-color: rgb(73, 86, 94);
+    border-radius: 20px;
+    width:70%;
+    text-align: center;
+}
+
+.memmenu{
+    display: block;
+    position: absolute;
+    bottom:0px;
+    width:100%;
+    height:80px;
+    background-color: rgb(19, 46, 63);
+    padding:10px;
+}
+
+.mempane{
+    font-family: 'Roboto', sans-serif;
+    transition: ease-in-out 0.25s;
+    margin-right: -25vw;
+    text-align: center;
+    display: block;
+    height: 100%;
+    width: 25vw;
+    position: fixed;
+    top: 50px;
+    right:0px;
+    background-color: rgb(73, 86, 94);
+    z-index:100000;
+}
+
+.menubar{
+    font-family: 'Roboto', sans-serif;
+    transition: ease-in-out 0.5s;
+    margin-bottom: -100px;
+    text-align: center;
+    display: block;
+    height: 50px;
+    width: 400px;
+    position: fixed;
+    bottom: 0px;
+    left: calc(37.5vw - 200px);
+    box-shadow: rgb(22, 27, 37) 0px -2px 10px 4px;
+    background-color: rgb(73, 86, 94);
+    z-index:100000;
+}
+
+.menu-items{
+    padding:5px;
+}
+
+.btn{
+    display: inline-block;
+    padding:10px;
+    padding-left: 15px;
+    padding-right: 15px;
+    
+    border-radius: 20px;
+    background-color: rgb(73, 86, 94);
+    cursor: pointer;
+}
+.btn:hover{
+    background-color: rgb(43, 51, 56);
+}
+.btn:active{
+    color: silver;
+}
