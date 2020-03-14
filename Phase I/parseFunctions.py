@@ -157,7 +157,7 @@ def parseR(instruction,inst,labels={}):
     if rd<0 or rd>31:
         raise Exception("Register rd invalid! >>"+instruction)
     funct3='000'*(ins=='sub' or ins=='add' or ins=='mul')+'111'*(ins=='and')+'001'*(ins=='sll')+'010'*(ins=='slt')+'101'*(ins=='sra'or ins=='srl')+'100'*(ins=='xor' or ins=='div')+'110'*(ins=='or' or ins=='rem')
-    funct7='0000000'*(ins=='add' or ins=='and' or ins=='sll' or ins=='slt' or ins=='srl' or ins=='xor' or ins=='or')+'0100000'*(ins=='sub' or ins=='sra')+'0000010'*(ins=='div'or ins=='rem'or ins=='mul')
+    funct7='0000000'*(ins=='add' or ins=='and' or ins=='sll' or ins=='slt' or ins=='srl' or ins=='xor' or ins=='or')+'0100000'*(ins=='sub' or ins=='sra')+'0000001'*(ins=='div'or ins=='rem'or ins=='mul')
     rs1=f'{rs1:05b}'
     rs2=f'{rs2:05b}'
     rd=f'{rd:05b}'
