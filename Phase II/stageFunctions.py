@@ -122,12 +122,17 @@ class ProcessingUnit:
 			return self.signExtend(((A ^ B) & (0xffffffff)), 32)
 		if ALU_control == 9:										# mul
 			return self.signExtend(((A * B) & (0xffffffff)), 32)
+		
 		if ALU_control == 10:										# div
-			return 0
-		# 	return self.signExtend(((A ^ B) & (0xffffffff)), 32)
+			C = abs(A) // abs(B)
+			if A*B < 0:
+				C = -C
+			return C
+			
 		if ALU_control == 11:										# rem
-			return 0
-		# 	return self.signExtend(((A ^ B) & (0xffffffff)), 32)
+			Q = self.ALU(A, B, 10)
+			return A - (B * Q)
+
 		if ALU_control == 12:										# beq
 			return 1 if A == B else 0
 		if ALU_control == 13:										# bne
@@ -183,9 +188,9 @@ class ProcessingUnit:
 				+ (funct3==5)*(funct7==0)*(6) \
 				+ (funct3==0)*(funct7==32)*(7) \
 				+ (funct3==4)*(funct7==0)*(8) \
-				+ (funct3==0)*(funct7==2)*(9) \
-				+ (funct3==4)*(funct7==2)*(10) \
-				+ (funct3==6)*(funct7==2)*(11)
+				+ (funct3==0)*(funct7==1)*(9) \
+				+ (funct3==4)*(funct7==1)*(10) \
+				+ (funct3==6)*(funct7==1)*(11)
 
 		# I-type: addi, andi, ori, lb, lh, lw, ld, jalr
 		if opcode == 19 or opcode == 3 or opcode == 103:
