@@ -53,11 +53,11 @@ def parseS(st,l,labels):
         if immediate > 4096 or immediate < -4096:
             raise Exception("Immediate value out of bounds. >>"+st)
         immediate = bin(immediate)[2:]
-    for j in range(12 - len(immediate)):
+    for _ in range(12 - len(immediate)):
         immediate = '0' + immediate
-    for j in range(5 - len(res1)):
+    for _ in range(5 - len(res1)):
         res1 = '0' + res1
-    for j in range(5 - len(res2)):
+    for _ in range(5 - len(res2)):
         res2 = '0' + res2
     imm11_5 = immediate[0:7]
     imm0_4 = immediate[7:12]
@@ -168,7 +168,7 @@ def parseUJ(instruction,inst,labels={}):
     x=re.split(r'[,\s]\s*',instruction)
     if len(x)!=3:
         raise Exception(f"Expexted 2 operands, got{len(x)-1} instead. >>" + instruction)
-    [ins,rd,label]=x
+    [_,rd,label]=x
     if not isValidRegister(rd):
         raise Exception("Invalid Register Operand! >>" + instruction)        
     opcode='1101111'
@@ -201,10 +201,9 @@ def parseI(instruction, line_number, table):
     #Check error code for operation
     if(operation not in I):
         raise Exception("The entered instruction is not a valid operation")
-        return None
         
     #Regular Expression based checking
-    regex = re.compile("x\d+")
+    regex = re.compile(r"x\d+")
     register = regex.search(rd)
     #Checking for rd
     if(register == None or len(register.group()) != len(rd)):
@@ -212,7 +211,7 @@ def parseI(instruction, line_number, table):
         
     #Checking for rs
     if(operation in I[3:]):
-        regex = re.compile("(\d+\(x\d+\))|(0x(\d+|[A-Fa-f]+)\(x\d+\))")
+        regex = re.compile(r"(\d+\(x\d+\))|(0x(\d+|[A-Fa-f]+)\(x\d+\))")
         register = regex.search(rs)
         if(register == None or len(register.group()) != len(rs)):
             raise Exception("Enter a valid source register and its offset")
@@ -231,7 +230,7 @@ def parseI(instruction, line_number, table):
                 rs = rs + i
     #Checking for rd
     else:
-        regex = re.compile("x\d+")
+        regex = re.compile(r"x\d+")
         register = regex.search(rs)
         if(register == None or len(register.group()) != len(rs)):
             raise Exception("Enter a valid destination register")
@@ -242,8 +241,8 @@ def parseI(instruction, line_number, table):
     rd = int(rd[1:])
     
     #Exception Handling
-    if(rs < 0 or rs > 32 or rd < 0 or rd > 32):
-        raise Exception("Invalid register value!!! They should be between 1 to 32")
+    if(rs < 0 or rs > 31 or rd < 0 or rd > 31):
+        raise Exception("Invalid register value!!! They should be between 0 to 31")
         
     #Encoding to binary
     rs = str(bin(rs))
