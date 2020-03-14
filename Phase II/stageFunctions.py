@@ -100,6 +100,42 @@ class ProcessingUnit:
 			d_in=(data>>(8*i))&(0xFF)
 			adr=adr+i
 			self.MEM[adr]=d_in
+
+	def ALU(self, A, B, ALU_control):
+		if ALU_control == 0:										# add
+			return self.signExtend(((A + B) & (0xffffffff)), 32)
+		if ALU_control == 1:										# and
+			return self.signExtend(((A & B) & (0xffffffff)), 32)
+		if ALU_control == 2:										# or
+			return self.signExtend(((A | B) & (0xffffffff)), 32)
+		if ALU_control == 3:										# sll
+			return self.signExtend(((A << B) & (0xffffffff)), 32)
+		if ALU_control == 4:										# slt
+			return 1 if A < B else 0
+		if ALU_control == 5:										# sra
+			return self.signExtend(((A >> B) & (0xffffffff)), 32)
+		if ALU_control == 6:										# srl
+			return self.signExtend(((A % 0x100000000) >> B), 32)
+		if ALU_control == 7:										# sub
+			return self.signExtend(((A - B) & (0xffffffff)), 32)
+		if ALU_control == 8:										# xor
+			return self.signExtend(((A ^ B) & (0xffffffff)), 32)
+		if ALU_control == 9:										# mul
+			return self.signExtend(((A * B) & (0xffffffff)), 32)
+		if ALU_control == 10:										# div
+			return 0
+		# 	return self.signExtend(((A ^ B) & (0xffffffff)), 32)
+		if ALU_control == 11:										# rem
+			return 0
+		# 	return self.signExtend(((A ^ B) & (0xffffffff)), 32)
+		if ALU_control == 12:										# beq
+			return 1 if A == B else 0
+		if ALU_control == 13:										# bne
+			return 1 if A != B else 0
+		if ALU_control == 14:										# bge
+			return 1 if A >= B else 0
+		if ALU_control == 15:										# blt
+			return 1 if A < B else 0
 	
 	def IAG(self,offset=4):
 		self.PC_temp=self.PC_temp+4
