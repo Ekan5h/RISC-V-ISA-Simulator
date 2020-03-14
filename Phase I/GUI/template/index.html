@@ -37,18 +37,6 @@
                     <tr class = "heading">
                         <th>Original Code</th><th>Basic Code</th><th>Machine Code</th>
                     </tr>
-                    <tr>
-                        <td>addi sp x0 4</td><td>addi x2 x0 4</td><td>0xabc12334</td>
-                    </tr>
-                    <tr class = "active">
-                        <td>addi sp x0 4</td><td>addi x2 x0 4</td><td>0xabc12334</td>
-                    </tr>
-                    <tr>
-                        <td>addi sp x0 4</td><td>addi x2 x0 4</td><td>0xabc12334</td>
-                    </tr>
-                    <tr>
-                        <td>addi sp x0 4</td><td>addi x2 x0 4</td><td>0xabc12334</td>
-                    </tr>
                 </table>
             </div>
             <div class = "memory">
@@ -132,22 +120,23 @@
                     <tr class = "heading">
                         <th>Original Code</th><th>Basic Code</th><th>Machine Code</th>
                     </tr>
-                `
+                `;
                 for (var i = 0; i<resp['original'].length; i=i+1){
                     if(i==0){
                         el.innerHTML = el.innerHTML + `
                         <tr class = "active">
                             <td>`+resp['original'][i]+`</td><td>`+resp['basic'][i]+`</td><td>`+resp['machine'][i]+`</td>
                         </tr>
-                        `
+                        `;
                     }else{
                         el.innerHTML = el.innerHTML + `
                         <tr>
                             <td>`+resp['original'][i]+`</td><td>`+resp['basic'][i]+`</td><td>`+resp['machine'][i]+`</td>
                         </tr>
-                        `
+                        `;
                     }
                 }
+                el.innerHTML = el.innerHTML + "<tr><td><br></td></tr><tr><td><br></td></tr><tr><td><br></td></tr>";
                 return true;
             }
         }
@@ -185,6 +174,66 @@
             com = com.split(" ")[0];
             if(com == "addi"){
                 b.innerHTML = "<font color = \"#5ea9ff\">addi</font> <font color = \"#abd2ff\">rd rs1</font> <font color = \"#ffc15e\">imm</font> -> [rd] = [rs1] + imm";
+            }else if(com == "add"){
+                b.innerHTML = "<font color = \"#5ea9ff\">add</font> <font color = \"#abd2ff\">rd rs1 rs2</font> -> [rd] = [rs1] + [rs2]";
+            }else if(com == "and"){
+                b.innerHTML = "<font color = \"#5ea9ff\">and</font> <font color = \"#abd2ff\">rd rs1 rs2</font> -> [rd] = [rs1] & [rs2]";
+            }else if(com == "or"){
+                b.innerHTML = "<font color = \"#5ea9ff\">or</font> <font color = \"#abd2ff\">rd rs1 rs2</font> -> [rd] = [rs1] | [rs2]";
+            }else if(com == "sll"){
+                b.innerHTML = "<font color = \"#5ea9ff\">sll</font> <font color = \"#abd2ff\">rd rs1 rs2</font> -> [rd] = [rs1] << [rs2]";
+            }else if(com == "slt"){
+                b.innerHTML = "<font color = \"#5ea9ff\">slt</font> <font color = \"#abd2ff\">rd rs1 rs2</font> -> [rd] = [rs1] < [rs2] ?";
+            }else if(com == "sra"){
+                b.innerHTML = "<font color = \"#5ea9ff\">sra</font> <font color = \"#abd2ff\">rd rs1 rs2</font> -> [rd] = [rs1] >>> [rs2]";
+            }else if(com == "srl"){
+                b.innerHTML = "<font color = \"#5ea9ff\">srl</font> <font color = \"#abd2ff\">rd rs1 rs2</font> -> [rd] = [rs1] >> [rs2]";
+            }else if(com == "sub"){
+                b.innerHTML = "<font color = \"#5ea9ff\">sub</font> <font color = \"#abd2ff\">rd rs1 rs2</font> -> [rd] = [rs1] - [rs2]";
+            }else if(com == "xor"){
+                b.innerHTML = "<font color = \"#5ea9ff\">xor</font> <font color = \"#abd2ff\">rd rs1 rs2</font> -> [rd] = [rs1] ^ [rs2]";
+            }else if(com == "mul"){
+                b.innerHTML = "<font color = \"#5ea9ff\">mul</font> <font color = \"#abd2ff\">rd rs1 rs2</font> -> [rd] = [rs1] * [rs2]";
+            }else if(com == "div"){
+                b.innerHTML = "<font color = \"#5ea9ff\">div</font> <font color = \"#abd2ff\">rd rs1 rs2</font> -> [rd] = [rs1] / [rs2]";
+            }else if(com == "rem"){
+                b.innerHTML = "<font color = \"#5ea9ff\">rem</font> <font color = \"#abd2ff\">rd rs1 rs2</font> -> [rd] = [rs1] % [rs2]";
+            }else if(com == "andi"){
+                b.innerHTML = "<font color = \"#5ea9ff\">andi</font> <font color = \"#abd2ff\">rd rs1</font> <font color = \"#ffc15e\">imm</font> -> [rd] = [rs1] & imm";
+            }else if(com == "ori"){
+                b.innerHTML = "<font color = \"#5ea9ff\">ori</font> <font color = \"#abd2ff\">rd rs1</font> <font color = \"#ffc15e\">imm</font> -> [rd] = [rs1] | imm";
+            }else if(com == "lb"){
+                b.innerHTML = "<font color = \"#5ea9ff\">lb</font> <font color = \"#abd2ff\">rd rs1</font> <font color = \"#ffc15e\">imm</font> -> [rd] = [rs1 + imm]";
+            }else if(com == "ld"){
+                b.innerHTML = "<font color = \"#5ea9ff\">ld</font> <font color = \"#abd2ff\">rd rs1</font> <font color = \"#ffc15e\">imm</font> -> [rd] = [rs1 + imm :+ 8]";
+            }else if(com == "lh"){
+                b.innerHTML = "<font color = \"#5ea9ff\">lh</font> <font color = \"#abd2ff\">rd rs1</font> <font color = \"#ffc15e\">imm</font> -> [rd] = [rs1 + imm :+ 2]";
+            }else if(com == "lw"){
+                b.innerHTML = "<font color = \"#5ea9ff\">lw</font> <font color = \"#abd2ff\">rd rs1</font> <font color = \"#ffc15e\">imm</font> -> [rd] = [rs1 + imm :+ 4]";
+            }else if(com == "jalr"){
+                b.innerHTML = "<font color = \"#5ea9ff\">jalr</font> <font color = \"#abd2ff\">rd <font color = \"#ffc15e\">imm</font>(rs1)</font>  -> [rd] = [PC] + 4; [PC] += imm";
+            }else if(com == "sb"){
+                b.innerHTML = "<font color = \"#5ea9ff\">sb</font> <font color = \"#abd2ff\">rs2 <font color = \"#ffc15e\">imm</font>(rs1)</font>  -> M[rs1+imm](7:0) = [rs2]";
+            }else if(com == "sh"){
+                b.innerHTML = "<font color = \"#5ea9ff\">sh</font> <font color = \"#abd2ff\">rs2 <font color = \"#ffc15e\">imm</font>(rs1)</font>  -> M[rs1+imm](15:0) = [rs2]";
+            }else if(com == "sw"){
+                b.innerHTML = "<font color = \"#5ea9ff\">sw</font> <font color = \"#abd2ff\">rs2 <font color = \"#ffc15e\">imm</font>(rs1)</font>  -> M[rs1+imm](31:0) = [rs2]";
+            }else if(com == "sd"){
+                b.innerHTML = "<font color = \"#5ea9ff\">sd</font> <font color = \"#abd2ff\">rs2 <font color = \"#ffc15e\">imm</font>(rs1)</font>  -> M[rs1+imm](63:0) = [rs2]";
+            }else if(com == "beq"){
+                b.innerHTML = "<font color = \"#5ea9ff\">beq</font> <font color = \"#abd2ff\">rs1 rs2</font> <font color = \"#ffc15e\">imm</font> -> {if [rs1] == [rs2]} [PC] += imm";
+            }else if(com == "bne"){
+                b.innerHTML = "<font color = \"#5ea9ff\">bne</font> <font color = \"#abd2ff\">rs1 rs2</font> <font color = \"#ffc15e\">imm</font> -> {if [rs1] != [rs2]} [PC] += imm";
+            }else if(com == "bge"){
+                b.innerHTML = "<font color = \"#5ea9ff\">bge</font> <font color = \"#abd2ff\">rs1 rs2</font> <font color = \"#ffc15e\">imm</font> -> {if [rs1] >= [rs2]} [PC] += imm";
+            }else if(com == "blt"){
+                b.innerHTML = "<font color = \"#5ea9ff\">blt</font> <font color = \"#abd2ff\">rs1 rs2</font> <font color = \"#ffc15e\">imm</font> -> {if [rs1] < [rs2]} [PC] += imm";
+            }else if(com == "auipc"){
+                b.innerHTML = "<font color = \"#5ea9ff\">auipc</font> <font color = \"#abd2ff\">rd</font> <font color = \"#ffc15e\">imm</font> -> [rd] = [PC] + imm";
+            }else if(com == "lui"){
+                b.innerHTML = "<font color = \"#5ea9ff\">lui</font> <font color = \"#abd2ff\">rd</font> <font color = \"#ffc15e\">imm</font> -> [rd] = imm << 12";
+            }else if(com == "jal"){
+                b.innerHTML = "<font color = \"#5ea9ff\">jal</font> <font color = \"#abd2ff\">rd</font> <font color = \"#ffc15e\">imm</font> -> [rd] = [PC] + 4; [PC] = [PC] + imm";
             }else{
                 b.innerHTML = "";
             }

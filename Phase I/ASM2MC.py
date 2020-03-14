@@ -91,10 +91,12 @@ j = 0
 while(j<len(data)):
     if(re.match(r'[^\s,]+:', data[j])):
         label = data[j][:-1]
+        if label in dataLocation:
+            raise Exception("Data Label declared more than once: "+label)
         dataLocation[label] = mem
         j+=1
     if(re.match(r'(\.byte|\.half|\.word|\.dword|\.asciiz)', data[j])):
-        dataLocation[label] = mem
+        # dataLocation[label] = mem
         datatype = data[j].split()[0]
         for val in re.split(r'[, ]', data[j])[1:]:
             if(re.match(r"0x", val)):
@@ -179,6 +181,8 @@ UJ = ['jal']
 inNo = 0
 for line in text:
     if(re.match(r'[^\s,]+:', line)):
+        if line[:-1] in labels:
+            raise Exception("Label declared more than once: "+line[:-1])
         labels[line[:-1]] = 4*inNo
         continue
     inNo+=1
