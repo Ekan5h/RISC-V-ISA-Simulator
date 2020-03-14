@@ -164,7 +164,45 @@ class ProcessingUnit:
 			self.RB = self.RegisterFile[rs2]
 
 	def execute(self):
-		pass
+		opcode = self.IR & (0x7F)
+		funct3 = (self.IR >> 12) & (0x7)
+		muxB_control = 0 if (opcode == 51 or opcode == 99) else 1
+		immediate = self.getImmediate()
+		self.operand1 = self.RA
+		self.operand2 = (muxB_control==0)*self.RB + (muxB_control==1)*immediate
+
+		# R-type: add, and, or, sll, slt, sra, srl, sub, xor, mul, div, rem
+		if opcode == 51:
+			funct7 = (self.IR >> 25) & (0x7f)
+			ALU_control = (funct3==0)*(funct7==0)*(0) \
+				+ (funct3==7)*(funct7==0)*(1) \
+				+ (funct3==6)*(funct7==0)*(2) \
+				+ (funct3==1)*(funct7==0)*(3) \
+				+ (funct3==2)*(funct7==0)*(4) \
+				+ (funct3==5)*(funct7==32)*(5) \
+				+ (funct3==5)*(funct7==0)*(6) \
+				+ (funct3==0)*(funct7==32)*(7) \
+				+ (funct3==4)*(funct7==0)*(8) \
+				+ (funct3==0)*(funct7==2)*(9) \
+				+ (funct3==4)*(funct7==2)*(10) \
+				+ (funct3==6)*(funct7==2)*(11)
+
+		# I-type: addi, andi, ori, lb, lh, lw, ld, jalr
+		if opcode == 19 or opcode == 3 or opcode == 103:
+			if opcode == 19:
+				ALU_control = (funct3==0)*(0) + (funct3==7)*(1) + (funct3==6)*(2)
+			else:
+				ALU_control = 0
+
+		# S-type: sb, sw, sd, sh
+		if opcode == 35:
+			ALU_control = 0
+
+		# SB-type: beq, bne, bge, blt
+		if opcode == 99:
+			ALU_control = (funct3==0)*12 + (funct3==0)*13 + (funct3==0)*14 + (funct3==0)*15
+
+		self.RZ = self.ALU(self.operand1, self.operand2, ALU_control)
 
 	def memory_access(self):
 		#Effective address stored in MAR in integer format
