@@ -45,6 +45,36 @@ class ProcessingUnit:
 		except FileNotFoundError:
 			print("Error opening target code!")
 		
+
+	def signExtend(self, num, num_bits):
+		sign_bit = 1 << (num_bits - 1)
+		ans = (num & (sign_bit - 1)) - (num & sign_bit)
+		return ans
+
+	def getImmediate(self):
+		opcode = self.IR & (0x7F)
+
+		# I-type
+		if opcode == 19 or opcode == 3 or opcode == 103:
+			return self.signExtend(((self.IR >> 20) & (0xfffff)), 12)
+
+		# S-type
+		if opcode == 35:
+			imm11to5 = ((self.IR >> 25) & (0x7f)) << 5
+			imm4t0 = (self.IR >> 7) & (0x1f)
+			return self.signExtend((imm11to5 + imm4t0), 12)
+
+		# SB-type
+		if opcode == 99:
+			imm12 = ((self.IR >> 31) & (0x1)) << 12
+			imm10to5 = ((self.IR >> 25) & (0x3f)) << 5
+			imm4to1 = ((self.IR >> 8) & (0xf)) << 1
+			imm11 = ((self.IR >> 7) & (0x1)) << 11
+			return self.signExtend((imm12 + imm10to5 + imm4to1 + imm11), 13)
+
+		# Add for U and UJ-type
+		return 0
+	
 	def read(self, address,num_bytes=1):
 		#address assumed to be int with base10
 		#Insert Check Bounds Here
