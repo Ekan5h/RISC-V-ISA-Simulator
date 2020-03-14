@@ -77,10 +77,12 @@ def parse(buffer):
     while(j<len(data)):
         if(re.match(r'[^\s,]+:', data[j])):
             label = data[j][:-1]
+            if label in dataLocation:
+                raise Exception("Data Label declared more than once: "+label)
             dataLocation[label] = mem
             j+=1
         if(re.match(r'(\.byte|\.half|\.word|\.dword|\.asciiz)', data[j])):
-            dataLocation[label] = mem
+            # dataLocation[label] = mem
             datatype = data[j].split()[0]
             for val in re.split(r'[, ]', data[j])[1:]:
                 if(re.match(r"0x", val)):
@@ -155,6 +157,8 @@ def parse(buffer):
     inNo = 0
     for line in text:
         if(re.match(r'[^\s,]+:', line)):
+            if line[:-1] in labels:
+                raise Exception("Label declared more than once: "+line[:-1])
             labels[line[:-1]] = 4*inNo
             continue
         inNo+=1
@@ -165,7 +169,10 @@ def parse(buffer):
     for line in text:
         if(re.match(r'[^\s,]+:', line)):
             continue
-        BasicCode.append(line)
+        temp = line
+        for label in labels:
+            temp = re.sub(' '+label, ' '+str(labels[label]-mem), temp)
+        BasicCode.append(temp)
         ins = line.split()[0]
         if(ins in R):
             textOut[mem] = hex(int(parseR(line,mem,labels),2))
@@ -183,12 +190,6 @@ def parse(buffer):
                 BasicCode.append("lui "+register+" "+hex(dataLocation[label])[:-3])
                 textOut[mem] = hex(int(parseU("lui "+register+" "+hex(dataLocation[label])[:-3], mem, labels),2))
                 mem += 4
-                # if(int("0x"+hex(dataLocation[label])[7:],0)!=0):
-                #     OriginalCode = OriginalCode[:len(BasicCode)]+[OriginalCode[len(BasicCode)-1], OriginalCode[len(BasicCode)-1]]+OriginalCode[len(BasicCode):]
-                #     BasicCode.append("addi "+register+" "+register+" 0x"+hex(dataLocation[label])[7:])
-                #     textOut[mem] = hex(int(parseI("addi "+register+" "+register+" 0x"+hex(dataLocation[label])[7:], mem, labels),2))
-                #     mem += 4
-                # else:
                 OriginalCode = OriginalCode[:len(BasicCode)]+[OriginalCode[len(BasicCode)-1]]+OriginalCode[len(BasicCode):]
                 BasicCode.append("lw "+register+" "+str(int("0x"+hex(dataLocation[label])[7:],0))+"("+register+")")
                 textOut[mem] = hex(int(parseI("lw "+register+" 0("+register+")", mem, labels),2))
