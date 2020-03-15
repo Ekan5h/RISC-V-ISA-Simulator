@@ -2,6 +2,7 @@ class ProcessingUnit:
 	def __init__(self, file_name):
 		#Initialize the Processing Unit
 		self.RegisterFile = [0 for i in range(32)]
+		self.clock=0
 		self.RegisterFile[2]=int('0x7FFFFFF0',0)
 		self.RegisterFile[3]=int('0x10000000',0)
 		self.MEM = {}
@@ -148,6 +149,7 @@ class ProcessingUnit:
 
 	def fetch(self):
 		self.IR=self.read(self.PC,4)
+		self.clock=self.clock+1
 
 	def decode(self):
 		opcode = self.IR&(0x7F)
@@ -167,6 +169,7 @@ class ProcessingUnit:
 			rs2 = rs2 >> 20
 			self.RA = self.RegisterFile[rs1]
 			self.RB = self.RegisterFile[rs2]
+			self.RM=self.RB
 
 	def execute(self):
 		opcode = self.IR & (0x7F)
@@ -205,13 +208,15 @@ class ProcessingUnit:
 
 		# SB-type: beq, bne, bge, blt
 		if opcode == 99:
-			ALU_control = (funct3==0)*12 + (funct3==0)*13 + (funct3==0)*14 + (funct3==0)*15
+			ALU_control = (funct3==0)*12 + (funct3==1)*13 + (funct3==5)*14 + (funct3==4)*15
 
 		self.RZ = self.ALU(self.operand1, self.operand2, ALU_control)
 
 	def memory_access(self):
 		#Effective address stored in MAR in integer format
 		#Data stored in MDR in Integer Format
+		self.MAR=self.RZ
+		self.MDR=self.RM
 		opcode=self.IR&(0x7F)
 		funct3=(self.IR>>12)&(0x7)
 		if opcode == 3:
@@ -229,7 +234,7 @@ class ProcessingUnit:
 		opcode = self.IR&(0x7F)
 		#S Check
 		if opcode == 35:
-			pass
+			return
 		#jal
 		elif opcode==111:
 			#Extract the immediate field and generate the offset
@@ -271,18 +276,24 @@ class ProcessingUnit:
 				offset = offset ^ 0xFFF
 				offset += 1
 				offset = -1 * offset
+			if self.RY==1:
+				self.IAG(offset)
+			else:
+				self.IAG()
 
-			self.IAG(offset)
+			return
 		#jalr		
 		elif opcode==103:
 			#assuming jalr puts the offset value in RY
 			self.IAG(self.RY)
 			self.RY=self.PC_temp
+
 		else:
 			self.IAG()
 		rd = self.IR&(0xF80)
 		rd = rd/128
 		self.RegisterFile[rd] = self.RY
+		self.RegisterFile[0]=0
 		return
 
 
