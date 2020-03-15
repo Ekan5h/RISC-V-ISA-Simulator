@@ -74,6 +74,9 @@ class ProcessingUnit:
 			return self.signExtend((imm12 + imm10to5 + imm4to1 + imm11), 13)
 
 		# Add for U and UJ-type
+		if opcode==55 or opcode==23:
+			imm=(self.IR&(0xfffff000))
+			return imm
 		return 0
 	
 	def read(self, address,num_bytes=1):
@@ -94,6 +97,7 @@ class ProcessingUnit:
 		#Insert Memory Bounds Here
 		#Assuming Byte Addressibility	
 		#num_bytes=len(data)/2-1
+		adr=address
 		for i in range(num_bytes):
 			#d_in=int(data[i*(-2)-2:i*(-2)],16)
 			#adr=int(address)+i
@@ -176,7 +180,12 @@ class ProcessingUnit:
 		funct3 = (self.IR >> 12) & (0x7)
 		muxB_control = 0 if (opcode == 51 or opcode == 99) else 1
 		immediate = self.getImmediate()
-		self.operand1 = self.RA
+		if opcode==55:#for lui
+			self.operand1=0
+		elif opcode==23:#for auipc
+			self.operand1=self.PC
+		else:
+			self.operand1 = self.RA
 		self.operand2 = (muxB_control==0)*self.RB + (muxB_control==1)*immediate
 
 		# R-type: add, and, or, sll, slt, sra, srl, sub, xor, mul, div, rem
@@ -209,9 +218,13 @@ class ProcessingUnit:
 		# SB-type: beq, bne, bge, blt
 		if opcode == 99:
 			ALU_control = (funct3==0)*12 + (funct3==1)*13 + (funct3==5)*14 + (funct3==4)*15
-
-		self.RZ = self.ALU(self.operand1, self.operand2, ALU_control)
-
+		#U-Type: lui auipc
+		if opcode==55 or opcode==23:
+			ALU_control=0
+		if opcode !=111:
+			self.RZ = self.ALU(self.operand1, self.operand2, ALU_control)
+		else:
+			self.RZ=self.PC+4
 	def memory_access(self):
 		#Effective address stored in MAR in integer format
 		#Data stored in MDR in Integer Format
@@ -234,6 +247,7 @@ class ProcessingUnit:
 		opcode = self.IR&(0x7F)
 		#S Check
 		if opcode == 35:
+			self.IAG()
 			return
 		#jal
 		elif opcode==111:
@@ -255,9 +269,9 @@ class ProcessingUnit:
 			#set the self.RY to PC_temp
 			self.RY=self.PC_temp
 		#Handle AUIPC
-		elif opcode==23:
-			self.IAG()
-			self.RY=self.PC+(self.IR&(0xFFFFF000))
+		#elif opcode==23:
+			#self.IAG()
+			#self.RY=(self.PC+(self.IR&(0xFFFFF000)))&(0xFFFFFFFF)
 		#SB		
 		elif opcode == 99 :
 			offset = 0
