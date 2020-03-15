@@ -291,7 +291,7 @@ class ProcessingUnit:
 		else:
 			self.IAG()
 		rd = self.IR&(0xF80)
-		rd = rd/128
+		rd = rd//128
 		self.RegisterFile[rd] = self.RY
 		self.RegisterFile[0]=0
 		return
