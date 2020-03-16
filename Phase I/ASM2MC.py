@@ -99,6 +99,8 @@ while(j<len(data)):
         # dataLocation[label] = mem
         datatype = data[j].split()[0]
         for val in re.split(r'[, ]', data[j])[1:]:
+            if(len(val) == 0):
+                continue
             if(re.match(r"0x", val)):
                 val = int(val,0)
             elif(datatype != ".asciiz"):
