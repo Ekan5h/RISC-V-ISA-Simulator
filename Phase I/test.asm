@@ -1,14 +1,5 @@
 .data
-var1: .word 4 
-    .word 2 
-    .word 45 
-    .word 23
-    .word 76
-    .word 34
-    .word 90
-    .word 23
-    .word 25
-    .word 11
+var1: .word 4 -10 2 45 23 76 34 90 23 25 11
 
 .text
 lui x10,0x10000
