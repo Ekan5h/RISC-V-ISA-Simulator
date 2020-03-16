@@ -46,6 +46,32 @@ class ProcessingUnit:
 		except FileNotFoundError:
 			print("Error opening target code!")
 		
+	def read(self, address,num_bytes=1):
+		#address assumed to be int with base10
+		#Insert Check Bounds Here
+		#Value returned in Integer Format base10
+		val=0
+		for i in range(num_bytes):
+			adr=address+i
+			if adr in self.MEM.keys():
+				val=val+self.MEM[adr]*(1<<(8*i))
+		return self.signExtend(val,num_bytes*8)
+			
+
+	def write(self, address,data,num_bytes=1):
+		#Address: assumed to be of type integer base10
+		#INPUTS:-Data is assumed to be of type int base 10
+		#Insert Memory Bounds Here
+		#Assuming Byte Addressibility	
+		#num_bytes=len(data)/2-1
+		adr=address
+		for i in range(num_bytes):
+			#d_in=int(data[i*(-2)-2:i*(-2)],16)
+			#adr=int(address)+i
+			#MEM[adr]=d_in
+			d_in=(data>>(8*i))&(0xFF)
+			self.MEM[adr]=d_in
+			adr=adr+1
 
 	def signExtend(self, num, num_bits):
 		sign_bit = 1 << (num_bits - 1)
@@ -79,32 +105,7 @@ class ProcessingUnit:
 			return imm
 		return 0
 	
-	def read(self, address,num_bytes=1):
-		#address assumed to be int with base10
-		#Insert Check Bounds Here
-		#Value returned in Integer Format base10
-		val=0
-		for i in range(num_bytes):
-			adr=address+i
-			if adr in self.MEM.keys():
-				val=val+self.MEM[adr]*(1<<(8*i))
-		return val
-			
 
-	def write(self, address,data,num_bytes=1):
-		#Address: assumed to be of type integer base10
-		#INPUTS:-Data is assumed to be of type int base 10
-		#Insert Memory Bounds Here
-		#Assuming Byte Addressibility	
-		#num_bytes=len(data)/2-1
-		adr=address
-		for i in range(num_bytes):
-			#d_in=int(data[i*(-2)-2:i*(-2)],16)
-			#adr=int(address)+i
-			#MEM[adr]=d_in
-			d_in=(data>>(8*i))&(0xFF)
-			adr=adr+i
-			self.MEM[adr]=d_in
 
 	def ALU(self, A, B, ALU_control):
 		if ALU_control == 0:										# add
