@@ -1,49 +1,56 @@
-#fib tree
-#number in x10
-addi x10,x0,6
+.data
+var1: .word 4 
+    .word 2 
+    .word 45 
+    .word 23
+    .word 76
+    .word 34
+    .word 90
+    .word 23
+    .word 25
+    .word 11
 
-#seed 1 in x3
-#seed 2 in x4
-addi x3,x0,0
-addi x4,x0,1
+.text
+lui x10,0x10000
+addi x11,x0,11
+#base address in x10
+#lenght in x11
+#donot alter below this line
+addi x7 x0 1
 
-addi x31,x0,1
+jal x1,bubblesort
+beq x0,x0,finish
 
-jal x1,fib
-beq x0,x0,bye
-
-fib:
-addi x2,x2,-4
-sw x1,0(x2)
-addi x2,x2,-4
-sw x10,0(x2)
-
-beq x10,x0,se1
-beq x10,x31,se2
-addi x10,x10,-1
-jal x1,fib
-addi x2,x2,-4
-sw x11,0(x2)
-#add x12,x0,x11
-addi x10,x10,-1
-jal x1,fib
-addi x2,x2,-4
-sw x11,0(x2)
-beq x0,x0,exit1
-se1:add x11,x0,x3
-beq x0,x0,exit
-se2:add x11,x0,x4
-beq x0,x0,exit
-exit1:
-lw x28,0(x2)
-    lw x29,4(x2)
+bubblesort:
+beq x11,x7,exit
+    #loop counter
+    addi x8,x0,1
+    addi x2,x2,-4
+    sw x11,0(x2)
+    addi x2,x2,-4
+    sw x1,0(x2)
+    #copy base address in x31
+    add x31,x0,x10
+loop:
+bge x8,x11,ff
+    lw x30,0(x31)
+    lw x29,4(x31)
+    bge x29,x30,noswap
+sw x29,0(x31)
+    sw x30,4(x31)
+    noswap:
+addi x8,x8,1
+        addi x31,x31,4
+        jal x0 loop
+ff:
+addi x11,x11,-1
+    jal x1,bubblesort
+lw x1,0(x2)
+    lw x11,4(x11)
     addi x2,x2,8
-    add x11,x28,x29
-exit:
-lw x10,0(x2)
-    lw x1,4(x2)
-    addi x2,x2,8
+    jalr x0 0(x1)
+    exit:
     jalr x0,0(x1)
-   
-   
-bye:
+       
+       
+finish:
