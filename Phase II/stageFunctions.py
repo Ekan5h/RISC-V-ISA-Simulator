@@ -148,8 +148,13 @@ class ProcessingUnit:
 			return 1 if A < B else 0
 	
 	def IAG(self,offset=4):
-		self.PC_temp=self.PC_temp+4
-		self.PC=self.PC+offset
+		opcode = self.IR&(0x7F)
+		self.PC_temp=self.PC+4
+		#jalr
+		if opcode==103:
+			self.PC=offset
+		else:
+			self.PC=self.PC+offset
 
 	def fetch(self):
 		self.IR=self.read(self.PC,4)
@@ -169,7 +174,7 @@ class ProcessingUnit:
 		else:
 			rs1 = self.IR&(0xF8000)
 			rs1 = rs1 >> 15
-			rs2 = self.IR&(0x1F0000)
+			rs2 = self.IR&(0x1F00000)
 			rs2 = rs2 >> 20
 			self.RA = self.RegisterFile[rs1]
 			self.RB = self.RegisterFile[rs2]
@@ -299,6 +304,7 @@ class ProcessingUnit:
 		#jalr		
 		elif opcode==103:
 			#assuming jalr puts the offset value in RY
+			#print(self.RY)
 			self.IAG(self.RY)
 			self.RY=self.PC_temp
 
