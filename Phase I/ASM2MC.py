@@ -108,7 +108,7 @@ while(j<len(data)):
             if(datatype == '.byte'):
                 dataOut[mem] = val
                 val = val>>8
-                if(val!=0):
+                if(val!=0 and val!=-1):
                     raise Exception("Value out of range: "+data[j])
                 mem+=1
             elif(datatype == '.half'):
@@ -116,7 +116,7 @@ while(j<len(data)):
                 val = val >> 8
                 dataOut[mem+1] = val & 255
                 val = val>>8
-                if(val!=0):
+                if(val!=0 and val!=-1):
                     raise Exception("Value out of range: "+data[j])
                 mem+=2
             elif(datatype == '.word'):
@@ -128,7 +128,7 @@ while(j<len(data)):
                 val = val >> 8
                 dataOut[mem+3] = val & 255
                 val = val>>8
-                if(val!=0):
+                if(val!=0 and val!=-1):
                     raise Exception("Value out of range: "+data[j])
                 mem+=4
             elif(datatype == '.dword'):
@@ -148,7 +148,7 @@ while(j<len(data)):
                 val = val >> 8
                 dataOut[mem+7] = val & 255
                 val = val>>8
-                if(val!=0):
+                if(val!=0 and val!=-1):
                     raise Exception("Value out of range: "+data[j])
                 mem+=8
             elif(datatype == '.asciiz'):
