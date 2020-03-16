@@ -114,12 +114,15 @@ class ProcessingUnit:
 		if ALU_control == 2:										# or
 			return self.signExtend(((A | B) & (0xffffffff)), 32)
 		if ALU_control == 3:										# sll
+			B = B & 0xffffffff
 			return self.signExtend(((A << B) & (0xffffffff)), 32)
 		if ALU_control == 4:										# slt
 			return 1 if A < B else 0
 		if ALU_control == 5:										# sra
+			B = B & 0xffffffff
 			return self.signExtend(((A >> B) & (0xffffffff)), 32)
 		if ALU_control == 6:										# srl
+			B = B & 0xffffffff
 			return self.signExtend(((A % 0x100000000) >> B), 32)
 		if ALU_control == 7:										# sub
 			return self.signExtend(((A - B) & (0xffffffff)), 32)
