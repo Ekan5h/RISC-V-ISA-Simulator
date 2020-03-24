@@ -2,10 +2,10 @@
 
 ### Team Details
 	Paras Goyal	2018CSB1111
-	Ekansh Mahendru	2018CSB10
+	Ekansh Mahendru	2018CSB1087
 	Hansin Ahuja	2018CSB1094
 	Sakshay Mahna	2018CSB1119
-	Atul Tiwari	2018CSB10
+	Atul Tiwari	2018CSB1077
 
 ## Instructions to setup GUI 
 1.	Extract RISCVSim.tar.gz
