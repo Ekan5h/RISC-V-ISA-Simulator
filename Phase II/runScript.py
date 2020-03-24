@@ -1,6 +1,10 @@
 from stageFunctions import ProcessingUnit
-f_name=input('Enter the file name for Machine Code : ')
-proc=ProcessingUnit(f'{f_name}.mc')
+import sys
+if len(sys.argv)==2:
+	f_name=sys.argv[1]
+else:
+	raise Exception('Inavlid Arguments')
+proc=ProcessingUnit(f'{f_name}')
 print('Loaded program in Memory!')
 while True:
 	print(f'Processing Instruction at {hex(proc.PC)}')
