@@ -106,7 +106,7 @@ while(j<len(data)):
             elif(datatype != ".asciiz"):
                 val = int(val)
             if(datatype == '.byte'):
-                dataOut[mem] = val
+                dataOut[mem] = val & 255
                 val = val>>8
                 if(val!=0 and val!=-1):
                     raise Exception("Value out of range: "+data[j])
