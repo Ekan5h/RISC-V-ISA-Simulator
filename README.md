@@ -34,9 +34,9 @@ Example:
 
 ## Contributions
 As this was a team project so it is difficult to completely segregate out the work done by each us but the following would give some outline.
-Sakshay - I Type
-Atul - S Type
-Hansin - SB Type
-Paras - R UJ Type
-Ekansh- U and GUI
+Sakshay - I Type <br />
+Atul - S Type <br />
+Hansin - SB Type <br />
+Paras - R UJ Type <br />
+Ekansh- U and GUI <br />
 ### Note- It was not strictly followed, and we helped each other in both the phases.
