@@ -33,22 +33,19 @@
 ### Note: This install script is specific to Linux. For more details please refer to requirements.txt
 
 ##  Instructions to Use CLI
-1.	Navigate to the Phase I directory and put the asm file in this directory.
-2.	Run the command
-		python3 ASM2MC.py file_name.asm out_name.mc
-	It will generate the mc file according to the Given Specifications.
-3.	Copy the mc file to Phase II Directory.
-4.	Navigate to Phase II and run the following command:
-		python3 runScript out_name.mc
-	This will execute the Machine Code
+1.	Navigate to the directory containing the Makefile.
+2.	Run the following command:
+		make INP=path/to/the/file(without the asm extension) 
 
 Example: <br />
-	cd Phase\ I <br />
-	python3 ASM2MC.py test.asm out.mc <br />
-	cp out.mc ../Phase\ II/out.mc <br />
-	cd ../Phase\ II <br />
-	python3 runScript.py out.mc <br />
+	make INP=test
+	
+Example 2: <br />
+	make INP=bubble
 
+Example 3: <br />
+	make=fib
+#### Note: File needs to be in same directory as the Makefile
 
 ## Contributions
 As this was a team project so it is difficult to completely segregate out the work done by each us but the following would give some outline. <br />
