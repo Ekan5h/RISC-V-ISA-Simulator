@@ -33,7 +33,7 @@ Example:
 
 
 ## Contributions
-As this was a team project so it is difficult to completely segregate out the work done by each us but the following would give some outline.
+As this was a team project so it is difficult to completely segregate out the work done by each us but the following would give some outline. <br />
 Sakshay - I Type <br />
 Atul - S Type <br />
 Hansin - SB Type <br />
