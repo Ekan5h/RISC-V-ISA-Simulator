@@ -174,11 +174,12 @@ while(j<len(data)):
 
 
 R = ['add', 'and', 'or', 'sll', 'slt', 'sra', 'srl', 'sub', 'xor', 'mul', 'div', 'rem']
-I = ['addi', 'andi', 'ori', 'lb', 'ld', 'lh', 'lw', 'jalr']
-S = ['sb', 'sw', 'sd', 'sh']
+I = ['addi', 'andi', 'ori', 'lb', 'lh', 'lw', 'jalr']
+S = ['sb', 'sw', 'sh']
 SB = ['beq', 'bne', 'bge', 'blt']
 U = ['auipc', 'lui']
 UJ = ['jal']
+special = ['lw','lb','lh']
 
 inNo = 0
 for line in text:
@@ -199,7 +200,7 @@ for line in text:
     if(ins in R):
         textOut[mem] = hex(int(parseR(line,mem,labels),2))
     elif(ins in I):
-        if(ins != 'lw' or (ins =='lw' and re.match(r'.+\(x\d+\)', line))):
+        if(ins not in special or (ins in special and re.match(r'.+\(x\d+\)', line))):
             textOut[mem] = hex(int(parseI(line,mem,labels),2))
         else:
             try:
@@ -210,7 +211,7 @@ for line in text:
                 raise Exception("Could not find label >>" + line)
             textOut[mem] = hex(int(parseU("lui "+register+" "+hex(dataLocation[label])[:-3], mem, labels),2))
             mem += 4
-            textOut[mem] = hex(int(parseI("lw "+register+" "+str(int("0x"+hex(dataLocation[label])[7:],0))+"("+register+")", mem, labels),2))
+            textOut[mem] = hex(int(parseI(ins+" "+register+" "+str(int("0x"+hex(dataLocation[label])[7:],0))+"("+register+")", mem, labels),2))
 
     elif(ins in S):
         textOut[mem] = hex(int(parseS(line,mem,labels),2))
