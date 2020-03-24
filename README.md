@@ -38,5 +38,5 @@ Sakshay - I Type
 Atul - S Type
 Hansin - SB Type
 Paras - R UJ Type
-EKansh- U and GUI
+Ekansh- U and GUI
 ### Note- It was not strictly followed, and we helped each other in both the phases.
