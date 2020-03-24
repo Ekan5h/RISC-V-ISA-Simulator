@@ -71,6 +71,7 @@ class ProcessingUnit:
 			#MEM[adr]=d_in
 			d_in=(data>>(8*i))&(0xFF)
 			self.MEM[adr]=d_in
+			print(f'\t\tMemory at {hex(adr)} updated to : {hex(d_in)}')
 			adr=adr+1
 
 	def signExtend(self, num, num_bits):
@@ -317,6 +318,8 @@ class ProcessingUnit:
 		rd = self.IR&(0xF80)
 		rd = rd//128
 		self.RegisterFile[rd] = self.RY
+		if(rd!=0):
+			print(f'\t\tRegister x{rd} updated to : {hex(self.RY)}')
 		self.RegisterFile[0]=0
 		return
 
