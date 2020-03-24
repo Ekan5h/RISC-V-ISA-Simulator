@@ -44,7 +44,7 @@ Example 2: <br />
 	make INP=bubble
 
 Example 3: <br />
-	make=fib
+	make INP=fib
 #### Note: File needs to be in same directory as the Makefile
 
 ## Contributions
