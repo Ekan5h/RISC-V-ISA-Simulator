@@ -7,6 +7,24 @@
 	Sakshay Mahna	2018CSB1119
 	Atul Tiwari	2018CSB1077
 
+### Instruction Formats
+	R-Type:
+		ins rd rs1 rs2
+	I-Type (Except jalr ):
+		ins rd rs1 immed
+	SB-Type:
+		ins rs1 rs2 label
+	S-Type:
+		ins rs1 immed(rs2)
+	U-Type:
+		ins rs1 immed
+	UJ-Type:
+		jal rd label
+	jalr:
+		jalr rd immed(rs1)
+
+### Note : jalr is different from I Type as we had followed the version similar to https://www.kvakil.me/venus
+
 ## Instructions to setup GUI 
 1.	Extract RISCVSim.tar.gz
 2.	Run the install script
@@ -24,7 +42,7 @@
 		python3 runScript out_name.mc
 	This will execute the Machine Code
 
-Example:
+Example: <br />
 	cd Phase\ I <br />
 	python3 ASM2MC.py test.asm out.mc <br />
 	cp out.mc ../Phase\ II/out.mc <br />
