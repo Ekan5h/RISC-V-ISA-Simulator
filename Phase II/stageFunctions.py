@@ -94,16 +94,42 @@ class ProcessingUnit:
 
 		# SB-type
 		if opcode == 99:
-			imm12 = ((self.IR >> 31) & (0x1)) << 12
-			imm10to5 = ((self.IR >> 25) & (0x3f)) << 5
-			imm4to1 = ((self.IR >> 8) & (0xf)) << 1
-			imm11 = ((self.IR >> 7) & (0x1)) << 11
-			return self.signExtend((imm12 + imm10to5 + imm4to1 + imm11), 13)
+			# imm12 = ((self.IR >> 31) & (0x1)) << 12
+			# imm10to5 = ((self.IR >> 25) & (0x3f)) << 5
+			# imm4to1 = ((self.IR >> 8) & (0xf)) << 1
+			# imm11 = ((self.IR >> 7) & (0x1)) << 11
+			# return self.signExtend((imm12 + imm10to5 + imm4to1 + imm11), 13)
+			offset=0
+			offset += (self.IR&(0x80)) << 4
+			offset += (self.IR&(0xF00)) >> 7
+			offset += (self.IR&(0x7E000000)) >> 20
+
+			#Working with sign bit
+			if(self.IR&(0x80000000) == 0x80000000):
+				offset = offset ^ 0xFFF
+				offset += 1
+				offset = -1 * offset
+			return offset
 
 		# Add for U and UJ-type
 		if opcode==55 or opcode==23:
 			imm=(self.IR&(0xfffff000))
 			return imm
+		#jal
+		if opcode==111:
+			immed_20=str((self.IR&0x80000000)>>31)
+			immed_19_12=bin((self.IR&(0x000ff000))>>12)[2:]
+			immed_19_12='0'*(8-len(immed_19_12))+immed_19_12
+			immed_11=str((self.IR&(0x00100000))>>20)
+			immed_10_1=bin((self.IR&(0x7fe00000))>>21)[2:]
+			immed_10_1='0'*(10-len(immed_10_1))+immed_10_1
+			immediate=immed_20*12+immed_19_12+immed_11+immed_10_1+'0'
+			offset=int(immediate,2)
+			if immediate[0]=='1':
+				offset^=0xFFFFFFFF
+				offset+=1
+				offset=-offset
+			return offset
 		return 0
 	
 
@@ -152,18 +178,33 @@ class ProcessingUnit:
 		if ALU_control == 15:										# blt
 			return 1 if A < B else 0
 	
-	def IAG(self,offset=4):
+	def IAG(self):
 		opcode = self.IR&(0x7F)
-		self.PC_temp=self.PC+4
+		#self.PC_temp=self.PC+4
+		#jal
+		if opcode==111:
+			immed=self.getImmediate()
+			self.PC=self.PC+immed
+			return
+		#SB
+		if opcode==99:
+			immed=self.getImmediate()
+			if self.RY==1:
+				self.PC=self.PC+immed
+			else:
+				self.PC=self.PC+4
+			return
 		#jalr
 		if opcode==103:
-			self.PC=offset
-		else:
-			self.PC=self.PC+offset
+			self.PC=self.RY
+			return
+		
+		self.PC=self.PC+4
 
 	def fetch(self):
 		self.IR=self.read(self.PC,4)
 		self.clock=self.clock+1
+		self.PC_temp=self.PC+4
 
 	def decode(self):
 		opcode = self.IR&(0x7F)
@@ -255,72 +296,78 @@ class ProcessingUnit:
 	def write_back(self):
 		#Determine whether write back is used
 		opcode = self.IR&(0x7F)
-		#S Check
-		if opcode == 35:
-			self.IAG()
-			return
+		# #S Check
+		# if opcode == 35:
+		# 	self.IAG()
+		# 	return
 		#jal
-		elif opcode==111:
-			#Extract the immediate field and generate the offset
-			immed_20=str((self.IR&0x80000000)>>31)
-			immed_19_12=bin((self.IR&(0x000ff000))>>12)[2:]
-			immed_19_12='0'*(8-len(immed_19_12))+immed_19_12
-			immed_11=str((self.IR&(0x00100000))>>20)
-			immed_10_1=bin((self.IR&(0x7fe00000))>>21)[2:]
-			immed_10_1='0'*(10-len(immed_10_1))+immed_10_1
-			immediate=immed_20*12+immed_19_12+immed_11+immed_10_1+'0'
-			offset=int(immediate,2)
-			if immediate[0]=='1':
-				offset^=0xFFFFFFFF
-				offset+=1
-				offset=-offset
-			#pass the offset to IAG 
-			self.IAG(offset)
+		# if opcode==111:
+		# 	#Extract the immediate field and generate the offset
+		# 	immed_20=str((self.IR&0x80000000)>>31)
+		# 	immed_19_12=bin((self.IR&(0x000ff000))>>12)[2:]
+		# 	immed_19_12='0'*(8-len(immed_19_12))+immed_19_12
+		# 	immed_11=str((self.IR&(0x00100000))>>20)
+		# 	immed_10_1=bin((self.IR&(0x7fe00000))>>21)[2:]
+		# 	immed_10_1='0'*(10-len(immed_10_1))+immed_10_1
+		# 	immediate=immed_20*12+immed_19_12+immed_11+immed_10_1+'0'
+		# 	offset=int(immediate,2)
+		# 	if immediate[0]=='1':
+		# 		offset^=0xFFFFFFFF
+		# 		offset+=1
+		# 		offset=-offset
+		# 	#pass the offset to IAG 
+		# 	self.IAG(offset)
 			#set the self.RY to PC_temp
-			self.RY=self.PC_temp
 		#Handle AUIPC
 		#elif opcode==23:
 			#self.IAG()
 			#self.RY=(self.PC+(self.IR&(0xFFFFF000)))&(0xFFFFFFFF)
 		#SB		
-		elif opcode == 99 :
-			offset = 0
+		# elif opcode == 99 :
+		# 	offset = 0
 			
-			#Immediate Field Distribution
-			# Array:    [31] [30-25] [11-8] [7]
-			# ImmField:  12   10:5     4:1   11
-			# Shifts:    R19  R20      R7    L4
+		# 	#Immediate Field Distribution
+		# 	# Array:    [31] [30-25] [11-8] [7]
+		# 	# ImmField:  12   10:5     4:1   11
+		# 	# Shifts:    R19  R20      R7    L4
 
-			offset += (self.IR&(0x80)) << 4
-			offset += (self.IR&(0xF00)) >> 7
-			offset += (self.IR&(0x7E000000)) >> 20
+		# 	offset += (self.IR&(0x80)) << 4
+		# 	offset += (self.IR&(0xF00)) >> 7
+		# 	offset += (self.IR&(0x7E000000)) >> 20
 
-			#Working with sign bit
-			if(self.IR&(0x80000000) == 0x80000000):
-				offset = offset ^ 0xFFF
-				offset += 1
-				offset = -1 * offset
-			if self.RY==1:
-				self.IAG(offset)
-			else:
-				self.IAG()
+		# 	#Working with sign bit
+		# 	if(self.IR&(0x80000000) == 0x80000000):
+		# 		offset = offset ^ 0xFFF
+		# 		offset += 1
+		# 		offset = -1 * offset
+		# 	if self.RY==1:
+		# 		self.IAG(offset)
+		# 	else:
+		# 		self.IAG()
 
-			return
+		# 	return
 		#jalr		
-		elif opcode==103:
-			#assuming jalr puts the offset value in RY
-			#print(self.RY)
-			self.IAG(self.RY)
-			self.RY=self.PC_temp
+		# elif opcode==103:
+		# 	#assuming jalr puts the offset value in RY
+		# 	#print(self.RY)
+		# 	self.IAG(self.RY)
+		# 	self.RY=self.PC_temp
 
-		else:
-			self.IAG()
-		rd = self.IR&(0xF80)
-		rd = rd//128
-		self.RegisterFile[rd] = self.RY
-		if(rd!=0):
-			print(f'\t\tRegister x{rd} updated to : {hex(self.RY)}')
-		self.RegisterFile[0]=0
+		# else:
+		# 	self.IAG()
+		
+		self.IAG()
+		#jal and jalr
+		if opcode==103 or opcode==111:
+			self.RY=self.PC_temp
+		#S and SB check
+		if opcode!=35 and opcode!=99:
+			rd = self.IR&(0xF80)
+			rd = rd//128
+			self.RegisterFile[rd] = self.RY
+			if(rd!=0):
+				print(f'\t\tRegister x{rd} updated to : {hex(self.RY)}')
+			self.RegisterFile[0]=0
 		return
 
 

@@ -1,0 +1,1435 @@
+python3 ./Phase\ I/ASM2MC.py fib.asm
+python3 ./Phase\ II/runScript.py fib.mc
+Loaded program in Memory!
+Processing Instruction at 0x0
+	Clock=1 IR=0x600513 PC=0x0
+		Register x10 updated to : 0x6
+Processing Instruction at 0x4
+	Clock=2 IR=0x193 PC=0x4
+		Register x3 updated to : 0x0
+Processing Instruction at 0x8
+	Clock=3 IR=0x100213 PC=0x8
+		Register x4 updated to : 0x1
+Processing Instruction at 0xc
+	Clock=4 IR=0x100f93 PC=0xc
+		Register x31 updated to : 0x1
+Processing Instruction at 0x10
+	Clock=5 IR=0x8000ef PC=0x10
+		Register x1 updated to : 0x14
+Processing Instruction at 0x18
+	Clock=6 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffec
+Processing Instruction at 0x1c
+	Clock=7 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffec updated to : 0x14
+		Memory at 0x7fffffed updated to : 0x0
+		Memory at 0x7fffffee updated to : 0x0
+		Memory at 0x7fffffef updated to : 0x0
+Processing Instruction at 0x20
+	Clock=8 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffe8
+Processing Instruction at 0x24
+	Clock=9 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffe8 updated to : 0x6
+		Memory at 0x7fffffe9 updated to : 0x0
+		Memory at 0x7fffffea updated to : 0x0
+		Memory at 0x7fffffeb updated to : 0x0
+Processing Instruction at 0x28
+	Clock=10 IR=0x2050663 PC=0x28
+Processing Instruction at 0x2c
+	Clock=11 IR=0x3f50863 PC=0x2c
+Processing Instruction at 0x30
+	Clock=12 IR=-0xafaed PC=0x30
+		Register x10 updated to : 0x5
+Processing Instruction at 0x34
+	Clock=13 IR=-0x1a00f11 PC=0x34
+		Register x1 updated to : 0x38
+Processing Instruction at 0x18
+	Clock=14 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffe4
+Processing Instruction at 0x1c
+	Clock=15 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffe4 updated to : 0x38
+		Memory at 0x7fffffe5 updated to : 0x0
+		Memory at 0x7fffffe6 updated to : 0x0
+		Memory at 0x7fffffe7 updated to : 0x0
+Processing Instruction at 0x20
+	Clock=16 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffe0
+Processing Instruction at 0x24
+	Clock=17 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffe0 updated to : 0x5
+		Memory at 0x7fffffe1 updated to : 0x0
+		Memory at 0x7fffffe2 updated to : 0x0
+		Memory at 0x7fffffe3 updated to : 0x0
+Processing Instruction at 0x28
+	Clock=18 IR=0x2050663 PC=0x28
+Processing Instruction at 0x2c
+	Clock=19 IR=0x3f50863 PC=0x2c
+Processing Instruction at 0x30
+	Clock=20 IR=-0xafaed PC=0x30
+		Register x10 updated to : 0x4
+Processing Instruction at 0x34
+	Clock=21 IR=-0x1a00f11 PC=0x34
+		Register x1 updated to : 0x38
+Processing Instruction at 0x18
+	Clock=22 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffdc
+Processing Instruction at 0x1c
+	Clock=23 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffdc updated to : 0x38
+		Memory at 0x7fffffdd updated to : 0x0
+		Memory at 0x7fffffde updated to : 0x0
+		Memory at 0x7fffffdf updated to : 0x0
+Processing Instruction at 0x20
+	Clock=24 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffd8
+Processing Instruction at 0x24
+	Clock=25 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffd8 updated to : 0x4
+		Memory at 0x7fffffd9 updated to : 0x0
+		Memory at 0x7fffffda updated to : 0x0
+		Memory at 0x7fffffdb updated to : 0x0
+Processing Instruction at 0x28
+	Clock=26 IR=0x2050663 PC=0x28
+Processing Instruction at 0x2c
+	Clock=27 IR=0x3f50863 PC=0x2c
+Processing Instruction at 0x30
+	Clock=28 IR=-0xafaed PC=0x30
+		Register x10 updated to : 0x3
+Processing Instruction at 0x34
+	Clock=29 IR=-0x1a00f11 PC=0x34
+		Register x1 updated to : 0x38
+Processing Instruction at 0x18
+	Clock=30 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffd4
+Processing Instruction at 0x1c
+	Clock=31 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffd4 updated to : 0x38
+		Memory at 0x7fffffd5 updated to : 0x0
+		Memory at 0x7fffffd6 updated to : 0x0
+		Memory at 0x7fffffd7 updated to : 0x0
+Processing Instruction at 0x20
+	Clock=32 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffd0
+Processing Instruction at 0x24
+	Clock=33 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffd0 updated to : 0x3
+		Memory at 0x7fffffd1 updated to : 0x0
+		Memory at 0x7fffffd2 updated to : 0x0
+		Memory at 0x7fffffd3 updated to : 0x0
+Processing Instruction at 0x28
+	Clock=34 IR=0x2050663 PC=0x28
+Processing Instruction at 0x2c
+	Clock=35 IR=0x3f50863 PC=0x2c
+Processing Instruction at 0x30
+	Clock=36 IR=-0xafaed PC=0x30
+		Register x10 updated to : 0x2
+Processing Instruction at 0x34
+	Clock=37 IR=-0x1a00f11 PC=0x34
+		Register x1 updated to : 0x38
+Processing Instruction at 0x18
+	Clock=38 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffcc
+Processing Instruction at 0x1c
+	Clock=39 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffcc updated to : 0x38
+		Memory at 0x7fffffcd updated to : 0x0
+		Memory at 0x7fffffce updated to : 0x0
+		Memory at 0x7fffffcf updated to : 0x0
+Processing Instruction at 0x20
+	Clock=40 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffc8
+Processing Instruction at 0x24
+	Clock=41 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffc8 updated to : 0x2
+		Memory at 0x7fffffc9 updated to : 0x0
+		Memory at 0x7fffffca updated to : 0x0
+		Memory at 0x7fffffcb updated to : 0x0
+Processing Instruction at 0x28
+	Clock=42 IR=0x2050663 PC=0x28
+Processing Instruction at 0x2c
+	Clock=43 IR=0x3f50863 PC=0x2c
+Processing Instruction at 0x30
+	Clock=44 IR=-0xafaed PC=0x30
+		Register x10 updated to : 0x1
+Processing Instruction at 0x34
+	Clock=45 IR=-0x1a00f11 PC=0x34
+		Register x1 updated to : 0x38
+Processing Instruction at 0x18
+	Clock=46 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffc4
+Processing Instruction at 0x1c
+	Clock=47 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffc4 updated to : 0x38
+		Memory at 0x7fffffc5 updated to : 0x0
+		Memory at 0x7fffffc6 updated to : 0x0
+		Memory at 0x7fffffc7 updated to : 0x0
+Processing Instruction at 0x20
+	Clock=48 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffc0
+Processing Instruction at 0x24
+	Clock=49 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffc0 updated to : 0x1
+		Memory at 0x7fffffc1 updated to : 0x0
+		Memory at 0x7fffffc2 updated to : 0x0
+		Memory at 0x7fffffc3 updated to : 0x0
+Processing Instruction at 0x28
+	Clock=50 IR=0x2050663 PC=0x28
+Processing Instruction at 0x2c
+	Clock=51 IR=0x3f50863 PC=0x2c
+Processing Instruction at 0x5c
+	Clock=52 IR=0x4005b3 PC=0x5c
+		Register x11 updated to : 0x1
+Processing Instruction at 0x60
+	Clock=53 IR=0xa63 PC=0x60
+Processing Instruction at 0x74
+	Clock=54 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x1
+Processing Instruction at 0x78
+	Clock=55 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x38
+Processing Instruction at 0x7c
+	Clock=56 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffc8
+Processing Instruction at 0x80
+	Clock=57 IR=0x8067 PC=0x80
+Processing Instruction at 0x38
+	Clock=58 IR=-0x3efeed PC=0x38
+		Register x2 updated to : 0x7fffffc4
+Processing Instruction at 0x3c
+	Clock=59 IR=0xb12023 PC=0x3c
+		Memory at 0x7fffffc4 updated to : 0x1
+		Memory at 0x7fffffc5 updated to : 0x0
+		Memory at 0x7fffffc6 updated to : 0x0
+		Memory at 0x7fffffc7 updated to : 0x0
+Processing Instruction at 0x40
+	Clock=60 IR=-0xafaed PC=0x40
+		Register x10 updated to : 0x0
+Processing Instruction at 0x44
+	Clock=61 IR=-0x2a00f11 PC=0x44
+		Register x1 updated to : 0x48
+Processing Instruction at 0x18
+	Clock=62 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffc0
+Processing Instruction at 0x1c
+	Clock=63 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffc0 updated to : 0x48
+		Memory at 0x7fffffc1 updated to : 0x0
+		Memory at 0x7fffffc2 updated to : 0x0
+		Memory at 0x7fffffc3 updated to : 0x0
+Processing Instruction at 0x20
+	Clock=64 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffbc
+Processing Instruction at 0x24
+	Clock=65 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffbc updated to : 0x0
+		Memory at 0x7fffffbd updated to : 0x0
+		Memory at 0x7fffffbe updated to : 0x0
+		Memory at 0x7fffffbf updated to : 0x0
+Processing Instruction at 0x28
+	Clock=66 IR=0x2050663 PC=0x28
+Processing Instruction at 0x54
+	Clock=67 IR=0x3005b3 PC=0x54
+		Register x11 updated to : 0x0
+Processing Instruction at 0x58
+	Clock=68 IR=0xe63 PC=0x58
+Processing Instruction at 0x74
+	Clock=69 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x0
+Processing Instruction at 0x78
+	Clock=70 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x48
+Processing Instruction at 0x7c
+	Clock=71 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffc4
+Processing Instruction at 0x80
+	Clock=72 IR=0x8067 PC=0x80
+Processing Instruction at 0x48
+	Clock=73 IR=-0x3efeed PC=0x48
+		Register x2 updated to : 0x7fffffc0
+Processing Instruction at 0x4c
+	Clock=74 IR=0xb12023 PC=0x4c
+		Memory at 0x7fffffc0 updated to : 0x0
+		Memory at 0x7fffffc1 updated to : 0x0
+		Memory at 0x7fffffc2 updated to : 0x0
+		Memory at 0x7fffffc3 updated to : 0x0
+Processing Instruction at 0x50
+	Clock=75 IR=0xa63 PC=0x50
+Processing Instruction at 0x64
+	Clock=76 IR=0x12e03 PC=0x64
+		Register x28 updated to : 0x0
+Processing Instruction at 0x68
+	Clock=77 IR=0x412e83 PC=0x68
+		Register x29 updated to : 0x1
+Processing Instruction at 0x6c
+	Clock=78 IR=0x810113 PC=0x6c
+		Register x2 updated to : 0x7fffffc8
+Processing Instruction at 0x70
+	Clock=79 IR=0x1de05b3 PC=0x70
+		Register x11 updated to : 0x1
+Processing Instruction at 0x74
+	Clock=80 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x2
+Processing Instruction at 0x78
+	Clock=81 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x38
+Processing Instruction at 0x7c
+	Clock=82 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffd0
+Processing Instruction at 0x80
+	Clock=83 IR=0x8067 PC=0x80
+Processing Instruction at 0x38
+	Clock=84 IR=-0x3efeed PC=0x38
+		Register x2 updated to : 0x7fffffcc
+Processing Instruction at 0x3c
+	Clock=85 IR=0xb12023 PC=0x3c
+		Memory at 0x7fffffcc updated to : 0x1
+		Memory at 0x7fffffcd updated to : 0x0
+		Memory at 0x7fffffce updated to : 0x0
+		Memory at 0x7fffffcf updated to : 0x0
+Processing Instruction at 0x40
+	Clock=86 IR=-0xafaed PC=0x40
+		Register x10 updated to : 0x1
+Processing Instruction at 0x44
+	Clock=87 IR=-0x2a00f11 PC=0x44
+		Register x1 updated to : 0x48
+Processing Instruction at 0x18
+	Clock=88 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffc8
+Processing Instruction at 0x1c
+	Clock=89 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffc8 updated to : 0x48
+		Memory at 0x7fffffc9 updated to : 0x0
+		Memory at 0x7fffffca updated to : 0x0
+		Memory at 0x7fffffcb updated to : 0x0
+Processing Instruction at 0x20
+	Clock=90 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffc4
+Processing Instruction at 0x24
+	Clock=91 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffc4 updated to : 0x1
+		Memory at 0x7fffffc5 updated to : 0x0
+		Memory at 0x7fffffc6 updated to : 0x0
+		Memory at 0x7fffffc7 updated to : 0x0
+Processing Instruction at 0x28
+	Clock=92 IR=0x2050663 PC=0x28
+Processing Instruction at 0x2c
+	Clock=93 IR=0x3f50863 PC=0x2c
+Processing Instruction at 0x5c
+	Clock=94 IR=0x4005b3 PC=0x5c
+		Register x11 updated to : 0x1
+Processing Instruction at 0x60
+	Clock=95 IR=0xa63 PC=0x60
+Processing Instruction at 0x74
+	Clock=96 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x1
+Processing Instruction at 0x78
+	Clock=97 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x48
+Processing Instruction at 0x7c
+	Clock=98 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffcc
+Processing Instruction at 0x80
+	Clock=99 IR=0x8067 PC=0x80
+Processing Instruction at 0x48
+	Clock=100 IR=-0x3efeed PC=0x48
+		Register x2 updated to : 0x7fffffc8
+Processing Instruction at 0x4c
+	Clock=101 IR=0xb12023 PC=0x4c
+		Memory at 0x7fffffc8 updated to : 0x1
+		Memory at 0x7fffffc9 updated to : 0x0
+		Memory at 0x7fffffca updated to : 0x0
+		Memory at 0x7fffffcb updated to : 0x0
+Processing Instruction at 0x50
+	Clock=102 IR=0xa63 PC=0x50
+Processing Instruction at 0x64
+	Clock=103 IR=0x12e03 PC=0x64
+		Register x28 updated to : 0x1
+Processing Instruction at 0x68
+	Clock=104 IR=0x412e83 PC=0x68
+		Register x29 updated to : 0x1
+Processing Instruction at 0x6c
+	Clock=105 IR=0x810113 PC=0x6c
+		Register x2 updated to : 0x7fffffd0
+Processing Instruction at 0x70
+	Clock=106 IR=0x1de05b3 PC=0x70
+		Register x11 updated to : 0x2
+Processing Instruction at 0x74
+	Clock=107 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x3
+Processing Instruction at 0x78
+	Clock=108 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x38
+Processing Instruction at 0x7c
+	Clock=109 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffd8
+Processing Instruction at 0x80
+	Clock=110 IR=0x8067 PC=0x80
+Processing Instruction at 0x38
+	Clock=111 IR=-0x3efeed PC=0x38
+		Register x2 updated to : 0x7fffffd4
+Processing Instruction at 0x3c
+	Clock=112 IR=0xb12023 PC=0x3c
+		Memory at 0x7fffffd4 updated to : 0x2
+		Memory at 0x7fffffd5 updated to : 0x0
+		Memory at 0x7fffffd6 updated to : 0x0
+		Memory at 0x7fffffd7 updated to : 0x0
+Processing Instruction at 0x40
+	Clock=113 IR=-0xafaed PC=0x40
+		Register x10 updated to : 0x2
+Processing Instruction at 0x44
+	Clock=114 IR=-0x2a00f11 PC=0x44
+		Register x1 updated to : 0x48
+Processing Instruction at 0x18
+	Clock=115 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffd0
+Processing Instruction at 0x1c
+	Clock=116 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffd0 updated to : 0x48
+		Memory at 0x7fffffd1 updated to : 0x0
+		Memory at 0x7fffffd2 updated to : 0x0
+		Memory at 0x7fffffd3 updated to : 0x0
+Processing Instruction at 0x20
+	Clock=117 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffcc
+Processing Instruction at 0x24
+	Clock=118 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffcc updated to : 0x2
+		Memory at 0x7fffffcd updated to : 0x0
+		Memory at 0x7fffffce updated to : 0x0
+		Memory at 0x7fffffcf updated to : 0x0
+Processing Instruction at 0x28
+	Clock=119 IR=0x2050663 PC=0x28
+Processing Instruction at 0x2c
+	Clock=120 IR=0x3f50863 PC=0x2c
+Processing Instruction at 0x30
+	Clock=121 IR=-0xafaed PC=0x30
+		Register x10 updated to : 0x1
+Processing Instruction at 0x34
+	Clock=122 IR=-0x1a00f11 PC=0x34
+		Register x1 updated to : 0x38
+Processing Instruction at 0x18
+	Clock=123 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffc8
+Processing Instruction at 0x1c
+	Clock=124 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffc8 updated to : 0x38
+		Memory at 0x7fffffc9 updated to : 0x0
+		Memory at 0x7fffffca updated to : 0x0
+		Memory at 0x7fffffcb updated to : 0x0
+Processing Instruction at 0x20
+	Clock=125 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffc4
+Processing Instruction at 0x24
+	Clock=126 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffc4 updated to : 0x1
+		Memory at 0x7fffffc5 updated to : 0x0
+		Memory at 0x7fffffc6 updated to : 0x0
+		Memory at 0x7fffffc7 updated to : 0x0
+Processing Instruction at 0x28
+	Clock=127 IR=0x2050663 PC=0x28
+Processing Instruction at 0x2c
+	Clock=128 IR=0x3f50863 PC=0x2c
+Processing Instruction at 0x5c
+	Clock=129 IR=0x4005b3 PC=0x5c
+		Register x11 updated to : 0x1
+Processing Instruction at 0x60
+	Clock=130 IR=0xa63 PC=0x60
+Processing Instruction at 0x74
+	Clock=131 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x1
+Processing Instruction at 0x78
+	Clock=132 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x38
+Processing Instruction at 0x7c
+	Clock=133 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffcc
+Processing Instruction at 0x80
+	Clock=134 IR=0x8067 PC=0x80
+Processing Instruction at 0x38
+	Clock=135 IR=-0x3efeed PC=0x38
+		Register x2 updated to : 0x7fffffc8
+Processing Instruction at 0x3c
+	Clock=136 IR=0xb12023 PC=0x3c
+		Memory at 0x7fffffc8 updated to : 0x1
+		Memory at 0x7fffffc9 updated to : 0x0
+		Memory at 0x7fffffca updated to : 0x0
+		Memory at 0x7fffffcb updated to : 0x0
+Processing Instruction at 0x40
+	Clock=137 IR=-0xafaed PC=0x40
+		Register x10 updated to : 0x0
+Processing Instruction at 0x44
+	Clock=138 IR=-0x2a00f11 PC=0x44
+		Register x1 updated to : 0x48
+Processing Instruction at 0x18
+	Clock=139 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffc4
+Processing Instruction at 0x1c
+	Clock=140 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffc4 updated to : 0x48
+		Memory at 0x7fffffc5 updated to : 0x0
+		Memory at 0x7fffffc6 updated to : 0x0
+		Memory at 0x7fffffc7 updated to : 0x0
+Processing Instruction at 0x20
+	Clock=141 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffc0
+Processing Instruction at 0x24
+	Clock=142 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffc0 updated to : 0x0
+		Memory at 0x7fffffc1 updated to : 0x0
+		Memory at 0x7fffffc2 updated to : 0x0
+		Memory at 0x7fffffc3 updated to : 0x0
+Processing Instruction at 0x28
+	Clock=143 IR=0x2050663 PC=0x28
+Processing Instruction at 0x54
+	Clock=144 IR=0x3005b3 PC=0x54
+		Register x11 updated to : 0x0
+Processing Instruction at 0x58
+	Clock=145 IR=0xe63 PC=0x58
+Processing Instruction at 0x74
+	Clock=146 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x0
+Processing Instruction at 0x78
+	Clock=147 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x48
+Processing Instruction at 0x7c
+	Clock=148 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffc8
+Processing Instruction at 0x80
+	Clock=149 IR=0x8067 PC=0x80
+Processing Instruction at 0x48
+	Clock=150 IR=-0x3efeed PC=0x48
+		Register x2 updated to : 0x7fffffc4
+Processing Instruction at 0x4c
+	Clock=151 IR=0xb12023 PC=0x4c
+		Memory at 0x7fffffc4 updated to : 0x0
+		Memory at 0x7fffffc5 updated to : 0x0
+		Memory at 0x7fffffc6 updated to : 0x0
+		Memory at 0x7fffffc7 updated to : 0x0
+Processing Instruction at 0x50
+	Clock=152 IR=0xa63 PC=0x50
+Processing Instruction at 0x64
+	Clock=153 IR=0x12e03 PC=0x64
+		Register x28 updated to : 0x0
+Processing Instruction at 0x68
+	Clock=154 IR=0x412e83 PC=0x68
+		Register x29 updated to : 0x1
+Processing Instruction at 0x6c
+	Clock=155 IR=0x810113 PC=0x6c
+		Register x2 updated to : 0x7fffffcc
+Processing Instruction at 0x70
+	Clock=156 IR=0x1de05b3 PC=0x70
+		Register x11 updated to : 0x1
+Processing Instruction at 0x74
+	Clock=157 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x2
+Processing Instruction at 0x78
+	Clock=158 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x48
+Processing Instruction at 0x7c
+	Clock=159 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffd4
+Processing Instruction at 0x80
+	Clock=160 IR=0x8067 PC=0x80
+Processing Instruction at 0x48
+	Clock=161 IR=-0x3efeed PC=0x48
+		Register x2 updated to : 0x7fffffd0
+Processing Instruction at 0x4c
+	Clock=162 IR=0xb12023 PC=0x4c
+		Memory at 0x7fffffd0 updated to : 0x1
+		Memory at 0x7fffffd1 updated to : 0x0
+		Memory at 0x7fffffd2 updated to : 0x0
+		Memory at 0x7fffffd3 updated to : 0x0
+Processing Instruction at 0x50
+	Clock=163 IR=0xa63 PC=0x50
+Processing Instruction at 0x64
+	Clock=164 IR=0x12e03 PC=0x64
+		Register x28 updated to : 0x1
+Processing Instruction at 0x68
+	Clock=165 IR=0x412e83 PC=0x68
+		Register x29 updated to : 0x2
+Processing Instruction at 0x6c
+	Clock=166 IR=0x810113 PC=0x6c
+		Register x2 updated to : 0x7fffffd8
+Processing Instruction at 0x70
+	Clock=167 IR=0x1de05b3 PC=0x70
+		Register x11 updated to : 0x3
+Processing Instruction at 0x74
+	Clock=168 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x4
+Processing Instruction at 0x78
+	Clock=169 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x38
+Processing Instruction at 0x7c
+	Clock=170 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffe0
+Processing Instruction at 0x80
+	Clock=171 IR=0x8067 PC=0x80
+Processing Instruction at 0x38
+	Clock=172 IR=-0x3efeed PC=0x38
+		Register x2 updated to : 0x7fffffdc
+Processing Instruction at 0x3c
+	Clock=173 IR=0xb12023 PC=0x3c
+		Memory at 0x7fffffdc updated to : 0x3
+		Memory at 0x7fffffdd updated to : 0x0
+		Memory at 0x7fffffde updated to : 0x0
+		Memory at 0x7fffffdf updated to : 0x0
+Processing Instruction at 0x40
+	Clock=174 IR=-0xafaed PC=0x40
+		Register x10 updated to : 0x3
+Processing Instruction at 0x44
+	Clock=175 IR=-0x2a00f11 PC=0x44
+		Register x1 updated to : 0x48
+Processing Instruction at 0x18
+	Clock=176 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffd8
+Processing Instruction at 0x1c
+	Clock=177 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffd8 updated to : 0x48
+		Memory at 0x7fffffd9 updated to : 0x0
+		Memory at 0x7fffffda updated to : 0x0
+		Memory at 0x7fffffdb updated to : 0x0
+Processing Instruction at 0x20
+	Clock=178 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffd4
+Processing Instruction at 0x24
+	Clock=179 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffd4 updated to : 0x3
+		Memory at 0x7fffffd5 updated to : 0x0
+		Memory at 0x7fffffd6 updated to : 0x0
+		Memory at 0x7fffffd7 updated to : 0x0
+Processing Instruction at 0x28
+	Clock=180 IR=0x2050663 PC=0x28
+Processing Instruction at 0x2c
+	Clock=181 IR=0x3f50863 PC=0x2c
+Processing Instruction at 0x30
+	Clock=182 IR=-0xafaed PC=0x30
+		Register x10 updated to : 0x2
+Processing Instruction at 0x34
+	Clock=183 IR=-0x1a00f11 PC=0x34
+		Register x1 updated to : 0x38
+Processing Instruction at 0x18
+	Clock=184 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffd0
+Processing Instruction at 0x1c
+	Clock=185 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffd0 updated to : 0x38
+		Memory at 0x7fffffd1 updated to : 0x0
+		Memory at 0x7fffffd2 updated to : 0x0
+		Memory at 0x7fffffd3 updated to : 0x0
+Processing Instruction at 0x20
+	Clock=186 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffcc
+Processing Instruction at 0x24
+	Clock=187 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffcc updated to : 0x2
+		Memory at 0x7fffffcd updated to : 0x0
+		Memory at 0x7fffffce updated to : 0x0
+		Memory at 0x7fffffcf updated to : 0x0
+Processing Instruction at 0x28
+	Clock=188 IR=0x2050663 PC=0x28
+Processing Instruction at 0x2c
+	Clock=189 IR=0x3f50863 PC=0x2c
+Processing Instruction at 0x30
+	Clock=190 IR=-0xafaed PC=0x30
+		Register x10 updated to : 0x1
+Processing Instruction at 0x34
+	Clock=191 IR=-0x1a00f11 PC=0x34
+		Register x1 updated to : 0x38
+Processing Instruction at 0x18
+	Clock=192 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffc8
+Processing Instruction at 0x1c
+	Clock=193 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffc8 updated to : 0x38
+		Memory at 0x7fffffc9 updated to : 0x0
+		Memory at 0x7fffffca updated to : 0x0
+		Memory at 0x7fffffcb updated to : 0x0
+Processing Instruction at 0x20
+	Clock=194 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffc4
+Processing Instruction at 0x24
+	Clock=195 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffc4 updated to : 0x1
+		Memory at 0x7fffffc5 updated to : 0x0
+		Memory at 0x7fffffc6 updated to : 0x0
+		Memory at 0x7fffffc7 updated to : 0x0
+Processing Instruction at 0x28
+	Clock=196 IR=0x2050663 PC=0x28
+Processing Instruction at 0x2c
+	Clock=197 IR=0x3f50863 PC=0x2c
+Processing Instruction at 0x5c
+	Clock=198 IR=0x4005b3 PC=0x5c
+		Register x11 updated to : 0x1
+Processing Instruction at 0x60
+	Clock=199 IR=0xa63 PC=0x60
+Processing Instruction at 0x74
+	Clock=200 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x1
+Processing Instruction at 0x78
+	Clock=201 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x38
+Processing Instruction at 0x7c
+	Clock=202 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffcc
+Processing Instruction at 0x80
+	Clock=203 IR=0x8067 PC=0x80
+Processing Instruction at 0x38
+	Clock=204 IR=-0x3efeed PC=0x38
+		Register x2 updated to : 0x7fffffc8
+Processing Instruction at 0x3c
+	Clock=205 IR=0xb12023 PC=0x3c
+		Memory at 0x7fffffc8 updated to : 0x1
+		Memory at 0x7fffffc9 updated to : 0x0
+		Memory at 0x7fffffca updated to : 0x0
+		Memory at 0x7fffffcb updated to : 0x0
+Processing Instruction at 0x40
+	Clock=206 IR=-0xafaed PC=0x40
+		Register x10 updated to : 0x0
+Processing Instruction at 0x44
+	Clock=207 IR=-0x2a00f11 PC=0x44
+		Register x1 updated to : 0x48
+Processing Instruction at 0x18
+	Clock=208 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffc4
+Processing Instruction at 0x1c
+	Clock=209 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffc4 updated to : 0x48
+		Memory at 0x7fffffc5 updated to : 0x0
+		Memory at 0x7fffffc6 updated to : 0x0
+		Memory at 0x7fffffc7 updated to : 0x0
+Processing Instruction at 0x20
+	Clock=210 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffc0
+Processing Instruction at 0x24
+	Clock=211 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffc0 updated to : 0x0
+		Memory at 0x7fffffc1 updated to : 0x0
+		Memory at 0x7fffffc2 updated to : 0x0
+		Memory at 0x7fffffc3 updated to : 0x0
+Processing Instruction at 0x28
+	Clock=212 IR=0x2050663 PC=0x28
+Processing Instruction at 0x54
+	Clock=213 IR=0x3005b3 PC=0x54
+		Register x11 updated to : 0x0
+Processing Instruction at 0x58
+	Clock=214 IR=0xe63 PC=0x58
+Processing Instruction at 0x74
+	Clock=215 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x0
+Processing Instruction at 0x78
+	Clock=216 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x48
+Processing Instruction at 0x7c
+	Clock=217 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffc8
+Processing Instruction at 0x80
+	Clock=218 IR=0x8067 PC=0x80
+Processing Instruction at 0x48
+	Clock=219 IR=-0x3efeed PC=0x48
+		Register x2 updated to : 0x7fffffc4
+Processing Instruction at 0x4c
+	Clock=220 IR=0xb12023 PC=0x4c
+		Memory at 0x7fffffc4 updated to : 0x0
+		Memory at 0x7fffffc5 updated to : 0x0
+		Memory at 0x7fffffc6 updated to : 0x0
+		Memory at 0x7fffffc7 updated to : 0x0
+Processing Instruction at 0x50
+	Clock=221 IR=0xa63 PC=0x50
+Processing Instruction at 0x64
+	Clock=222 IR=0x12e03 PC=0x64
+		Register x28 updated to : 0x0
+Processing Instruction at 0x68
+	Clock=223 IR=0x412e83 PC=0x68
+		Register x29 updated to : 0x1
+Processing Instruction at 0x6c
+	Clock=224 IR=0x810113 PC=0x6c
+		Register x2 updated to : 0x7fffffcc
+Processing Instruction at 0x70
+	Clock=225 IR=0x1de05b3 PC=0x70
+		Register x11 updated to : 0x1
+Processing Instruction at 0x74
+	Clock=226 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x2
+Processing Instruction at 0x78
+	Clock=227 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x38
+Processing Instruction at 0x7c
+	Clock=228 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffd4
+Processing Instruction at 0x80
+	Clock=229 IR=0x8067 PC=0x80
+Processing Instruction at 0x38
+	Clock=230 IR=-0x3efeed PC=0x38
+		Register x2 updated to : 0x7fffffd0
+Processing Instruction at 0x3c
+	Clock=231 IR=0xb12023 PC=0x3c
+		Memory at 0x7fffffd0 updated to : 0x1
+		Memory at 0x7fffffd1 updated to : 0x0
+		Memory at 0x7fffffd2 updated to : 0x0
+		Memory at 0x7fffffd3 updated to : 0x0
+Processing Instruction at 0x40
+	Clock=232 IR=-0xafaed PC=0x40
+		Register x10 updated to : 0x1
+Processing Instruction at 0x44
+	Clock=233 IR=-0x2a00f11 PC=0x44
+		Register x1 updated to : 0x48
+Processing Instruction at 0x18
+	Clock=234 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffcc
+Processing Instruction at 0x1c
+	Clock=235 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffcc updated to : 0x48
+		Memory at 0x7fffffcd updated to : 0x0
+		Memory at 0x7fffffce updated to : 0x0
+		Memory at 0x7fffffcf updated to : 0x0
+Processing Instruction at 0x20
+	Clock=236 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffc8
+Processing Instruction at 0x24
+	Clock=237 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffc8 updated to : 0x1
+		Memory at 0x7fffffc9 updated to : 0x0
+		Memory at 0x7fffffca updated to : 0x0
+		Memory at 0x7fffffcb updated to : 0x0
+Processing Instruction at 0x28
+	Clock=238 IR=0x2050663 PC=0x28
+Processing Instruction at 0x2c
+	Clock=239 IR=0x3f50863 PC=0x2c
+Processing Instruction at 0x5c
+	Clock=240 IR=0x4005b3 PC=0x5c
+		Register x11 updated to : 0x1
+Processing Instruction at 0x60
+	Clock=241 IR=0xa63 PC=0x60
+Processing Instruction at 0x74
+	Clock=242 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x1
+Processing Instruction at 0x78
+	Clock=243 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x48
+Processing Instruction at 0x7c
+	Clock=244 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffd0
+Processing Instruction at 0x80
+	Clock=245 IR=0x8067 PC=0x80
+Processing Instruction at 0x48
+	Clock=246 IR=-0x3efeed PC=0x48
+		Register x2 updated to : 0x7fffffcc
+Processing Instruction at 0x4c
+	Clock=247 IR=0xb12023 PC=0x4c
+		Memory at 0x7fffffcc updated to : 0x1
+		Memory at 0x7fffffcd updated to : 0x0
+		Memory at 0x7fffffce updated to : 0x0
+		Memory at 0x7fffffcf updated to : 0x0
+Processing Instruction at 0x50
+	Clock=248 IR=0xa63 PC=0x50
+Processing Instruction at 0x64
+	Clock=249 IR=0x12e03 PC=0x64
+		Register x28 updated to : 0x1
+Processing Instruction at 0x68
+	Clock=250 IR=0x412e83 PC=0x68
+		Register x29 updated to : 0x1
+Processing Instruction at 0x6c
+	Clock=251 IR=0x810113 PC=0x6c
+		Register x2 updated to : 0x7fffffd4
+Processing Instruction at 0x70
+	Clock=252 IR=0x1de05b3 PC=0x70
+		Register x11 updated to : 0x2
+Processing Instruction at 0x74
+	Clock=253 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x3
+Processing Instruction at 0x78
+	Clock=254 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x48
+Processing Instruction at 0x7c
+	Clock=255 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffdc
+Processing Instruction at 0x80
+	Clock=256 IR=0x8067 PC=0x80
+Processing Instruction at 0x48
+	Clock=257 IR=-0x3efeed PC=0x48
+		Register x2 updated to : 0x7fffffd8
+Processing Instruction at 0x4c
+	Clock=258 IR=0xb12023 PC=0x4c
+		Memory at 0x7fffffd8 updated to : 0x2
+		Memory at 0x7fffffd9 updated to : 0x0
+		Memory at 0x7fffffda updated to : 0x0
+		Memory at 0x7fffffdb updated to : 0x0
+Processing Instruction at 0x50
+	Clock=259 IR=0xa63 PC=0x50
+Processing Instruction at 0x64
+	Clock=260 IR=0x12e03 PC=0x64
+		Register x28 updated to : 0x2
+Processing Instruction at 0x68
+	Clock=261 IR=0x412e83 PC=0x68
+		Register x29 updated to : 0x3
+Processing Instruction at 0x6c
+	Clock=262 IR=0x810113 PC=0x6c
+		Register x2 updated to : 0x7fffffe0
+Processing Instruction at 0x70
+	Clock=263 IR=0x1de05b3 PC=0x70
+		Register x11 updated to : 0x5
+Processing Instruction at 0x74
+	Clock=264 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x5
+Processing Instruction at 0x78
+	Clock=265 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x38
+Processing Instruction at 0x7c
+	Clock=266 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffe8
+Processing Instruction at 0x80
+	Clock=267 IR=0x8067 PC=0x80
+Processing Instruction at 0x38
+	Clock=268 IR=-0x3efeed PC=0x38
+		Register x2 updated to : 0x7fffffe4
+Processing Instruction at 0x3c
+	Clock=269 IR=0xb12023 PC=0x3c
+		Memory at 0x7fffffe4 updated to : 0x5
+		Memory at 0x7fffffe5 updated to : 0x0
+		Memory at 0x7fffffe6 updated to : 0x0
+		Memory at 0x7fffffe7 updated to : 0x0
+Processing Instruction at 0x40
+	Clock=270 IR=-0xafaed PC=0x40
+		Register x10 updated to : 0x4
+Processing Instruction at 0x44
+	Clock=271 IR=-0x2a00f11 PC=0x44
+		Register x1 updated to : 0x48
+Processing Instruction at 0x18
+	Clock=272 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffe0
+Processing Instruction at 0x1c
+	Clock=273 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffe0 updated to : 0x48
+		Memory at 0x7fffffe1 updated to : 0x0
+		Memory at 0x7fffffe2 updated to : 0x0
+		Memory at 0x7fffffe3 updated to : 0x0
+Processing Instruction at 0x20
+	Clock=274 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffdc
+Processing Instruction at 0x24
+	Clock=275 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffdc updated to : 0x4
+		Memory at 0x7fffffdd updated to : 0x0
+		Memory at 0x7fffffde updated to : 0x0
+		Memory at 0x7fffffdf updated to : 0x0
+Processing Instruction at 0x28
+	Clock=276 IR=0x2050663 PC=0x28
+Processing Instruction at 0x2c
+	Clock=277 IR=0x3f50863 PC=0x2c
+Processing Instruction at 0x30
+	Clock=278 IR=-0xafaed PC=0x30
+		Register x10 updated to : 0x3
+Processing Instruction at 0x34
+	Clock=279 IR=-0x1a00f11 PC=0x34
+		Register x1 updated to : 0x38
+Processing Instruction at 0x18
+	Clock=280 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffd8
+Processing Instruction at 0x1c
+	Clock=281 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffd8 updated to : 0x38
+		Memory at 0x7fffffd9 updated to : 0x0
+		Memory at 0x7fffffda updated to : 0x0
+		Memory at 0x7fffffdb updated to : 0x0
+Processing Instruction at 0x20
+	Clock=282 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffd4
+Processing Instruction at 0x24
+	Clock=283 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffd4 updated to : 0x3
+		Memory at 0x7fffffd5 updated to : 0x0
+		Memory at 0x7fffffd6 updated to : 0x0
+		Memory at 0x7fffffd7 updated to : 0x0
+Processing Instruction at 0x28
+	Clock=284 IR=0x2050663 PC=0x28
+Processing Instruction at 0x2c
+	Clock=285 IR=0x3f50863 PC=0x2c
+Processing Instruction at 0x30
+	Clock=286 IR=-0xafaed PC=0x30
+		Register x10 updated to : 0x2
+Processing Instruction at 0x34
+	Clock=287 IR=-0x1a00f11 PC=0x34
+		Register x1 updated to : 0x38
+Processing Instruction at 0x18
+	Clock=288 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffd0
+Processing Instruction at 0x1c
+	Clock=289 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffd0 updated to : 0x38
+		Memory at 0x7fffffd1 updated to : 0x0
+		Memory at 0x7fffffd2 updated to : 0x0
+		Memory at 0x7fffffd3 updated to : 0x0
+Processing Instruction at 0x20
+	Clock=290 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffcc
+Processing Instruction at 0x24
+	Clock=291 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffcc updated to : 0x2
+		Memory at 0x7fffffcd updated to : 0x0
+		Memory at 0x7fffffce updated to : 0x0
+		Memory at 0x7fffffcf updated to : 0x0
+Processing Instruction at 0x28
+	Clock=292 IR=0x2050663 PC=0x28
+Processing Instruction at 0x2c
+	Clock=293 IR=0x3f50863 PC=0x2c
+Processing Instruction at 0x30
+	Clock=294 IR=-0xafaed PC=0x30
+		Register x10 updated to : 0x1
+Processing Instruction at 0x34
+	Clock=295 IR=-0x1a00f11 PC=0x34
+		Register x1 updated to : 0x38
+Processing Instruction at 0x18
+	Clock=296 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffc8
+Processing Instruction at 0x1c
+	Clock=297 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffc8 updated to : 0x38
+		Memory at 0x7fffffc9 updated to : 0x0
+		Memory at 0x7fffffca updated to : 0x0
+		Memory at 0x7fffffcb updated to : 0x0
+Processing Instruction at 0x20
+	Clock=298 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffc4
+Processing Instruction at 0x24
+	Clock=299 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffc4 updated to : 0x1
+		Memory at 0x7fffffc5 updated to : 0x0
+		Memory at 0x7fffffc6 updated to : 0x0
+		Memory at 0x7fffffc7 updated to : 0x0
+Processing Instruction at 0x28
+	Clock=300 IR=0x2050663 PC=0x28
+Processing Instruction at 0x2c
+	Clock=301 IR=0x3f50863 PC=0x2c
+Processing Instruction at 0x5c
+	Clock=302 IR=0x4005b3 PC=0x5c
+		Register x11 updated to : 0x1
+Processing Instruction at 0x60
+	Clock=303 IR=0xa63 PC=0x60
+Processing Instruction at 0x74
+	Clock=304 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x1
+Processing Instruction at 0x78
+	Clock=305 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x38
+Processing Instruction at 0x7c
+	Clock=306 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffcc
+Processing Instruction at 0x80
+	Clock=307 IR=0x8067 PC=0x80
+Processing Instruction at 0x38
+	Clock=308 IR=-0x3efeed PC=0x38
+		Register x2 updated to : 0x7fffffc8
+Processing Instruction at 0x3c
+	Clock=309 IR=0xb12023 PC=0x3c
+		Memory at 0x7fffffc8 updated to : 0x1
+		Memory at 0x7fffffc9 updated to : 0x0
+		Memory at 0x7fffffca updated to : 0x0
+		Memory at 0x7fffffcb updated to : 0x0
+Processing Instruction at 0x40
+	Clock=310 IR=-0xafaed PC=0x40
+		Register x10 updated to : 0x0
+Processing Instruction at 0x44
+	Clock=311 IR=-0x2a00f11 PC=0x44
+		Register x1 updated to : 0x48
+Processing Instruction at 0x18
+	Clock=312 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffc4
+Processing Instruction at 0x1c
+	Clock=313 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffc4 updated to : 0x48
+		Memory at 0x7fffffc5 updated to : 0x0
+		Memory at 0x7fffffc6 updated to : 0x0
+		Memory at 0x7fffffc7 updated to : 0x0
+Processing Instruction at 0x20
+	Clock=314 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffc0
+Processing Instruction at 0x24
+	Clock=315 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffc0 updated to : 0x0
+		Memory at 0x7fffffc1 updated to : 0x0
+		Memory at 0x7fffffc2 updated to : 0x0
+		Memory at 0x7fffffc3 updated to : 0x0
+Processing Instruction at 0x28
+	Clock=316 IR=0x2050663 PC=0x28
+Processing Instruction at 0x54
+	Clock=317 IR=0x3005b3 PC=0x54
+		Register x11 updated to : 0x0
+Processing Instruction at 0x58
+	Clock=318 IR=0xe63 PC=0x58
+Processing Instruction at 0x74
+	Clock=319 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x0
+Processing Instruction at 0x78
+	Clock=320 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x48
+Processing Instruction at 0x7c
+	Clock=321 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffc8
+Processing Instruction at 0x80
+	Clock=322 IR=0x8067 PC=0x80
+Processing Instruction at 0x48
+	Clock=323 IR=-0x3efeed PC=0x48
+		Register x2 updated to : 0x7fffffc4
+Processing Instruction at 0x4c
+	Clock=324 IR=0xb12023 PC=0x4c
+		Memory at 0x7fffffc4 updated to : 0x0
+		Memory at 0x7fffffc5 updated to : 0x0
+		Memory at 0x7fffffc6 updated to : 0x0
+		Memory at 0x7fffffc7 updated to : 0x0
+Processing Instruction at 0x50
+	Clock=325 IR=0xa63 PC=0x50
+Processing Instruction at 0x64
+	Clock=326 IR=0x12e03 PC=0x64
+		Register x28 updated to : 0x0
+Processing Instruction at 0x68
+	Clock=327 IR=0x412e83 PC=0x68
+		Register x29 updated to : 0x1
+Processing Instruction at 0x6c
+	Clock=328 IR=0x810113 PC=0x6c
+		Register x2 updated to : 0x7fffffcc
+Processing Instruction at 0x70
+	Clock=329 IR=0x1de05b3 PC=0x70
+		Register x11 updated to : 0x1
+Processing Instruction at 0x74
+	Clock=330 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x2
+Processing Instruction at 0x78
+	Clock=331 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x38
+Processing Instruction at 0x7c
+	Clock=332 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffd4
+Processing Instruction at 0x80
+	Clock=333 IR=0x8067 PC=0x80
+Processing Instruction at 0x38
+	Clock=334 IR=-0x3efeed PC=0x38
+		Register x2 updated to : 0x7fffffd0
+Processing Instruction at 0x3c
+	Clock=335 IR=0xb12023 PC=0x3c
+		Memory at 0x7fffffd0 updated to : 0x1
+		Memory at 0x7fffffd1 updated to : 0x0
+		Memory at 0x7fffffd2 updated to : 0x0
+		Memory at 0x7fffffd3 updated to : 0x0
+Processing Instruction at 0x40
+	Clock=336 IR=-0xafaed PC=0x40
+		Register x10 updated to : 0x1
+Processing Instruction at 0x44
+	Clock=337 IR=-0x2a00f11 PC=0x44
+		Register x1 updated to : 0x48
+Processing Instruction at 0x18
+	Clock=338 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffcc
+Processing Instruction at 0x1c
+	Clock=339 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffcc updated to : 0x48
+		Memory at 0x7fffffcd updated to : 0x0
+		Memory at 0x7fffffce updated to : 0x0
+		Memory at 0x7fffffcf updated to : 0x0
+Processing Instruction at 0x20
+	Clock=340 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffc8
+Processing Instruction at 0x24
+	Clock=341 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffc8 updated to : 0x1
+		Memory at 0x7fffffc9 updated to : 0x0
+		Memory at 0x7fffffca updated to : 0x0
+		Memory at 0x7fffffcb updated to : 0x0
+Processing Instruction at 0x28
+	Clock=342 IR=0x2050663 PC=0x28
+Processing Instruction at 0x2c
+	Clock=343 IR=0x3f50863 PC=0x2c
+Processing Instruction at 0x5c
+	Clock=344 IR=0x4005b3 PC=0x5c
+		Register x11 updated to : 0x1
+Processing Instruction at 0x60
+	Clock=345 IR=0xa63 PC=0x60
+Processing Instruction at 0x74
+	Clock=346 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x1
+Processing Instruction at 0x78
+	Clock=347 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x48
+Processing Instruction at 0x7c
+	Clock=348 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffd0
+Processing Instruction at 0x80
+	Clock=349 IR=0x8067 PC=0x80
+Processing Instruction at 0x48
+	Clock=350 IR=-0x3efeed PC=0x48
+		Register x2 updated to : 0x7fffffcc
+Processing Instruction at 0x4c
+	Clock=351 IR=0xb12023 PC=0x4c
+		Memory at 0x7fffffcc updated to : 0x1
+		Memory at 0x7fffffcd updated to : 0x0
+		Memory at 0x7fffffce updated to : 0x0
+		Memory at 0x7fffffcf updated to : 0x0
+Processing Instruction at 0x50
+	Clock=352 IR=0xa63 PC=0x50
+Processing Instruction at 0x64
+	Clock=353 IR=0x12e03 PC=0x64
+		Register x28 updated to : 0x1
+Processing Instruction at 0x68
+	Clock=354 IR=0x412e83 PC=0x68
+		Register x29 updated to : 0x1
+Processing Instruction at 0x6c
+	Clock=355 IR=0x810113 PC=0x6c
+		Register x2 updated to : 0x7fffffd4
+Processing Instruction at 0x70
+	Clock=356 IR=0x1de05b3 PC=0x70
+		Register x11 updated to : 0x2
+Processing Instruction at 0x74
+	Clock=357 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x3
+Processing Instruction at 0x78
+	Clock=358 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x38
+Processing Instruction at 0x7c
+	Clock=359 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffdc
+Processing Instruction at 0x80
+	Clock=360 IR=0x8067 PC=0x80
+Processing Instruction at 0x38
+	Clock=361 IR=-0x3efeed PC=0x38
+		Register x2 updated to : 0x7fffffd8
+Processing Instruction at 0x3c
+	Clock=362 IR=0xb12023 PC=0x3c
+		Memory at 0x7fffffd8 updated to : 0x2
+		Memory at 0x7fffffd9 updated to : 0x0
+		Memory at 0x7fffffda updated to : 0x0
+		Memory at 0x7fffffdb updated to : 0x0
+Processing Instruction at 0x40
+	Clock=363 IR=-0xafaed PC=0x40
+		Register x10 updated to : 0x2
+Processing Instruction at 0x44
+	Clock=364 IR=-0x2a00f11 PC=0x44
+		Register x1 updated to : 0x48
+Processing Instruction at 0x18
+	Clock=365 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffd4
+Processing Instruction at 0x1c
+	Clock=366 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffd4 updated to : 0x48
+		Memory at 0x7fffffd5 updated to : 0x0
+		Memory at 0x7fffffd6 updated to : 0x0
+		Memory at 0x7fffffd7 updated to : 0x0
+Processing Instruction at 0x20
+	Clock=367 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffd0
+Processing Instruction at 0x24
+	Clock=368 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffd0 updated to : 0x2
+		Memory at 0x7fffffd1 updated to : 0x0
+		Memory at 0x7fffffd2 updated to : 0x0
+		Memory at 0x7fffffd3 updated to : 0x0
+Processing Instruction at 0x28
+	Clock=369 IR=0x2050663 PC=0x28
+Processing Instruction at 0x2c
+	Clock=370 IR=0x3f50863 PC=0x2c
+Processing Instruction at 0x30
+	Clock=371 IR=-0xafaed PC=0x30
+		Register x10 updated to : 0x1
+Processing Instruction at 0x34
+	Clock=372 IR=-0x1a00f11 PC=0x34
+		Register x1 updated to : 0x38
+Processing Instruction at 0x18
+	Clock=373 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffcc
+Processing Instruction at 0x1c
+	Clock=374 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffcc updated to : 0x38
+		Memory at 0x7fffffcd updated to : 0x0
+		Memory at 0x7fffffce updated to : 0x0
+		Memory at 0x7fffffcf updated to : 0x0
+Processing Instruction at 0x20
+	Clock=375 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffc8
+Processing Instruction at 0x24
+	Clock=376 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffc8 updated to : 0x1
+		Memory at 0x7fffffc9 updated to : 0x0
+		Memory at 0x7fffffca updated to : 0x0
+		Memory at 0x7fffffcb updated to : 0x0
+Processing Instruction at 0x28
+	Clock=377 IR=0x2050663 PC=0x28
+Processing Instruction at 0x2c
+	Clock=378 IR=0x3f50863 PC=0x2c
+Processing Instruction at 0x5c
+	Clock=379 IR=0x4005b3 PC=0x5c
+		Register x11 updated to : 0x1
+Processing Instruction at 0x60
+	Clock=380 IR=0xa63 PC=0x60
+Processing Instruction at 0x74
+	Clock=381 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x1
+Processing Instruction at 0x78
+	Clock=382 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x38
+Processing Instruction at 0x7c
+	Clock=383 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffd0
+Processing Instruction at 0x80
+	Clock=384 IR=0x8067 PC=0x80
+Processing Instruction at 0x38
+	Clock=385 IR=-0x3efeed PC=0x38
+		Register x2 updated to : 0x7fffffcc
+Processing Instruction at 0x3c
+	Clock=386 IR=0xb12023 PC=0x3c
+		Memory at 0x7fffffcc updated to : 0x1
+		Memory at 0x7fffffcd updated to : 0x0
+		Memory at 0x7fffffce updated to : 0x0
+		Memory at 0x7fffffcf updated to : 0x0
+Processing Instruction at 0x40
+	Clock=387 IR=-0xafaed PC=0x40
+		Register x10 updated to : 0x0
+Processing Instruction at 0x44
+	Clock=388 IR=-0x2a00f11 PC=0x44
+		Register x1 updated to : 0x48
+Processing Instruction at 0x18
+	Clock=389 IR=-0x3efeed PC=0x18
+		Register x2 updated to : 0x7fffffc8
+Processing Instruction at 0x1c
+	Clock=390 IR=0x112023 PC=0x1c
+		Memory at 0x7fffffc8 updated to : 0x48
+		Memory at 0x7fffffc9 updated to : 0x0
+		Memory at 0x7fffffca updated to : 0x0
+		Memory at 0x7fffffcb updated to : 0x0
+Processing Instruction at 0x20
+	Clock=391 IR=-0x3efeed PC=0x20
+		Register x2 updated to : 0x7fffffc4
+Processing Instruction at 0x24
+	Clock=392 IR=0xa12023 PC=0x24
+		Memory at 0x7fffffc4 updated to : 0x0
+		Memory at 0x7fffffc5 updated to : 0x0
+		Memory at 0x7fffffc6 updated to : 0x0
+		Memory at 0x7fffffc7 updated to : 0x0
+Processing Instruction at 0x28
+	Clock=393 IR=0x2050663 PC=0x28
+Processing Instruction at 0x54
+	Clock=394 IR=0x3005b3 PC=0x54
+		Register x11 updated to : 0x0
+Processing Instruction at 0x58
+	Clock=395 IR=0xe63 PC=0x58
+Processing Instruction at 0x74
+	Clock=396 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x0
+Processing Instruction at 0x78
+	Clock=397 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x48
+Processing Instruction at 0x7c
+	Clock=398 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffcc
+Processing Instruction at 0x80
+	Clock=399 IR=0x8067 PC=0x80
+Processing Instruction at 0x48
+	Clock=400 IR=-0x3efeed PC=0x48
+		Register x2 updated to : 0x7fffffc8
+Processing Instruction at 0x4c
+	Clock=401 IR=0xb12023 PC=0x4c
+		Memory at 0x7fffffc8 updated to : 0x0
+		Memory at 0x7fffffc9 updated to : 0x0
+		Memory at 0x7fffffca updated to : 0x0
+		Memory at 0x7fffffcb updated to : 0x0
+Processing Instruction at 0x50
+	Clock=402 IR=0xa63 PC=0x50
+Processing Instruction at 0x64
+	Clock=403 IR=0x12e03 PC=0x64
+		Register x28 updated to : 0x0
+Processing Instruction at 0x68
+	Clock=404 IR=0x412e83 PC=0x68
+		Register x29 updated to : 0x1
+Processing Instruction at 0x6c
+	Clock=405 IR=0x810113 PC=0x6c
+		Register x2 updated to : 0x7fffffd0
+Processing Instruction at 0x70
+	Clock=406 IR=0x1de05b3 PC=0x70
+		Register x11 updated to : 0x1
+Processing Instruction at 0x74
+	Clock=407 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x2
+Processing Instruction at 0x78
+	Clock=408 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x48
+Processing Instruction at 0x7c
+	Clock=409 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffd8
+Processing Instruction at 0x80
+	Clock=410 IR=0x8067 PC=0x80
+Processing Instruction at 0x48
+	Clock=411 IR=-0x3efeed PC=0x48
+		Register x2 updated to : 0x7fffffd4
+Processing Instruction at 0x4c
+	Clock=412 IR=0xb12023 PC=0x4c
+		Memory at 0x7fffffd4 updated to : 0x1
+		Memory at 0x7fffffd5 updated to : 0x0
+		Memory at 0x7fffffd6 updated to : 0x0
+		Memory at 0x7fffffd7 updated to : 0x0
+Processing Instruction at 0x50
+	Clock=413 IR=0xa63 PC=0x50
+Processing Instruction at 0x64
+	Clock=414 IR=0x12e03 PC=0x64
+		Register x28 updated to : 0x1
+Processing Instruction at 0x68
+	Clock=415 IR=0x412e83 PC=0x68
+		Register x29 updated to : 0x2
+Processing Instruction at 0x6c
+	Clock=416 IR=0x810113 PC=0x6c
+		Register x2 updated to : 0x7fffffdc
+Processing Instruction at 0x70
+	Clock=417 IR=0x1de05b3 PC=0x70
+		Register x11 updated to : 0x3
+Processing Instruction at 0x74
+	Clock=418 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x4
+Processing Instruction at 0x78
+	Clock=419 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x48
+Processing Instruction at 0x7c
+	Clock=420 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7fffffe4
+Processing Instruction at 0x80
+	Clock=421 IR=0x8067 PC=0x80
+Processing Instruction at 0x48
+	Clock=422 IR=-0x3efeed PC=0x48
+		Register x2 updated to : 0x7fffffe0
+Processing Instruction at 0x4c
+	Clock=423 IR=0xb12023 PC=0x4c
+		Memory at 0x7fffffe0 updated to : 0x3
+		Memory at 0x7fffffe1 updated to : 0x0
+		Memory at 0x7fffffe2 updated to : 0x0
+		Memory at 0x7fffffe3 updated to : 0x0
+Processing Instruction at 0x50
+	Clock=424 IR=0xa63 PC=0x50
+Processing Instruction at 0x64
+	Clock=425 IR=0x12e03 PC=0x64
+		Register x28 updated to : 0x3
+Processing Instruction at 0x68
+	Clock=426 IR=0x412e83 PC=0x68
+		Register x29 updated to : 0x5
+Processing Instruction at 0x6c
+	Clock=427 IR=0x810113 PC=0x6c
+		Register x2 updated to : 0x7fffffe8
+Processing Instruction at 0x70
+	Clock=428 IR=0x1de05b3 PC=0x70
+		Register x11 updated to : 0x8
+Processing Instruction at 0x74
+	Clock=429 IR=0x12503 PC=0x74
+		Register x10 updated to : 0x6
+Processing Instruction at 0x78
+	Clock=430 IR=0x412083 PC=0x78
+		Register x1 updated to : 0x14
+Processing Instruction at 0x7c
+	Clock=431 IR=0x810113 PC=0x7c
+		Register x2 updated to : 0x7ffffff0
+Processing Instruction at 0x80
+	Clock=432 IR=0x8067 PC=0x80
+Processing Instruction at 0x14
+	Clock=433 IR=0x6000863 PC=0x14
+Processing Instruction at 0x84
+	Clock=434 IR=0x0 PC=0x84
+Total number of clock cycles used up =434
+Final Memory:
+{0: 19, 1: 5, 2: 96, 3: 0, 4: 147, 5: 1, 6: 0, 7: 0, 8: 19, 9: 2, 10: 16, 11: 0, 12: 147, 13: 15, 14: 16, 15: 0, 16: 239, 17: 0, 18: 128, 19: 0, 20: 99, 21: 8, 22: 0, 23: 6, 24: 19, 25: 1, 26: 193, 27: 255, 28: 35, 29: 32, 30: 17, 31: 0, 32: 19, 33: 1, 34: 193, 35: 255, 36: 35, 37: 32, 38: 161, 39: 0, 40: 99, 41: 6, 42: 5, 43: 2, 44: 99, 45: 8, 46: 245, 47: 3, 48: 19, 49: 5, 50: 245, 51: 255, 52: 239, 53: 240, 54: 95, 55: 254, 56: 19, 57: 1, 58: 193, 59: 255, 60: 35, 61: 32, 62: 177, 63: 0, 64: 19, 65: 5, 66: 245, 67: 255, 68: 239, 69: 240, 70: 95, 71: 253, 72: 19, 73: 1, 74: 193, 75: 255, 76: 35, 77: 32, 78: 177, 79: 0, 80: 99, 81: 10, 82: 0, 83: 0, 84: 179, 85: 5, 86: 48, 87: 0, 88: 99, 89: 14, 90: 0, 91: 0, 92: 179, 93: 5, 94: 64, 95: 0, 96: 99, 97: 10, 98: 0, 99: 0, 100: 3, 101: 46, 102: 1, 103: 0, 104: 131, 105: 46, 106: 65, 107: 0, 108: 19, 109: 1, 110: 129, 111: 0, 112: 179, 113: 5, 114: 222, 115: 1, 116: 3, 117: 37, 118: 1, 119: 0, 120: 131, 121: 32, 122: 65, 123: 0, 124: 19, 125: 1, 126: 129, 127: 0, 128: 103, 129: 128, 130: 0, 131: 0, 132: 0, 133: 0, 134: 0, 135: 0, 2147483628: 20, 2147483629: 0, 2147483630: 0, 2147483631: 0, 2147483624: 6, 2147483625: 0, 2147483626: 0, 2147483627: 0, 2147483620: 5, 2147483621: 0, 2147483622: 0, 2147483623: 0, 2147483616: 3, 2147483617: 0, 2147483618: 0, 2147483619: 0, 2147483612: 4, 2147483613: 0, 2147483614: 0, 2147483615: 0, 2147483608: 2, 2147483609: 0, 2147483610: 0, 2147483611: 0, 2147483604: 1, 2147483605: 0, 2147483606: 0, 2147483607: 0, 2147483600: 2, 2147483601: 0, 2147483602: 0, 2147483603: 0, 2147483596: 1, 2147483597: 0, 2147483598: 0, 2147483599: 0, 2147483592: 0, 2147483593: 0, 2147483594: 0, 2147483595: 0, 2147483588: 0, 2147483589: 0, 2147483590: 0, 2147483591: 0, 2147483584: 0, 2147483585: 0, 2147483586: 0, 2147483587: 0, 2147483580: 0, 2147483581: 0, 2147483582: 0, 2147483583: 0}
+Final Register:
+[0, 20, 2147483632, 0, 1, 0, 0, 0, 0, 0, 6, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 5, 0, 1]
