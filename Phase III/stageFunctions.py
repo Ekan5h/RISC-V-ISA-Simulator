@@ -21,7 +21,13 @@ class State:
 		self.operand1 = 0
 		self.operand2 = 0
 
-
+class BTB: # Brach table buffer
+    def __init__(self):
+        self.table = {} # a:[a0,a1] a0 = branch prediction (1,0) and a1 = branch target address (if taken)
+        def BranchTargetAddress(self,address):
+            return self.table[address][1]
+        def BranchPrediction(self,address):
+            return self.table[address][0]
 class ProcessingUnit:
 	def __init__(self, file_name):
 		self.MEM = {}
@@ -196,30 +202,28 @@ class ProcessingUnit:
 			return 1 if A < B else 0
 	
 	def IAG(self, state):
+		control = BTB.BranchPrediction(state.PC)
+		targetadd = BTB.BrachTargetAddredd(state.PC)
 		opcode = self._get_opcode(state.IR)
-		#self.PC_temp=self.PC+4
+		state.PC_temp=state.PC+4
 		#jal
-		if opcode==111:
+		if opcode==int(1101111,2):
 			immed=self._getImmediate(state.IR)
 			state.PC=state.PC+immed
 			return
-		#SB
-		if opcode==99:
-			immed=self._getImmediate(state.IR)
-			if state.RY==1:
-				state.PC=state.PC+immed
-			else:
-				state.PC=state.PC+4
-			return
 		#jalr
-		if opcode==103:
-			state.PC=state.RY
+		if opcode==int(1100111,2):
+			immed=self._getImmediate(state.IR)
+			state.PC = state.RA + immed
 			return
-		
-		state.PC=state.PC+4
-
-		return state
-
+		if control==0:
+			state.PC += 4
+			return
+		#SB
+		if opcode==int(110011,2):
+			immed=self._getImmediate(state.IR)
+			state.PC += immed
+			return
 	def fetch(self, state):
 		state.IR=self._read(state.PC,4)
 		state.clock=state.clock+1
