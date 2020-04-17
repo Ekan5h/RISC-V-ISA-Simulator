@@ -5,6 +5,8 @@ if len(sys.argv)==2:
 else:
 	raise Exception('Inavlid Arguments')
 proc=ProcessingUnit(f'{f_name}')
+in_states=[]
+out_states=[]
 state = State()
 print('Loaded program in Memory!')
 while True:

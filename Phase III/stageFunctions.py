@@ -24,9 +24,9 @@ class State:
 class BTB: # Brach table buffer
     def __init__(self):
         self.table = {} # a:[a0,a1] a0 = branch prediction (1,0) and a1 = branch target address (if taken)
-        def BranchTargetAddress(self,address):
+    def BranchTargetAddress(self,address):
             return self.table[address][1]
-        def BranchPrediction(self,address):
+    def BranchPrediction(self,address):
             return self.table[address][0]
 class ProcessingUnit:
 	def __init__(self, file_name):
@@ -62,9 +62,7 @@ class ProcessingUnit:
 			print("Error opening target code!")
 		
 	def _read(self, address,num_bytes=1):
-		#address assumed to be int with base10
-		#Insert Check Bounds Here
-		#Value returned in Integer Format base10
+
 		val=0
 		for i in range(num_bytes):
 			adr=address+i
@@ -74,16 +72,10 @@ class ProcessingUnit:
 			
 
 	def _write(self, address,data,num_bytes=1):
-		#Address: assumed to be of type integer base10
-		#INPUTS:-Data is assumed to be of type int base 10
-		#Insert Memory Bounds Here
-		#Assuming Byte Addressibility	
-		#num_bytes=len(data)/2-1
+
 		adr=address
 		for i in range(num_bytes):
-			#d_in=int(data[i*(-2)-2:i*(-2)],16)
-			#adr=int(address)+i
-			#MEM[adr]=d_in
+
 			d_in=(data>>(8*i))&(0xFF)
 			self.MEM[adr]=d_in
 			print(f'\t\tMemory at {hex(adr)} updated to : {hex(d_in)}')
@@ -117,11 +109,6 @@ class ProcessingUnit:
 
 		# SB-type
 		if opcode == 99:
-			# imm12 = ((self.IR >> 31) & (0x1)) << 12
-			# imm10to5 = ((self.IR >> 25) & (0x3f)) << 5
-			# imm4to1 = ((self.IR >> 8) & (0xf)) << 1
-			# imm11 = ((self.IR >> 7) & (0x1)) << 11
-			# return self._signExtend((imm12 + imm10to5 + imm4to1 + imm11), 13)
 			offset=0
 			offset += (IR&(0x80)) << 4
 			offset += (IR&(0xF00)) >> 7
@@ -329,65 +316,7 @@ class ProcessingUnit:
 	def write_back(self, state):
 		#Determine whether write back is used
 		opcode = self._get_opcode(state.IR)
-		# #S Check
-		# if opcode == 35:
-		# 	self.IAG(state)
-		# 	return
-		#jal
-		# if opcode==111:
-		# 	#Extract the immediate field and generate the offset
-		# 	immed_20=str((self.IR&0x80000000)>>31)
-		# 	immed_19_12=bin((self.IR&(0x000ff000))>>12)[2:]
-		# 	immed_19_12='0'*(8-len(immed_19_12))+immed_19_12
-		# 	immed_11=str((self.IR&(0x00100000))>>20)
-		# 	immed_10_1=bin((self.IR&(0x7fe00000))>>21)[2:]
-		# 	immed_10_1='0'*(10-len(immed_10_1))+immed_10_1
-		# 	immediate=immed_20*12+immed_19_12+immed_11+immed_10_1+'0'
-		# 	offset=int(immediate,2)
-		# 	if immediate[0]=='1':
-		# 		offset^=0xFFFFFFFF
-		# 		offset+=1
-		# 		offset=-offset
-		# 	#pass the offset to IAG 
-		# 	self.IAG(offset)
-			#set the self.RY to PC_temp
-		#Handle AUIPC
-		#elif opcode==23:
-			#self.IAG(state)
-			#self.RY=(self.PC+(self.IR&(0xFFFFF000)))&(0xFFFFFFFF)
-		#SB		
-		# elif opcode == 99 :
-		# 	offset = 0
-			
-		# 	#Immediate Field Distribution
-		# 	# Array:    [31] [30-25] [11-8] [7]
-		# 	# ImmField:  12   10:5     4:1   11
-		# 	# Shifts:    R19  R20      R7    L4
-
-		# 	offset += (self.IR&(0x80)) << 4
-		# 	offset += (self.IR&(0xF00)) >> 7
-		# 	offset += (self.IR&(0x7E000000)) >> 20
-
-		# 	#Working with sign bit
-		# 	if(self.IR&(0x80000000) == 0x80000000):
-		# 		offset = offset ^ 0xFFF
-		# 		offset += 1
-		# 		offset = -1 * offset
-		# 	if self.RY==1:
-		# 		self.IAG(offset)
-		# 	else:
-		# 		self.IAG(state)
-
-		# 	return
-		#jalr		
-		# elif opcode==103:
-		# 	#assuming jalr puts the offset value in RY
-		# 	#print(self.RY)
-		# 	self.IAG(self.RY)
-		# 	self.RY=self.PC_temp
-
-		# else:
-		# 	self.IAG(state)
+		
 		
 		self.IAG(state)
 		#jal and jalr
