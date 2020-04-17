@@ -1,11 +1,8 @@
 class State:
-	def __init__(self):
+	def __init__(self,pc=0):
 		#Initialize to state at t=0
 		self.reset_interRegisters()
-		self.clock=0
-
-	def update_clock(self):
-		self.clock = self.clock + 1
+		self.PC=pc
 
 	def reset_interRegisters(self):
 		self.MAR = 0
@@ -13,11 +10,12 @@ class State:
 		self.RZ = 0
 		self.RM = 0
 		self.RY = 0
-		self.PC = 0
+		# self.PC = 0
 		self.PC_temp = 0
 		self.RA = 0
 		self.RB = 0
 		self.IR = 0
+		self.unstarted=True
 		self.operand1 = 0
 		self.operand2 = 0
 
@@ -189,36 +187,41 @@ class ProcessingUnit:
 			return 1 if A < B else 0
 	
 	def IAG(self, state):
-		control = BTB.BranchPrediction(state.PC)
-		targetadd = BTB.BrachTargetAddredd(state.PC)
+		# control = BTB.BranchPrediction(state.PC)
+		# targetadd = BTB.BrachTargetAddredd(state.PC)
 		opcode = self._get_opcode(state.IR)
 		state.PC_temp=state.PC+4
 		#jal
 		if opcode==int(1101111,2):
 			immed=self._getImmediate(state.IR)
-			state.PC=state.PC+immed
-			return
+			# state.PC=state.PC+immed
+			return state.PC+immed
 		#jalr
 		if opcode==int(1100111,2):
 			immed=self._getImmediate(state.IR)
-			state.PC = state.RA + immed
-			return
-		if control==0:
-			state.PC += 4
-			return
+			# state.PC = state.RA + immed
+			return state.RA+immed
+		# if control==0:
+		# 	state.PC += 4
+		# 	return
 		#SB
 		if opcode==int(110011,2):
 			immed=self._getImmediate(state.IR)
-			state.PC += immed
-			return
+			# state.PC += immed
+			return state.PC+immed
+		else :
+			return state.PC+4
 	def fetch(self, state):
 		state.IR=self._read(state.PC,4)
-		state.clock=state.clock+1
-		state.PC_temp=state.PC+4
-
+		# state.clock=state.clock+1
+		# state.PC_temp=state.PC+4
+		if state.IR!=0:
+			state.unstarted=False
 		return state
 
 	def decode(self, state):
+		if state.unstarted==True:
+			return state
 		opcode = self._get_opcode(state.IR)
 		#U and UJ format
 		if(opcode == 23 or opcode == 55 or opcode == 111):
@@ -241,6 +244,8 @@ class ProcessingUnit:
 		return state
 
 	def execute(self, state):
+		if state.unstarted==True:
+			return state
 		opcode = self._get_opcode(state.IR)
 		funct3 = self._get_funct3(state.IR)
 		muxB_control = 0 if (opcode == 51 or opcode == 99) else 1
@@ -295,6 +300,8 @@ class ProcessingUnit:
 		return state
 
 	def memory_access(self, state):
+		if state.unstarted==True:
+			return state
 		#Effective address stored in MAR in integer format
 		#Data stored in MDR in Integer Format
 		state.MAR=state.RZ
@@ -314,11 +321,13 @@ class ProcessingUnit:
 		return state
 
 	def write_back(self, state):
+		if state.unstarted==True:
+			return "Completed"
 		#Determine whether write back is used
 		opcode = self._get_opcode(state.IR)
 		
 		
-		self.IAG(state)
+		# self.IAG(state)
 		#jal and jalr
 		if opcode==103 or opcode==111:
 			state.RY=state.PC_temp
@@ -330,8 +339,8 @@ class ProcessingUnit:
 			if(rd!=0):
 				print(f'\t\tRegister x{rd} updated to : {hex(state.RY)}')
 			self.RegisterFile[0]=0
+		return "Processing"
 		
-		return state
 
 
 
