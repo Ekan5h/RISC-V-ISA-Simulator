@@ -1,22 +1,32 @@
-addi x29 x0,5
-addi x28,x0 1
-add x6 x0 x29
-jal x1 fact
-beq x0 x0 google
-fact:
-beq x6 x28 exit
-    addi x2,x2,-4
-    sw x6,0(x2)
-    addi x2,x2,-4
-    sw x1,0(x2)
-    addi x6,x6,-1
-    jal x1 fact
-    lw x1,0(x2)
-    lw x6,4(x2)
-    addi x2 x2 8
-    mul x26 x26 x6
-    jalr x0 0(x1)
-exit:
-    addi x26 x0 1
-        jalr x0 0(x1)
-google:
+addi x0 x0 1
+addi x1 x0 1
+addi x2 x0 1
+addi x3 x0 1
+addi x4 x0 1
+addi x5 x0 1
+addi x6 x0 1
+addi x7 x0 1
+addi x8 x0 1
+addi x9 x0 1
+addi x10 x0 1
+addi x11 x0 1
+addi x12 x0 1
+addi x13 x0 1
+addi x14 x0 1
+addi x15 x0 1
+addi x16 x0 1
+addi x17 x0 1
+addi x18 x0 1
+addi x19 x0 1
+addi x20 x0 1
+addi x21 x0 1
+addi x22 x0 1
+addi x23 x0 1
+addi x24 x0 1
+addi x25 x0 1
+addi x26 x0 1
+addi x27 x0 1
+addi x28 x0 1
+addi x29 x0 1
+addi x30 x0 1
+addi x31 x0 1
