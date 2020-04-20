@@ -54,7 +54,7 @@ class BTB:
 	# Or maybe Decode, not sure about this!
 	# Identifies based on pc
 	# take is a boolean if the branch was taken or not
-	def changeState(self, pc, take):
+	def changeState(self, pc):
 		self.table[str(pc)][0] = not self.table[str(pc)][0]
 
 
@@ -272,7 +272,7 @@ class ProcessingUnit:
 			rd = state.IR&(0xF80)
 			rd = rd//128
 			state.rd=rd
-		if opcode == 99:
+		if opcode == 99 or opcode == 103 or opcode == 111:
 			if btb.isEntered(state.PC) and btb.predict(state.PC):
 				state.predicted_outcome = True
 				new_pc = btb.getTarget(state.PC)
@@ -310,8 +310,23 @@ class ProcessingUnit:
 			rd = state.IR&(0xF80)
 			rd = rd//128
 			state.rd=rd
-		
-		if opcode == 99:
+		if opcode == 111:
+			if not btb.isEntered(state.PC):
+				offset = self._getImmediate(state.IR)
+				target = state.PC + offset
+				btb.enter(state.PC, target)
+				btb.changeState(state.PC)
+				control_hazard = True
+				new_pc = target
+		elif opcode == 103:
+			if not btb.isEntered(state.PC):
+				offset = self._getImmediate(state.IR)
+				target =  state.RA + offset
+				btb.enter(state.PC, target)
+				btb.changeState(state.PC)
+				control_hazard = True
+				new_pc = target
+		elif opcode == 99:
 			funct3 = self._get_funct3(state.IR)
 			ALU_control = (funct3==0)*12 + (funct3==1)*13 + (funct3==5)*14 + (funct3==4)*15
 			taken = self.ALU(state.RA, state.RB, ALU_control)
