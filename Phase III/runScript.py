@@ -46,7 +46,9 @@ while True:
 		if idx==0:
 			out_states.append(proc.fetch(state))
 		if idx==1:
-			out_states.append(proc.decode(state))
+			temphazard,newpc,tempstate = proc.decode(state)
+			out_states.append(tempstate)
+			master_PC = (temphazard and newpc) or master_PC 
 		if idx==2:
 			out_states.append(proc.execute(state))
 		if idx==3:
