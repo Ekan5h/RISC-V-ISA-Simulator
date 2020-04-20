@@ -319,9 +319,11 @@ class ProcessingUnit:
 			if not btb.isEntered(state.PC):
 				btb.enter(state.PC, target)
 			if taken == 0 and state.predicted_outcome:
+				btb.changeState(state.PC)
 				control_hazard = True
 				new_pc = btb.getTarget(state.PC)
 			if taken == 1 and not state.predicted_outcome:
+				btb.changeState(state.PC)
 				control_hazard = True
 				new_pc = btb.getTarget(state.PC)
 		return control_hazard, new_pc, state
