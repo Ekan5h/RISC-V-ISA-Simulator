@@ -13,13 +13,21 @@ class HDU:
             exe_state=states[1]
             decode_state=states[0]
             if exe_state.rd!=-1 and decode_state.rs1!=-1:
-                if exe_state.rd==decode_state.rs1 or exe_state.rd==decode_state.rs2:
-                    return [True,2]
+                if exe_state.rd==decode_state.rs1 :
+                    if exe_state.rd!=0:
+                        return [True,2]
+                if exe_state.rd==decode_state.rs2:
+                    if exe_state.rd!=0:
+                        return [True,2]
             if len(states)>=3:
                 mem_state=states[2]
                 if mem_state.rd!=-1 and decode_state.rs1!=-1:
-                    if mem_state.rd==decode_state.rs1 or mem_state.rd==decode_state.rs2:
-                        return [True,1]
+                    if mem_state.rd==decode_state.rs1 :
+                        if mem_state.rd!=0:
+                            return [True,1]
+                    if mem_state.rd==decode_state.rs2:
+                        if mem_state.rd!=0:
+                            return [True,1]
         
         return [False,-1]
 

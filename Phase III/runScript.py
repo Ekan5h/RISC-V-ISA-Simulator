@@ -31,6 +31,15 @@ while True:
 	# EX_MEM = proc.execute(ID_EX)
 	# MEM_WB = proc.memory_access(EX_MEM)
 	# state = proc.write_back(MEM_WB)_
+
+	data_hazard=hdu.check_data_hazard(in_states)
+	backup_states=in_states
+	print(f'Cycle={master_clock} Hazard={data_hazard} PC={master_PC}')
+	# if data_hazard[0]==True :
+		# out_states=out_states[1:] #removed the output of fetch state
+		# in_states.append(out_states[0]) 
+		# in_states.append(State())# inserted a buuble for execute state
+		# in_states=in_states+out_states[1:]
 	in_states=[(idx,val) for idx,val in enumerate(in_states)]
 	reversed_states=in_states[::-1]
 	for idx,state in reversed_states:
@@ -45,11 +54,14 @@ while True:
 		if idx==4:
 			progress=proc.write_back(state)
 	out_states=out_states[::-1]
-	if out_states[0].IR!=0:
+	if out_states[0].IR!=0 and (data_hazard[0]==False) and stalling_enabled:
 		master_PC +=4
+	if data_hazard[0]==True and stalling_enabled:
+		out_states=[backup_states[1],State(0)]+out_states[2:]
 	master_clock +=1
-	if out_states[0].IR==0 and progress=="Completed":
+	if out_states[0].IR==0 and out_states[1].IR==0 and out_states[2].IR==0 and out_states[3].IR==0 and progress=="Completed":
 		break
+
 	in_states=[State(master_PC)]
 	in_states=in_states+out_states
 	out_states=[]
