@@ -10,11 +10,16 @@ class State:
 		self.RZ = 0
 		self.RM = 0
 		self.RY = 0
+		self.opcode=0
+		self.rs1=-1
+		self.rs2=-1
+		self.rd=-1
 		# self.PC = 0
 		self.PC_temp = 0
 		self.RA = 0
 		self.RB = 0
 		self.IR = 0
+		self.DHstalled=False
 		self.unstarted=True
 		self.operand1 = 0
 		self.operand2 = 0
@@ -252,6 +257,7 @@ class ProcessingUnit:
 		if state.unstarted==True:
 			return state
 		opcode = self._get_opcode(state.IR)
+		state.opcode=opcode
 		#U and UJ format
 		if(opcode == 23 or opcode == 55 or opcode == 111):
 			pass
@@ -259,6 +265,7 @@ class ProcessingUnit:
 		elif(opcode == 3 or opcode == 19 or opcode == 103):
 			rs1 = state.IR&(0xF8000)
 			rs1 = rs1 >> 15
+			state.rs1=rs1
 			state.RA = self.RegisterFile[rs1]
 		#R S SB format
 		else:
@@ -266,9 +273,16 @@ class ProcessingUnit:
 			rs1 = rs1 >> 15
 			rs2 = state.IR&(0x1F00000)
 			rs2 = rs2 >> 20
+			state.rs1=rs1
+			state.rs2=rs2
 			state.RA = self.RegisterFile[rs1]
 			state.RB = self.RegisterFile[rs2]
 			state.RM=state.RB
+		
+		if opcode!=35 and opcode!=99:
+			rd = state.IR&(0xF80)
+			rd = rd//128
+			state.rd=rd
 
 		return state
 
