@@ -23,40 +23,40 @@ class State:
 		self.unstarted=True
 		self.operand1 = 0
 		self.operand2 = 0
+		self.predicted_outcome = False
 
 # Brach table buffer
 class BTB: 
 	table = {}
 	predictor_state = 0		# 0 implies Not Taken and 1 implies Taken
 
+	def isEntered(self, pc):
+		if str(pc) in self.table.keys():
+			return True
+		return False
 	# Call me in Decode
 	# The PC used here should correspond to the next instruction (PC + 4)
 	# If called in the end of Decode, this may automatically take place
 	def enter(self, pc, to_take_address):
 		# Each entry in the table is recongnized by its PC
-		self.table[str(pc)] = to_take_address
+		self.table[str(pc)] = [False, to_take_address]
 
 	# Call me in Fetch
 	# I think should be called in the start of Fetch
 	# to ensure we take the next instruction correctly
 	def predict(self, pc):
-		if(self.predictor_state == 0):
-			# Don't take the branch, only PC + 4
-			return pc + 4
+		return self.table[str(pc)][0]
 
-		else:
-			# Take the branch
-			return self.table[str(pc)]
+	def getTarget(self, pc):
+		return self.table[str(pc)][1]
 
 	# Call me in Execute
 	# Or maybe Decode, not sure about this!
 	# Identifies based on pc
 	# take is a boolean if the branch was taken or not
-	def resolve(self, pc, take):
-		if(take == True):
-			self.predictor_state = 1
-		else:
-			self.predictor_state = 0
+	def changeState(self, pc, take):
+		self.table[str(pc)][0] = not self.table[str(pc)][0]
+
 
 class ProcessingUnit:
 	def __init__(self, file_name):
@@ -243,14 +243,15 @@ class ProcessingUnit:
 			return state.PC+immed
 		else :
 			return state.PC+4
-	def fetch(self, state):
+	def fetch(self, state, btb):
+		new_pc = 0
 		state.IR=self._read(state.PC,4)
 		# state.clock=state.clock+1
 		# state.PC_temp=state.PC+4
 		if state.IR!=0:
 			state.unstarted=False
 		else :
-			return state
+			return False, 0, state
 		opcode = self._get_opcode(state.IR)
 		if(opcode == 23 or opcode == 55 or opcode == 111):
 			pass
@@ -271,12 +272,17 @@ class ProcessingUnit:
 			rd = state.IR&(0xF80)
 			rd = rd//128
 			state.rd=rd
+		if opcode == 99:
+			if btb.isEntered(state.PC) and btb.predict(state.PC):
+				state.predicted_outcome = True
+				new_pc = btb.getTarget(state.PC)
+		return state.predicted_outcome, new_pc, state
 
-		return state
-
-	def decode(self, state):
+	def decode(self, state, btb):
+		control_hazard = False
+		new_pc = 0 
 		if state.unstarted==True:
-			return state
+			return control_hazard, new_pc, state
 		opcode = self._get_opcode(state.IR)
 		state.opcode=opcode
 		#U and UJ format
@@ -304,8 +310,21 @@ class ProcessingUnit:
 			rd = state.IR&(0xF80)
 			rd = rd//128
 			state.rd=rd
-
-		return state
+		
+		if opcode == 99:
+			funct3 = self._get_funct3(state.IR)
+			ALU_control = (funct3==0)*12 + (funct3==1)*13 + (funct3==5)*14 + (funct3==4)*15
+			taken = self.ALU(state.RA, state.RB, ALU_control)
+			target = state.PC + self._getImmediate(state.IR)
+			if not btb.isEntered(state.PC):
+				btb.enter(state.PC, target)
+			if taken == 0 and state.predicted_outcome:
+				control_hazard = True
+				new_pc = btb.getTarget(state.PC)
+			if taken == 1 and not state.predicted_outcome:
+				control_hazard = True
+				new_pc = btb.getTarget(state.PC)
+		return control_hazard, new_pc, state
 
 	def execute(self, state):
 		if state.unstarted==True:

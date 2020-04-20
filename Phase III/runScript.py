@@ -1,4 +1,4 @@
-from stageFunctions import ProcessingUnit, State
+from stageFunctions import ProcessingUnit, State, BTB
 from hazard import HDU
 import sys
 if len(sys.argv)==2:
@@ -20,7 +20,13 @@ print('Loaded program in Memory!')
 master_PC=0
 master_clock=0
 stalling_enabled=True
-hdu=HDU()
+control_hazard = False
+control_hazard_PC = 0
+control_change = False
+control_change_PC = 0
+hdu = HDU()
+btb = BTB()
+
 while True:
 	# print(f'Processing Instruction at {hex(state.PC)}')
 	# IF_ID = proc.fetch(state)
@@ -44,16 +50,11 @@ while True:
 	reversed_states=in_states[::-1]
 	for idx,state in reversed_states:
 		if idx==0:
-			out_states.append(proc.fetch(state))
-		if idx==1:
-			temphazard,newpc,tempstate = proc.decode(state)
+			control_change, control_change_PC, tempstate = proc.fetch(state, btb)
 			out_states.append(tempstate)
-			if temphazard and newpc:
-				master_PC = newpc
-				out_states[0].IR = 0
-				out_states[0].rs1 = 0
-				out_states[0].rs2 = 0
-				out_states[0].rd = 0;
+		if idx==1:
+			control_hazard, control_hazard_PC, tempstate = proc.decode(state, btb)
+			out_states.append(tempstate)
 		if idx==2:
 			out_states.append(proc.execute(state))
 		if idx==3:
@@ -73,6 +74,13 @@ while True:
 	if out_states[0].IR==0 and out_states[1].IR==0 and out_states[2].IR==0 and out_states[3].IR==0 and progress=="Completed":
 		break
 
+	if(control_change):
+		master_PC = control_change_PC
+
+	if(control_hazard):
+		master_PC = control_hazard_PC
+		out_states[0] = State(0)
+	
 	in_states=[State(master_PC)]
 	in_states=in_states+out_states
 	out_states=[]
