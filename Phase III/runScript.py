@@ -54,8 +54,12 @@ while True:
 		if idx==4:
 			progress=proc.write_back(state)
 	out_states=out_states[::-1]
-	if out_states[0].IR!=0 and (data_hazard[0]==False) and stalling_enabled:
-		master_PC +=4
+	if stalling_enabled:
+		if out_states[0].IR!=0 and (data_hazard[0]==False):
+			master_PC +=4
+	else:
+		if out_states[0].IR!=0:
+			master_PC+=4
 	if data_hazard[0]==True and stalling_enabled:
 		out_states=[backup_states[1],State(0)]+out_states[2:]
 	master_clock +=1
