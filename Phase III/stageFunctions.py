@@ -19,13 +19,42 @@ class State:
 		self.operand1 = 0
 		self.operand2 = 0
 
-class BTB: # Brach table buffer
-    def __init__(self):
-        self.table = {} # a:[a0,a1] a0 = branch prediction (1,0) and a1 = branch target address (if taken)
-    def BranchTargetAddress(self,address):
-            return self.table[address][1]
-    def BranchPrediction(self,address):
-            return self.table[address][0]
+# Brach table buffer
+class BTB: 
+	table = {}
+	predictor_state = 0		# 0 implies Not Taken and 1 implies Taken
+
+	# Call me in Decode
+	# The PC used here should correspond to the next instruction (PC + 4)
+	# If called in the end of Decode, this may automatically take place
+	def enter(self, pc, to_take_address):
+		# Each entry in the table is recongnized by its PC
+		self.table[str(pc)] = to_take_address
+
+	# Call me in Fetch
+	# I think should be called in the start of Fetch
+	# to ensure we take the next instruction correctly
+	def predict(self, pc):
+		if(self.predictor_state == 0):
+			# Don't take the branch, only PC + 4
+			return pc + 4
+
+		else:
+			# Take the branch
+			return self.table[str(pc)]
+
+	# Call me in Execute
+	# Or maybe Decode, not sure about this!
+	# Identifies based on pc
+	# take is a boolean if the branch was taken or not
+	def resolve(self, pc, take):
+		if(take == True):
+			self.predictor_state = 1
+		else:
+			self.predictor_state = 0
+			self.table[str(pc)] = pc + 4
+
+
 class ProcessingUnit:
 	def __init__(self, file_name):
 		self.MEM = {}
