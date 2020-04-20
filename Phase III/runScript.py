@@ -68,11 +68,6 @@ while True:
 	else:
 		if out_states[0].IR!=0:
 			master_PC+=4
-	if data_hazard[0]==True and stalling_enabled:
-		out_states=[backup_states[1],State(0)]+out_states[2:]
-	master_clock +=1
-	if out_states[0].IR==0 and out_states[1].IR==0 and out_states[2].IR==0 and out_states[3].IR==0 and progress=="Completed":
-		break
 
 	if(control_change):
 		master_PC = control_change_PC
@@ -80,6 +75,12 @@ while True:
 	if(control_hazard):
 		master_PC = control_hazard_PC
 		out_states[0] = State(0)
+	
+	if data_hazard[0]==True and stalling_enabled:
+		out_states=[backup_states[1],State(0)]+out_states[2:]
+	master_clock +=1
+	if out_states[0].IR==0 and out_states[1].IR==0 and out_states[2].IR==0 and out_states[3].IR==0 and progress=="Completed":
+		break
 	
 	in_states=[State(master_PC)]
 	in_states=in_states+out_states
