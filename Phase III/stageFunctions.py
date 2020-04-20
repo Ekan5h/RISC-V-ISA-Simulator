@@ -24,6 +24,7 @@ class State:
 		self.operand1 = 0
 		self.operand2 = 0
 		self.predicted_outcome = False
+		self.predicted_PC = 0
 
 # Brach table buffer
 class BTB: 
@@ -276,6 +277,7 @@ class ProcessingUnit:
 			if btb.isEntered(state.PC) and btb.predict(state.PC):
 				state.predicted_outcome = True
 				new_pc = btb.getTarget(state.PC)
+		state.predicted_PC = new_pc
 		return state.predicted_outcome, new_pc, state
 
 	def decode(self, state, btb):
@@ -319,9 +321,9 @@ class ProcessingUnit:
 				control_hazard = True
 				new_pc = target
 		elif opcode == 103:
-			if not btb.isEntered(state.PC):
-				offset = self._getImmediate(state.IR)
-				target =  state.RA + offset
+			offset = self._getImmediate(state.IR)
+			target =  state.RA + offset
+			if(target != state.predicted_PC):
 				btb.enter(state.PC, target)
 				btb.changeState(state.PC)
 				control_hazard = True
