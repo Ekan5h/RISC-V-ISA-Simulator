@@ -57,8 +57,6 @@ class BTB:
 			self.predictor_state = 1
 		else:
 			self.predictor_state = 0
-			self.table[str(pc)] = pc + 4
-
 
 class ProcessingUnit:
 	def __init__(self, file_name):
