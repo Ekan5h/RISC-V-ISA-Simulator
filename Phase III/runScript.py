@@ -48,7 +48,12 @@ while True:
 		if idx==1:
 			temphazard,newpc,tempstate = proc.decode(state)
 			out_states.append(tempstate)
-			master_PC = (temphazard and newpc) or master_PC 
+			if temphazard and newpc:
+				master_PC = newpc
+				out_states[0].IR = 0
+				out_states[0].rs1 = 0
+				out_states[0].rs2 = 0
+				out_states[0].rd = 0;
 		if idx==2:
 			out_states.append(proc.execute(state))
 		if idx==3:
