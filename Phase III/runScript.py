@@ -87,46 +87,29 @@ while True:
 		print(f'Cycle={master_clock} PC={hex(master_PC)}')
 		isHazard = False
 		doStall = False
-		# backup_states = [s for s in in_states]
 
-		# Write back
-		progress = proc.write_back(in_states[4])
-		hazards = hdu.check_data_hazard(in_states)
-		in_states[3] = hazards[2][3]
+		for i in reversed(range(5)):
+			if i==0:
+				_, _, tempstate = proc.fetch(in_states[0], btb)
+				out_states.append(tempstate)
+			if i==1:
+				_, _, tempstate = proc.decode(in_states[1], btb)
+				out_states.append(tempstate)
+			if i==2:
+				out_states.append(proc.execute(in_states[2]))
+			if i==3:
+				out_states.append(proc.memory_access(in_states[3]))
+			if i==4:
+				progress = proc.write_back(in_states[4])
+				hazards = hdu.check_data_hazard(in_states)
+				in_states[3] = hazards[2][3]
 
-		# Memory access
-		out_states.append(proc.memory_access(in_states[3]))
-		in_states[3] = out_states[-1]
-		hazards = hdu.check_data_hazard(in_states)
-		in_states = hazards[2]
-		isHazard = isHazard | hazards[0]
-		doStall = doStall | hazards[1]
-
-		# Execute
-		out_states.append(proc.execute(in_states[2]))
-		in_states[2] = out_states[-1]
-		hazards = hdu.check_data_hazard(in_states)
-		in_states = hazards[2]
-		isHazard = isHazard | hazards[0]
-		doStall = doStall | hazards[1]
-		
-		# Decode
-		_, _, tempstate = proc.decode(in_states[1], btb)
-		out_states.append(tempstate)
-		in_states[1] = out_states[-1]
-		hazards = hdu.check_data_hazard(in_states)
-		in_states = hazards[2]
-		isHazard = isHazard | hazards[0]
-		doStall = doStall | hazards[1]
-
-		# Fetch
-		_, _, tempstate = proc.fetch(in_states[0], btb)
-		out_states.append(tempstate)
-		in_states[0] = out_states[-1]
-		hazards = hdu.check_data_hazard(in_states)
-		in_states = hazards[2]
-		isHazard = isHazard | hazards[0]
-		doStall = doStall | hazards[1]
+			if i<4:
+				in_states[i] = out_states[-1]
+				hazards = hdu.check_data_hazard(in_states)
+				in_states = hazards[2]
+				isHazard = isHazard | hazards[0]
+				doStall = doStall | hazards[1]
 
 		out_states=out_states[::-1]
 		if out_states[0].IR!=0 and (doStall==False):
