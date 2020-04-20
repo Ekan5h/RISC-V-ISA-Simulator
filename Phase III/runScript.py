@@ -19,7 +19,7 @@ out_states=[]
 print('Loaded program in Memory!')
 master_PC=0
 master_clock=0
-stalling_enabled=True
+stalling_enabled=False
 control_hazard = False
 control_hazard_PC = 0
 control_change = False
@@ -28,56 +28,113 @@ hdu = HDU()
 btb = BTB()
 
 while True:
-	# print(f'Processing Instruction at {hex(state.PC)}')
-	# IF_ID = proc.fetch(state)
-	# # print(f'\tClock={state.clock} IR={hex(state.IR)} PC={hex(state.PC)}')	
-	# if(state.IR==0):
-	# 	break
-	# ID_EX = proc.decode(IF_ID)
-	# EX_MEM = proc.execute(ID_EX)
-	# MEM_WB = proc.memory_access(EX_MEM)
-	# state = proc.write_back(MEM_WB)_
 
-	data_hazard=hdu.check_data_hazard(in_states)
-	backup_states=in_states
-	print(f'Cycle={master_clock} Hazard={data_hazard} PC={master_PC}')
-	# if data_hazard[0]==True :
-		# out_states=out_states[1:] #removed the output of fetch state
-		# in_states.append(out_states[0]) 
-		# in_states.append(State())# inserted a buuble for execute state
-		# in_states=in_states+out_states[1:]
-	in_states=[(idx,val) for idx,val in enumerate(in_states)]
-	reversed_states=in_states[::-1]
-	for idx,state in reversed_states:
-		if idx==0:
-			control_change, control_change_PC, tempstate = proc.fetch(state, btb)
-			out_states.append(tempstate)
-		if idx==1:
-			control_hazard, control_hazard_PC, tempstate = proc.decode(state, btb)
-			out_states.append(tempstate)
-		if idx==2:
-			out_states.append(proc.execute(state))
-		if idx==3:
-			out_states.append(proc.memory_access(state))
-		if idx==4:
-			progress=proc.write_back(state)
-	out_states=out_states[::-1]
+	# Stalling with no forwarding
 	if stalling_enabled:
-		if out_states[0].IR!=0 and (data_hazard[0]==False):
-			master_PC +=4
+		# print(f'Processing Instruction at {hex(state.PC)}')
+		# IF_ID = proc.fetch(state)
+		# # print(f'\tClock={state.clock} IR={hex(state.IR)} PC={hex(state.PC)}')	
+		# if(state.IR==0):
+		# 	break
+		# ID_EX = proc.decode(IF_ID)
+		# EX_MEM = proc.execute(ID_EX)
+		# MEM_WB = proc.memory_access(EX_MEM)
+		# state = proc.write_back(MEM_WB)_
+
+		data_hazard=hdu.check_data_hazard(in_states)
+		backup_states=in_states
+		print(f'Cycle={master_clock} Hazard={data_hazard} PC={master_PC}')
+		# if data_hazard[0]==True :
+			# out_states=out_states[1:] #removed the output of fetch state
+			# in_states.append(out_states[0]) 
+			# in_states.append(State())# inserted a buuble for execute state
+			# in_states=in_states+out_states[1:]
+		in_states=[(idx,val) for idx,val in enumerate(in_states)]
+		reversed_states=in_states[::-1]
+		for idx,state in reversed_states:
+			if idx==0:
+				control_change, control_change_PC, tempstate = proc.fetch(state, btb)
+				out_states.append(tempstate)
+			if idx==1:
+				control_hazard, control_hazard_PC, tempstate = proc.decode(state, btb)
+				out_states.append(tempstate)
+			if idx==2:
+				out_states.append(proc.execute(state))
+			if idx==3:
+				out_states.append(proc.memory_access(state))
+			if idx==4:
+				progress=proc.write_back(state)
+		out_states=out_states[::-1]
+		if stalling_enabled:
+			if out_states[0].IR!=0 and (data_hazard[0]==False):
+				master_PC +=4
+		else:
+			if out_states[0].IR!=0:
+				master_PC+=4
+
+		if(control_change):
+			master_PC = control_change_PC
+
+		if(control_hazard):
+			master_PC = control_hazard_PC
+			out_states[0] = State(0)
+		
+		if data_hazard[0]==True and stalling_enabled:
+			out_states=[backup_states[1],State(0)]+out_states[2:]
+
+	# For data forwarding
 	else:
-		if out_states[0].IR!=0:
-			master_PC+=4
+		print(f'Cycle={master_clock} PC={hex(master_PC)}')
+		isHazard = False
+		doStall = False
+		# backup_states = [s for s in in_states]
 
-	if(control_change):
-		master_PC = control_change_PC
+		# Write back
+		progress = proc.write_back(in_states[4])
+		hazards = hdu.check_data_hazard(in_states)
+		in_states[3] = hazards[2][3]
 
-	if(control_hazard):
-		master_PC = control_hazard_PC
-		out_states[0] = State(0)
-	
-	if data_hazard[0]==True and stalling_enabled:
-		out_states=[backup_states[1],State(0)]+out_states[2:]
+		# Memory access
+		out_states.append(proc.memory_access(in_states[3]))
+		in_states[3] = out_states[-1]
+		hazards = hdu.check_data_hazard(in_states)
+		in_states = hazards[2]
+		isHazard = isHazard | hazards[0]
+		doStall = doStall | hazards[1]
+
+		# Execute
+		out_states.append(proc.execute(in_states[2]))
+		in_states[2] = out_states[-1]
+		hazards = hdu.check_data_hazard(in_states)
+		in_states = hazards[2]
+		isHazard = isHazard | hazards[0]
+		doStall = doStall | hazards[1]
+		
+		# Decode
+		_, _, tempstate = proc.decode(in_states[1], btb)
+		out_states.append(tempstate)
+		in_states[1] = out_states[-1]
+		hazards = hdu.check_data_hazard(in_states)
+		in_states = hazards[2]
+		isHazard = isHazard | hazards[0]
+		doStall = doStall | hazards[1]
+
+		# Fetch
+		_, _, tempstate = proc.fetch(in_states[0], btb)
+		out_states.append(tempstate)
+		in_states[0] = out_states[-1]
+		hazards = hdu.check_data_hazard(in_states)
+		in_states = hazards[2]
+		isHazard = isHazard | hazards[0]
+		doStall = doStall | hazards[1]
+
+		out_states=out_states[::-1]
+		if out_states[0].IR!=0 and (doStall==False):
+			master_PC +=4
+
+		if doStall:
+			out_states = [in_states[1], in_states[2], State()] + [out_states[3]]
+
 	master_clock +=1
 	if out_states[0].IR==0 and out_states[1].IR==0 and out_states[2].IR==0 and out_states[3].IR==0 and progress=="Completed":
 		break

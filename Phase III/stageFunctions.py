@@ -261,6 +261,7 @@ class ProcessingUnit:
 			rs1 = state.IR&(0xF8000)
 			rs1 = rs1 >> 15
 			state.rs1=rs1
+			state.rs2 = -1
 		#R S SB format
 		else:
 			rs1 = state.IR&(0xF8000)
@@ -273,6 +274,8 @@ class ProcessingUnit:
 			rd = state.IR&(0xF80)
 			rd = rd//128
 			state.rd=rd
+		else:
+			state.rd = -1
 		if opcode == 99 or opcode == 103 or opcode == 111:
 			if btb.isEntered(state.PC) and btb.predict(state.PC):
 				state.predicted_outcome = True
@@ -406,6 +409,7 @@ class ProcessingUnit:
 			return state
 		#Effective address stored in MAR in integer format
 		#Data stored in MDR in Integer Format
+		state.RM = state.RB
 		state.MAR=state.RZ
 		state.MDR=state.RM
 		opcode=self._get_opcode(state.IR)
