@@ -29,17 +29,19 @@ while True:
 	# EX_MEM = proc.execute(ID_EX)
 	# MEM_WB = proc.memory_access(EX_MEM)
 	# state = proc.write_back(MEM_WB)
+	in_states=in_states[::-1]
 	for idx,state in enumerate(in_states):
-		if idx==0:
+		if idx==4:
 			out_states.append(proc.fetch(state))
-		if idx==1:
+		if idx==3:
 			out_states.append(proc.decode(state))
 		if idx==2:
 			out_states.append(proc.execute(state))
-		if idx==3:
+		if idx==1:
 			out_states.append(proc.memory_access(state))
-		if idx==4:
+		if idx==0:
 			progress=proc.write_back(state)
+	out_states=out_states[::-1]
 	if out_states[0].IR!=0:
 		master_PC +=4
 	master_clock +=1
