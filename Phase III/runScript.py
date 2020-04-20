@@ -79,7 +79,7 @@ while True:
 			master_PC = control_hazard_PC
 			out_states[0] = State(0)
 		
-		if data_hazard[0]==True and stalling_enabled:
+		if data_hazard[0]:
 			out_states=[backup_states[1],State(0)]+out_states[2:]
 
 	# For data forwarding
@@ -90,7 +90,7 @@ while True:
 
 		for i in reversed(range(5)):
 			if i==0:
-				_, _, tempstate = proc.fetch(in_states[0], btb)
+				control_change, control_change_PC, tempstate = proc.fetch(in_states[0], btb)
 				out_states.append(tempstate)
 			if i==1:
 				_, _, tempstate = proc.decode(in_states[1], btb)
@@ -114,6 +114,13 @@ while True:
 		out_states=out_states[::-1]
 		if out_states[0].IR!=0 and (doStall==False):
 			master_PC +=4
+
+		if(control_change):
+			master_PC = control_change_PC
+
+		if(control_hazard):
+			master_PC = control_hazard_PC
+			out_states[0] = State(0)
 
 		if doStall:
 			out_states = [in_states[1], in_states[2], State()] + [out_states[3]]
