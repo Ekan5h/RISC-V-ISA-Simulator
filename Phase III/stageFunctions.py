@@ -222,6 +222,29 @@ class ProcessingUnit:
 		# state.PC_temp=state.PC+4
 		if state.IR!=0:
 			state.unstarted=False
+		else :
+			return state
+		opcode = self._get_opcode(state.IR)
+		if(opcode == 23 or opcode == 55 or opcode == 111):
+			pass
+		#I format
+		elif(opcode == 3 or opcode == 19 or opcode == 103):
+			rs1 = state.IR&(0xF8000)
+			rs1 = rs1 >> 15
+			state.rs1=rs1
+		#R S SB format
+		else:
+			rs1 = state.IR&(0xF8000)
+			rs1 = rs1 >> 15
+			rs2 = state.IR&(0x1F00000)
+			rs2 = rs2 >> 20
+			state.rs1=rs1
+			state.rs2=rs2		
+		if opcode!=35 and opcode!=99:
+			rd = state.IR&(0xF80)
+			rd = rd//128
+			state.rd=rd
+
 		return state
 
 	def decode(self, state):
