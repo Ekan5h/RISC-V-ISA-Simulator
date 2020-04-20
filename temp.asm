@@ -1,6 +1,10 @@
-addi x1 x0 1
+addi x0 x0 1
+addi x0 x0 1
 jal x1 label
-addi x2 x0 1
-addi x3 x0 1
+beq x0 x0 end
 label:
-addi x4 x0 1
+addi x0 x0 1
+addi x0 x0 1
+jalr x0 0(x1)
+end:
+

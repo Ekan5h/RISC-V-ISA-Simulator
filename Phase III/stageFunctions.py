@@ -247,7 +247,7 @@ class ProcessingUnit:
 		new_pc = 0
 		state.IR=self._read(state.PC,4)
 		# state.clock=state.clock+1
-		# state.PC_temp=state.PC+4
+		state.PC_temp=state.PC+4
 		if state.IR!=0:
 			state.unstarted=False
 		else :
@@ -430,7 +430,7 @@ class ProcessingUnit:
 		# self.IAG(state)
 		#jal and jalr
 		if opcode==103 or opcode==111:
-			state.RY=state.PC_temp
+			state.RY = state.PC_temp
 		#S and SB check
 		if opcode!=35 and opcode!=99:
 			rd = state.IR&(0xF80)
