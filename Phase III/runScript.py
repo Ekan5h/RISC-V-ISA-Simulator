@@ -43,7 +43,7 @@ while True:
 
 		data_hazard=hdu.check_data_hazard_stalling(in_states)
 		backup_states=in_states
-		print(f'Cycle={master_clock} Hazard={data_hazard} PC={master_PC}')
+		print(f'Cycle={master_clock} PC={master_PC}')
 		# if data_hazard[0]==True :
 			# out_states=out_states[1:] #removed the output of fetch state
 			# in_states.append(out_states[0]) 
