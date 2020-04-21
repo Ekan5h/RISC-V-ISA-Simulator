@@ -86,7 +86,7 @@ class HDU:
                     toDecode.rs1branch = toWB.RY
                     isHazard = True
                 if toWB.rd == toDecode.rs2:
-                    toDecode.rs1branch = toWB.RY
+                    toDecode.rs2branch = toWB.RY
                     isHazard = True
 
             # E->D fowarding
