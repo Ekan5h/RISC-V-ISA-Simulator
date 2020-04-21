@@ -7,6 +7,8 @@ class HDU:
         pass
 
     def check_data_hazard(self,states):
+        forwarding_paths = set()
+        # forwarding_paths.add("X->X")
         new_states = []     # updated states
         new_states = [states[0]]
         toDecode = states[1]
@@ -33,16 +35,19 @@ class HDU:
             if toWB.rd > 0 and toWB.rd == toMem.rs2:
                 toMem.RB = toWB.RY
                 isHazard = True
+                forwarding_paths.add("M->M")
 
         # M->E forwarding
         if toWB.rd > 0:
             if toWB.rd == toExecute.rs1:
                 toExecute.RA = toWB.RY
                 isHazard = True
+                forwarding_paths.add("M->E")
 
             if toWB.rd == toExecute.rs2:
                 toExecute.RB = toWB.RY
                 isHazard = True
+                forwarding_paths.add("M->E")
 
         # E->E forwarding
         if toMem.rd > 0:
@@ -71,10 +76,12 @@ class HDU:
                 if toExecute.rs1 == toMem.rd:
                     toExecute.RA = toMem.RZ
                     isHazard = True
+                    forwarding_paths.add("E->E")
 
                 if toExecute.rs2 == toMem.rd:
                     toExecute.RB = toMem.RZ
                     isHazard = True
+                    forwarding_paths.add("E->E")
 
         # Control hazard forwarding
         # Again, we go in reverse order to allow recent instructions to overwrite
@@ -85,9 +92,11 @@ class HDU:
                 if toWB.rd == toDecode.rs1:
                     toDecode.rs1branch = toWB.RY
                     isHazard = True
+                    forwarding_paths.add("M->D")
                 if toWB.rd == toDecode.rs2:
                     toDecode.rs2branch = toWB.RY
                     isHazard = True
+                    forwarding_paths.add("M->D")
 
             # E->D fowarding
             if toMem.rd > 0:
@@ -103,9 +112,11 @@ class HDU:
                         toDecode.rs1branch = toMem.RZ
                         # print("HEyO", toDecode.rs1branch)
                         isHazard = True
+                        forwarding_paths.add("E->D")
                     if toMem.rd == toDecode.rs2:
                         toDecode.rs2branch = toMem.RZ
                         isHazard = True
+                        forwarding_paths.add("E->D")
 
             # If branch depends upon the preceding instruction, stall required
             if toExecute.rd > 0 and (toExecute.rd == toDecode.rs1 or toExecute.rd == toDecode.rs2):
@@ -115,7 +126,7 @@ class HDU:
             
 
         new_states = new_states + [toDecode, toExecute, toMem, toWB]
-        return [isHazard, doStall, new_states, stallWhere]
+        return [isHazard, doStall, new_states, stallWhere, forwarding_paths]
 
     def check_data_hazard_stalling(self,states):
         states=states[1:] #removed the fetch stage instruction

@@ -88,6 +88,7 @@ while True:
 		isHazard = False
 		doStall = False
 		stallWhere = 3
+		forwarding_paths = set()
 		# for s in in_states:
 		# 	print("S", hex(s.IR))
 		for i in reversed(range(5)):
@@ -107,6 +108,7 @@ while True:
 				progress = proc.write_back(in_states[4])
 				hazards = hdu.check_data_hazard(in_states)
 				in_states[3] = hazards[2][3]
+				forwarding_paths.update(hazards[4])
 
 			if i<4:
 				in_states[i] = out_states[-1]
@@ -115,6 +117,7 @@ while True:
 				isHazard = isHazard | hazards[0]
 				doStall = doStall | hazards[1]
 				stallWhere = min(stallWhere, hazards[3])
+				forwarding_paths.update(hazards[4])
 
 		# print(doStall, stallWhere)
 
