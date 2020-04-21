@@ -338,7 +338,7 @@ class ProcessingUnit:
 			if taken == 0 and state.predicted_outcome:
 				btb.changeState(state.PC)
 				control_hazard = True
-				new_pc = btb.getTarget(state.PC)
+				new_pc = state.PC+4
 			if taken == 1 and not state.predicted_outcome:
 				btb.changeState(state.PC)
 				control_hazard = True
@@ -439,7 +439,7 @@ class ProcessingUnit:
 			rd = rd//128
 			self.RegisterFile[rd] = state.RY
 			if(rd!=0):
-				print(f'\t\tRegister x{rd} updated to : {hex(state.RY)}')
+				print(f'\t\tRegister x{rd} updated to Rs1: x{state.rs1} x{state.rs2} pc={state.PC}: {hex(state.RY)}')
 			self.RegisterFile[0]=0
 		return "Processing"
 		

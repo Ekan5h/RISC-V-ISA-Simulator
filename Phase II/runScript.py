@@ -7,9 +7,9 @@ else:
 proc=ProcessingUnit(f'{f_name}')
 print('Loaded program in Memory!')
 while True:
-	print(f'Processing Instruction at {hex(proc.PC)}')
+	# print(f'Processing Instruction at {hex(proc.PC)}')
 	proc.fetch()
-	print(f'\tClock={proc.clock} IR={hex(proc.IR)} PC={hex(proc.PC)}')	
+	# print(f'\tClock={proc.clock} IR={hex(proc.IR)} PC={hex(proc.PC)}')	
 	if(proc.IR==0):
 		break
 	proc.decode()

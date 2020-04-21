@@ -69,10 +69,10 @@ while True:
 		if out_states[0].IR!=0:
 			master_PC+=4
 
-	if(control_change):
+	if(control_change and data_hazard[0]==False):
 		master_PC = control_change_PC
 
-	if(control_hazard):
+	if(control_hazard and data_hazard[0]==False):
 		master_PC = control_hazard_PC
 		out_states[0] = State(0)
 	
@@ -85,6 +85,7 @@ while True:
 	in_states=[State(master_PC)]
 	in_states=in_states+out_states
 	out_states=[]
+	print(f'{proc.RegisterFile}')
 
 
 print(f'Total number of clock cycles used up ={master_clock}')
