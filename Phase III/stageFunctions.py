@@ -313,13 +313,16 @@ class ProcessingUnit:
 			state.RB = self.RegisterFile[rs2]
 
 			# Take forwarded data
-			if (opcode==99 or opcode==103) and state.rs1branch != -1:
-				state.RA = state.rs1branch
-			if opcode==99 and state.rs2branch != -1:
-				state.RB = state.rs2branch
+			
 
 			state.RM=state.RB
 		
+		if (opcode==99 or opcode==103) and state.rs1branch != -1:
+			state.RA = state.rs1branch
+				# print("HEYO", state.rs1branch)
+		if opcode==99 and state.rs2branch != -1:
+			state.RB = state.rs2branch
+			state.RM = state.RB
 		if opcode!=35 and opcode!=99:
 			rd = state.IR&(0xF80)
 			rd = rd//128

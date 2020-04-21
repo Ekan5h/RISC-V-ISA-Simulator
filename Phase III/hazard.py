@@ -93,7 +93,7 @@ class HDU:
             if toMem.rd > 0:
 
                 # If producer is a load instruction, result won't be available for another cycle
-                if toMem_opcode == 3 and doStall==False:
+                if toMem_opcode == 3:
                     isHazard = True
                     doStall = True
                     stallWhere = min(stallWhere, 2)
@@ -101,6 +101,7 @@ class HDU:
                 else:
                     if toMem.rd == toDecode.rs1:
                         toDecode.rs1branch = toMem.RZ
+                        # print("HEyO", toDecode.rs1branch)
                         isHazard = True
                     if toMem.rd == toDecode.rs2:
                         toDecode.rs2branch = toMem.RZ

@@ -88,12 +88,15 @@ while True:
 		isHazard = False
 		doStall = False
 		stallWhere = 3
-
+		# for s in in_states:
+		# 	print("S", hex(s.IR))
 		for i in reversed(range(5)):
 			if i==0:
 				control_change, control_change_PC, tempstate = proc.fetch(in_states[0], btb)
 				out_states.append(tempstate)
 			if i==1:
+				# if master_clock == 5:
+				# 	print("HELLO", in_states[1].rs1branch, hex(in_states[1].IR))
 				control_hazard, control_hazard_PC, tempstate = proc.decode(in_states[1], btb)
 				out_states.append(tempstate)
 			if i==2:
@@ -112,6 +115,8 @@ while True:
 				isHazard = isHazard | hazards[0]
 				doStall = doStall | hazards[1]
 				stallWhere = min(stallWhere, hazards[3])
+
+		# print(doStall, stallWhere)
 
 		out_states=out_states[::-1]
 		if out_states[0].IR!=0 and (doStall==False):
