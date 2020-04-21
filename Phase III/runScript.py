@@ -19,7 +19,7 @@ out_states=[]
 print('Loaded program in Memory!')
 master_PC=0
 master_clock=0
-stalling_enabled=False
+stalling_enabled=True
 control_hazard = False
 control_hazard_PC = 0
 control_change = False
@@ -72,10 +72,10 @@ while True:
 			if out_states[0].IR!=0:
 				master_PC+=4
 
-		if(control_change):
+		if(control_change and data_hazard[0]==False):
 			master_PC = control_change_PC
 
-		if(control_hazard):
+		if(control_hazard and data_hazard[0]==False):
 			master_PC = control_hazard_PC
 			out_states[0] = State(0)
 		

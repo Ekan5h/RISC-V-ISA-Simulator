@@ -341,7 +341,7 @@ class ProcessingUnit:
 			if taken == 0 and state.predicted_outcome:
 				btb.changeState(state.PC)
 				control_hazard = True
-				new_pc = btb.getTarget(state.PC)
+				new_pc = state.PC+4
 			if taken == 1 and not state.predicted_outcome:
 				btb.changeState(state.PC)
 				control_hazard = True

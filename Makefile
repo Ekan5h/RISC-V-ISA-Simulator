@@ -1,3 +1,3 @@
 exe:
 	python3 ./Phase\ I/ASM2MC.py ${INP}.asm
-	python3 ./Phase\ II/runScript.py ${INP}.mc
+	python3 ./Phase\ III/runScript.py ${INP}.mc
