@@ -70,6 +70,33 @@ class HDU:
         new_states = new_states + [toExecute, toMem, toWB]
         return [isHazard, doStall, new_states]
 
+    def check_data_hazard_stalling(self,states):
+        states=states[1:] #removed the fetch stage instruction
+        if len(states)==1:
+            return [False,-1]
+        elif len(states)>=2:
+            exe_state=states[1]
+            decode_state=states[0]
+            if exe_state.rd!=-1 and decode_state.rs1!=-1:
+                if exe_state.rd==decode_state.rs1 :
+                    if exe_state.rd!=0:
+                        return [True,2]
+                if exe_state.rd==decode_state.rs2:
+                    if exe_state.rd!=0:
+                        return [True,2]
+            if len(states)>=3:
+                mem_state=states[2]
+                if mem_state.rd!=-1 and decode_state.rs1!=-1:
+                    if mem_state.rd==decode_state.rs1 :
+                        if mem_state.rd!=0:
+                            return [True,1]
+                    if mem_state.rd==decode_state.rs2:
+                        if mem_state.rd!=0:
+                            return [True,1]
+        
+        return [False,-1]
+
+
 
     def check_control_hazard(self):
         pass

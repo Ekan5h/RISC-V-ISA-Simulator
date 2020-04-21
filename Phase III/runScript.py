@@ -41,7 +41,7 @@ while True:
 		# MEM_WB = proc.memory_access(EX_MEM)
 		# state = proc.write_back(MEM_WB)_
 
-		data_hazard=hdu.check_data_hazard(in_states)
+		data_hazard=hdu.check_data_hazard_stalling(in_states)
 		backup_states=in_states
 		print(f'Cycle={master_clock} Hazard={data_hazard} PC={master_PC}')
 		# if data_hazard[0]==True :
@@ -93,7 +93,7 @@ while True:
 				control_change, control_change_PC, tempstate = proc.fetch(in_states[0], btb)
 				out_states.append(tempstate)
 			if i==1:
-				_, _, tempstate = proc.decode(in_states[1], btb)
+				control_hazard, control_hazard_PC, tempstate = proc.decode(in_states[1], btb)
 				out_states.append(tempstate)
 			if i==2:
 				out_states.append(proc.execute(in_states[2]))
@@ -115,10 +115,10 @@ while True:
 		if out_states[0].IR!=0 and (doStall==False):
 			master_PC +=4
 
-		if(control_change):
+		if(control_change and doStall==False):
 			master_PC = control_change_PC
 
-		if(control_hazard):
+		if(control_hazard and doStall==False):
 			master_PC = control_hazard_PC
 			out_states[0] = State(0)
 
