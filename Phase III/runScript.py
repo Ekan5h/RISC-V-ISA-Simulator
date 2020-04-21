@@ -19,7 +19,7 @@ out_states=[]
 print('Loaded program in Memory!')
 master_PC=0
 master_clock=0
-stalling_enabled=True
+stalling_enabled=False
 control_hazard = False
 control_hazard_PC = 0
 control_change = False
@@ -87,6 +87,7 @@ while True:
 		print(f'Cycle={master_clock} PC={hex(master_PC)}')
 		isHazard = False
 		doStall = False
+		stallWhere = 3
 
 		for i in reversed(range(5)):
 			if i==0:
@@ -110,6 +111,7 @@ while True:
 				in_states = hazards[2]
 				isHazard = isHazard | hazards[0]
 				doStall = doStall | hazards[1]
+				stallWhere = min(stallWhere, hazards[3])
 
 		out_states=out_states[::-1]
 		if out_states[0].IR!=0 and (doStall==False):
@@ -123,7 +125,13 @@ while True:
 			out_states[0] = State(0)
 
 		if doStall:
-			out_states = [in_states[1], in_states[2], State()] + [out_states[3]]
+			# Stall at execute
+			if stallWhere==1:
+				out_states = [in_states[1], in_states[2], State()] + [out_states[3]]
+
+			# Stall at decode
+			else:
+				out_states = [in_states[1], State()] + [out_states[2], out_states[3]]
 
 	master_clock +=1
 	if out_states[0].IR==0 and out_states[1].IR==0 and out_states[2].IR==0 and out_states[3].IR==0 and progress=="Completed":

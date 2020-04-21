@@ -25,6 +25,8 @@ class State:
 		self.operand2 = 0
 		self.predicted_outcome = False
 		self.predicted_PC = 0
+		self.rs1branch = -1
+		self.rs2branch = -1
 
 # Brach table buffer
 class BTB: 
@@ -309,6 +311,13 @@ class ProcessingUnit:
 			state.rs2=rs2
 			state.RA = self.RegisterFile[rs1]
 			state.RB = self.RegisterFile[rs2]
+
+			# Take forwarded data
+			if (opcode==99 or opcode==103) and state.rs1branch != -1:
+				state.RA = state.rs1branch
+			if opcode==99 and state.rs2branch != -1:
+				state.RB = state.rs2branch
+
 			state.RM=state.RB
 		
 		if opcode!=35 and opcode!=99:
@@ -397,10 +406,11 @@ class ProcessingUnit:
 		#U-Type: lui auipc
 		if opcode==55 or opcode==23:
 			ALU_control=0
-		if opcode !=111:
-			state.RZ = self.ALU(state.operand1, state.operand2, ALU_control)
-		else:
+		if opcode==111 or opcode==103:
 			state.RZ=state.PC+4
+		else:
+			state.RZ = self.ALU(state.operand1, state.operand2, ALU_control)
+			
 
 		return state
 
