@@ -15,12 +15,13 @@ out_states=[]
 # execute_inp = State()
 # ma_inp = State()
 # wb_inp = State()
-
+print_Final_register=False
+print_Final_Mem=False
 print('Loaded program in Memory!')
 master_PC=0
 master_clock=0
-stalling_enabled=False
-print_regFile_for_each_ins=False
+stalling_enabled=False #Knob 2
+print_regFile_for_each_ins=False #Knob 3
 control_hazard = False
 control_hazard_PC = 0
 control_change = False
@@ -29,6 +30,10 @@ print_pipline_registers=False #Knob4
 print_pipline_registers_for_specific=[False,-1] #Knob5
 hdu = HDU()
 btb = BTB()
+count_branch_hazards=0
+
+count_branch_hazards_stalls=0
+count_data_hazards_stalls=0
 
 while True:
 
@@ -79,10 +84,14 @@ while True:
 			master_PC = control_change_PC
 
 		if(control_hazard and data_hazard[0]==False):
+			count_branch_hazards+=1
+			count_branch_hazards_stalls+=1
 			master_PC = control_hazard_PC
 			out_states[0] = State(0)
 		
 		if data_hazard[0]:
+			
+			count_data_hazards_stalls+=1
 			out_states=[backup_states[1],State(0)]+out_states[2:]
 
 	# For data forwarding
@@ -98,20 +107,31 @@ while True:
 			if i==0:
 				control_change, control_change_PC, tempstate = proc.fetch(in_states[0], btb)
 				out_states.append(tempstate)
+				if print_pipline_registers_for_specific[0] and (print_pipline_registers_for_specific[1]*4-1)==(in_states[0].PC):
+					print(f'E2E={hdu.E2E}, M2E={hdu.M2E}, E2D={hdu.E2D}, M2D={hdu.M2D}, M2M={hdu.M2M}')
 			if i==1:
 				# if master_clock == 5:
 				# 	print("HELLO", in_states[1].rs1branch, hex(in_states[1].IR))
 				control_hazard, control_hazard_PC, tempstate = proc.decode(in_states[1], btb)
 				out_states.append(tempstate)
+				if print_pipline_registers_for_specific[0] and (print_pipline_registers_for_specific[1]*4-1)==(in_states[0].PC):
+					print(f'E2E={hdu.E2E}, M2E={hdu.M2E}, E2D={hdu.E2D}, M2D={hdu.M2D}, M2M={hdu.M2M}')
 			if i==2:
 				out_states.append(proc.execute(in_states[2]))
+				if print_pipline_registers_for_specific[0] and (print_pipline_registers_for_specific[1]*4-1)==(in_states[0].PC):
+					print(f'E2E={hdu.E2E}, M2E={hdu.M2E}, E2D={hdu.E2D}, M2D={hdu.M2D}, M2M={hdu.M2M}')
 			if i==3:
 				out_states.append(proc.memory_access(in_states[3]))
+				if print_pipline_registers_for_specific[0] and (print_pipline_registers_for_specific[1]*4-1)==(in_states[0].PC):
+					print(f'E2E={hdu.E2E}, M2E={hdu.M2E}, E2D={hdu.E2D}, M2D={hdu.M2D}, M2M={hdu.M2M}')
 			if i==4:
 				progress = proc.write_back(in_states[4])
 				hazards = hdu.check_data_hazard(in_states)
 				in_states[3] = hazards[2][3]
 				forwarding_paths.update(hazards[4])
+				if print_pipline_registers_for_specific[0] and (print_pipline_registers_for_specific[1]*4-1)==(in_states[0].PC):
+					print(f'E2E={hdu.E2E}, M2E={hdu.M2E}, E2D={hdu.E2D}, M2D={hdu.M2D}, M2M={hdu.M2M}')
+
 
 			if i<4:
 				in_states[i] = out_states[-1]
@@ -132,11 +152,14 @@ while True:
 			master_PC = control_change_PC
 
 		if(control_hazard and doStall==False):
+			count_branch_hazards+=1
+			count_branch_hazards_stalls+=1
 			master_PC = control_hazard_PC
 			out_states[0] = State(0)
 
 		if doStall:
 			# Stall at execute
+			count_data_hazards_stalls+=1
 			if stallWhere==1:
 				out_states = [in_states[1], in_states[2], State()] + [out_states[3]]
 
@@ -156,9 +179,24 @@ while True:
 	out_states=[]
 
 
-print(f'Total number of clock cycles used up ={master_clock}')
+# print(f'Total number of clock cycles used up ={master_clock}')
+if print_Final_Mem:
+	print('Final Memory:')
+	print(proc.MEM)
+if print_Final_register:
+	print('Final Register:')
+	print(proc.RegisterFile)
 
-print('Final Memory:')
-print(proc.MEM)
-print('Final Register:')
-print(proc.RegisterFile)
+print(f'1. Total Number of Cycles= {master_clock}')
+print(f'2. Total Instructions EXECUTED={proc.count_ins}')
+cpi=master_clock/proc.count_control_ins
+print(f'3. CPI={cpi}')
+print(f'4. Number of Data_transfer (load and store) instructions EXECUTED= {proc.count_mem_ins}')
+print(f'5. Number of ALU Instructions EXECUTED= {proc.count_ins-proc.count_control_ins-proc.count_mem_ins}')
+print(f'6. Number of Control Instructions EXECUTED= {proc.count_control_ins}')
+print(f'7. Number of Stalls in Pipline= {count_branch_hazards_stalls+count_data_hazards_stalls}')
+print(f'8. Number of Data Hazards= {hdu.count_data_hazards}')
+print(f'9. Number of Control Hazards= {count_branch_hazards}')
+print(f'10. Number of Branch Mispredictions= {count_branch_hazards}')
+print(f'11. Number of Stalls Due to Data Hazards= {count_data_hazards_stalls}')
+print(f'12. Number of Stalls Due to Control Hazards= {count_branch_hazards_stalls}')

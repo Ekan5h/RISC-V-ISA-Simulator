@@ -28,6 +28,7 @@ class State:
 		self.rs1branch = -1
 		self.rs2branch = -1
 
+
 # Brach table buffer
 class BTB: 
 	table = {}
@@ -68,6 +69,11 @@ class ProcessingUnit:
 		self.RegisterFile[2]=int('0x7FFFFFF0',0)
 		self.RegisterFile[3]=int('0x10000000',0)
 		self._load_program_memory(file_name)
+		self.count_mem_ins=0
+		self.count_ins=0
+		self.count_control_ins=0
+		self.stalls=0
+		self.branch_mispred=0
 
 	def _load_program_memory(self, file_name):
 		#Loads the program and data memory from the mc file
@@ -333,6 +339,7 @@ class ProcessingUnit:
 				target = state.PC + offset
 				btb.enter(state.PC, target)
 				btb.changeState(state.PC)
+				self.branch_mispred+=1
 				control_hazard = True
 				new_pc = target
 		elif opcode == 103:
@@ -342,6 +349,7 @@ class ProcessingUnit:
 				btb.enter(state.PC, target)
 				btb.changeState(state.PC)
 				control_hazard = True
+				self.branch_mispred+=1
 				new_pc = target
 		elif opcode == 99:
 			funct3 = self._get_funct3(state.IR)
@@ -352,10 +360,12 @@ class ProcessingUnit:
 				btb.enter(state.PC, target)
 			if taken == 0 and state.predicted_outcome:
 				btb.changeState(state.PC)
+				self.branch_mispred+=1
 				control_hazard = True
 				new_pc = state.PC+4
 			if taken == 1 and not state.predicted_outcome:
 				btb.changeState(state.PC)
+				self.branch_mispred+=1
 				control_hazard = True
 				new_pc = btb.getTarget(state.PC)
 		return control_hazard, new_pc, state
@@ -363,6 +373,12 @@ class ProcessingUnit:
 	def execute(self, state):
 		if state.unstarted==True:
 			return state
+		self.count_ins+=1
+		if state.opcode==103 or state.opcode==111 or state.opcode==99:
+			self.count_control_ins+=1
+		elif state.opcode==3 or state.opcode==35:
+			self.count_mem_ins+=1
+
 		opcode = self._get_opcode(state.IR)
 		funct3 = self._get_funct3(state.IR)
 		muxB_control = 0 if (opcode == 51 or opcode == 99) else 1
@@ -441,6 +457,7 @@ class ProcessingUnit:
 
 	def write_back(self, state):
 		if state.unstarted==True:
+			self.stalls+=1
 			return "Completed"
 		#Determine whether write back is used
 		opcode = self._get_opcode(state.IR)
