@@ -4,8 +4,11 @@ class HDU:
         # self.states=[]
         # self.is_control_hazard=[False,-1] #[bool,no. of stalls]
         # self.is_data_hazard=[False,-1]
-        pass
-
+        self.E2E=0
+        self.M2E=0
+        self.M2M=0
+        self.E2D=0
+        self.M2D=0
     def check_data_hazard(self,states):
         forwarding_paths = set()
         # forwarding_paths.add("X->X")
@@ -35,17 +38,20 @@ class HDU:
             if toWB.rd > 0 and toWB.rd == toMem.rs2:
                 toMem.RB = toWB.RY
                 isHazard = True
+                self.M2M=toWB.RY
                 forwarding_paths.add("M->M")
 
         # M->E forwarding
         if toWB.rd > 0:
             if toWB.rd == toExecute.rs1:
                 toExecute.RA = toWB.RY
+                self.M2E=toWB.RY
                 isHazard = True
                 forwarding_paths.add("M->E")
 
             if toWB.rd == toExecute.rs2:
                 toExecute.RB = toWB.RY
+                self.M2E=toWB.RY
                 isHazard = True
                 forwarding_paths.add("M->E")
 
@@ -75,11 +81,13 @@ class HDU:
             else:
                 if toExecute.rs1 == toMem.rd:
                     toExecute.RA = toMem.RZ
+                    self.E2E=toMem.RZ
                     isHazard = True
                     forwarding_paths.add("E->E")
 
                 if toExecute.rs2 == toMem.rd:
                     toExecute.RB = toMem.RZ
+                    self.E2E=toMem.RZ
                     isHazard = True
                     forwarding_paths.add("E->E")
 
@@ -91,10 +99,12 @@ class HDU:
             if toWB.rd > 0:
                 if toWB.rd == toDecode.rs1:
                     toDecode.rs1branch = toWB.RY
+                    self.M2D=toWB.RY
                     isHazard = True
                     forwarding_paths.add("M->D")
                 if toWB.rd == toDecode.rs2:
                     toDecode.rs2branch = toWB.RY
+                    self.M2D=toWB.RY
                     isHazard = True
                     forwarding_paths.add("M->D")
 
@@ -110,11 +120,13 @@ class HDU:
                 else:
                     if toMem.rd == toDecode.rs1:
                         toDecode.rs1branch = toMem.RZ
+                        self.E2D=toMem.RZ
                         # print("HEyO", toDecode.rs1branch)
                         isHazard = True
                         forwarding_paths.add("E->D")
                     if toMem.rd == toDecode.rs2:
                         toDecode.rs2branch = toMem.RZ
+                        self.E2D=toMem.RZ
                         isHazard = True
                         forwarding_paths.add("E->D")
 

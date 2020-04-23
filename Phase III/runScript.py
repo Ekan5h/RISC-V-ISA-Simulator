@@ -20,10 +20,13 @@ print('Loaded program in Memory!')
 master_PC=0
 master_clock=0
 stalling_enabled=False
+print_regFile_for_each_ins=False
 control_hazard = False
 control_hazard_PC = 0
 control_change = False
 control_change_PC = 0
+print_pipline_registers=False #Knob4
+print_pipline_registers_for_specific=[False,-1] #Knob5
 hdu = HDU()
 btb = BTB()
 
@@ -144,7 +147,10 @@ while True:
 	master_clock +=1
 	if out_states[0].IR==0 and out_states[1].IR==0 and out_states[2].IR==0 and out_states[3].IR==0 and progress=="Completed":
 		break
-	
+	if print_regFile_for_each_ins:
+		print(f'Register File = {proc.RegisterFile}')
+	if print_pipline_registers:
+		print(f'E2E={hdu.E2E}, M2E={hdu.M2E}, E2D={hdu.E2D}, M2D={hdu.M2D}, M2M={hdu.M2M}')
 	in_states=[State(master_PC)]
 	in_states=in_states+out_states
 	out_states=[]
