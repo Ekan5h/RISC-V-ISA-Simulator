@@ -34,8 +34,10 @@
 
 ##  Instructions to Use CLI
 1.	Navigate to the directory containing the Makefile.
-2.	Run the following command:
-		make INP=path/to/the/file(without the asm extension) 
+2.	Run the following command for executing the Phase 2 code (without Piplining):
+		make p2 INP=path/to/the/file(without the asm extension)
+3.	Run the following command for executing the Phase 3 Code (with Piplining):
+		make p3 INP=path/to/file (without the asm extension)
 
 Example: <br />
 	make INP=test
