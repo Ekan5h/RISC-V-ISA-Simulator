@@ -31,7 +31,7 @@ print_pipline_registers_for_specific=[False,-1] #Knob5
 hdu = HDU()
 btb = BTB()
 count_branch_hazards=0
-
+count_data_hazards=0
 count_branch_hazards_stalls=0
 count_data_hazards_stalls=0
 
@@ -143,7 +143,8 @@ while True:
 				forwarding_paths.update(hazards[4])
 
 		# print(doStall, stallWhere)
-
+		if isHazard:
+			count_data_hazards+=1
 		out_states=out_states[::-1]
 		if out_states[0].IR!=0 and (doStall==False):
 			master_PC +=4
@@ -195,7 +196,7 @@ print(f'4. Number of Data_transfer (load and store) instructions EXECUTED= {proc
 print(f'5. Number of ALU Instructions EXECUTED= {proc.count_ins-proc.count_control_ins-proc.count_mem_ins}')
 print(f'6. Number of Control Instructions EXECUTED= {proc.count_control_ins}')
 print(f'7. Number of Stalls in Pipline= {count_branch_hazards_stalls+count_data_hazards_stalls}')
-print(f'8. Number of Data Hazards= {hdu.count_data_hazards}')
+print(f'8. Number of Data Hazards= {count_data_hazards}')
 print(f'9. Number of Control Hazards= {count_branch_hazards}')
 print(f'10. Number of Branch Mispredictions= {count_branch_hazards}')
 print(f'11. Number of Stalls Due to Data Hazards= {count_data_hazards_stalls}')

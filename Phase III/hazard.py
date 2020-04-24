@@ -9,7 +9,7 @@ class HDU:
         self.M2M=0
         self.E2D=0
         self.M2D=0
-        self.count_data_hazards=0
+        # self.count_data_hazards=0
     def check_data_hazard(self,states):
         forwarding_paths = set()
         # forwarding_paths.add("X->X")
@@ -139,8 +139,8 @@ class HDU:
             
 
         new_states = new_states + [toDecode, toExecute, toMem, toWB]
-        if isHazard:
-            self.count_data_hazards+=1
+        # if isHazard:
+        #     self.count_data_hazards+=1
         return [isHazard, doStall, new_states, stallWhere, forwarding_paths]
 
     def check_data_hazard_stalling(self,states):
