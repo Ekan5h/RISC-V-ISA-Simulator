@@ -153,22 +153,22 @@ class HDU:
             if exe_state.rd!=-1 and decode_state.rs1!=-1:
                 if exe_state.rd==decode_state.rs1 :
                     if exe_state.rd!=0:
-                        self.count_data_hazards+=1
+                        # self.count_data_hazards+=1
                         return [True,2]
                 if exe_state.rd==decode_state.rs2:
                     if exe_state.rd!=0:
-                        self.count_data_hazards+=1
+                        # self.count_data_hazards+=1
                         return [True,2]
             if len(states)>=3:
                 mem_state=states[2]
                 if mem_state.rd!=-1 and decode_state.rs1!=-1:
                     if mem_state.rd==decode_state.rs1 :
                         if mem_state.rd!=0:
-                            self.count_data_hazards+=1
+                            # self.count_data_hazards+=1
                             return [True,1]
                     if mem_state.rd==decode_state.rs2:
                         if mem_state.rd!=0:
-                            self.count_data_hazards+=1
+                            # self.count_data_hazards+=1
                             return [True,1]
         
         return [False,-1]

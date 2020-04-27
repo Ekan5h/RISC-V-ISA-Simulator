@@ -1,4 +1,4 @@
-addi x29 x0,5
+addi x29 x0,10
 addi x28,x0 1
 add x6 x0 x29
 jal x1 fact

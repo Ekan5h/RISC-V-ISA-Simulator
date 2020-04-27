@@ -5,9 +5,7 @@ if len(sys.argv)==2:
 	f_name=sys.argv[1]
 else:
 	raise Exception('Inavlid Arguments')
-proc=ProcessingUnit(f'{f_name}')
-in_states=[State() for i in range(5)]
-out_states=[]
+
 
 # States
 # fetch_inp=State()
@@ -15,12 +13,14 @@ out_states=[]
 # execute_inp = State()
 # ma_inp = State()
 # wb_inp = State()
-print_Final_register=False
+print_Final_register=True
 print_Final_Mem=False
-print('Loaded program in Memory!')
+proc=ProcessingUnit(f'{f_name}',enable_prediction=True)
+in_states=[State() for i in range(5)]
+out_states=[]
 master_PC=0
 master_clock=0
-stalling_enabled=False #Knob 2
+stalling_enabled=True #Knob 2
 print_regFile_for_each_ins=False #Knob 3
 control_hazard = False
 control_hazard_PC = 0
@@ -34,7 +34,7 @@ count_branch_hazards=0
 count_data_hazards=0
 count_branch_hazards_stalls=0
 count_data_hazards_stalls=0
-
+print('Loaded program in Memory!')
 while True:
 
 	# Stalling with no forwarding
@@ -90,7 +90,7 @@ while True:
 			out_states[0] = State(0)
 		
 		if data_hazard[0]:
-			
+			count_data_hazards+=1
 			count_data_hazards_stalls+=1
 			out_states=[backup_states[1],State(0)]+out_states[2:]
 
@@ -190,8 +190,8 @@ if print_Final_register:
 
 print(f'1. Total Number of Cycles= {master_clock}')
 print(f'2. Total Instructions EXECUTED={proc.count_ins}')
-cpi=master_clock/proc.count_control_ins
-print(f'3. CPI={cpi}')
+cpi=master_clock/proc.count_ins
+print(f'3. CPI={cpi:.4f}')
 print(f'4. Number of Data_transfer (load and store) instructions EXECUTED= {proc.count_mem_ins}')
 print(f'5. Number of ALU Instructions EXECUTED= {proc.count_ins-proc.count_control_ins-proc.count_mem_ins}')
 print(f'6. Number of Control Instructions EXECUTED= {proc.count_control_ins}')

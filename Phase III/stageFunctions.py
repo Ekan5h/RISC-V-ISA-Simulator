@@ -63,7 +63,7 @@ class BTB:
 
 
 class ProcessingUnit:
-	def __init__(self, file_name):
+	def __init__(self, file_name,enable_prediction=True):
 		self.MEM = {}
 		self.RegisterFile = [0 for i in range(32)]
 		self.RegisterFile[2]=int('0x7FFFFFF0',0)
@@ -74,6 +74,7 @@ class ProcessingUnit:
 		self.count_control_ins=0
 		self.stalls=0
 		self.branch_mispred=0
+		self.branch_prediction_enabled=enable_prediction
 
 	def _load_program_memory(self, file_name):
 		#Loads the program and data memory from the mc file
@@ -359,12 +360,14 @@ class ProcessingUnit:
 			if not btb.isEntered(state.PC):
 				btb.enter(state.PC, target)
 			if taken == 0 and state.predicted_outcome:
-				btb.changeState(state.PC)
+				if self.branch_prediction_enabled:
+					btb.changeState(state.PC)
 				self.branch_mispred+=1
 				control_hazard = True
 				new_pc = state.PC+4
 			if taken == 1 and not state.predicted_outcome:
-				btb.changeState(state.PC)
+				if self.branch_prediction_enabled:
+					btb.changeState(state.PC)
 				self.branch_mispred+=1
 				control_hazard = True
 				new_pc = btb.getTarget(state.PC)
