@@ -14,7 +14,7 @@ else:
 # ma_inp = State()
 # wb_inp = State()
 print_Final_register=True
-print_Final_Mem=False
+print_Final_Mem=True
 proc=ProcessingUnit(f'{f_name}',enable_prediction=True)
 in_states=[State() for i in range(5)]
 out_states=[]
@@ -144,7 +144,7 @@ while True:
 
 		# print(doStall, stallWhere)
 		if isHazard:
-			count_data_hazards+=1
+			count_data_hazards+=len(forwarding_paths)
 		out_states=out_states[::-1]
 		if out_states[0].IR!=0 and (doStall==False):
 			master_PC +=4
