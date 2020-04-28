@@ -20,7 +20,7 @@ in_states=[State() for i in range(5)]
 out_states=[]
 master_PC=0
 master_clock=0
-stalling_enabled=True #Knob 2
+stalling_enabled=False #Knob 2
 print_regFile_for_each_ins=False #Knob 3
 control_hazard = False
 control_hazard_PC = 0
@@ -157,6 +157,8 @@ while True:
 			count_branch_hazards_stalls+=1
 			master_PC = control_hazard_PC
 			out_states[0] = State(0)
+		elif (control_hazard and doStall):
+				btb.changeState(in_states[1].PC)
 
 		if doStall:
 			# Stall at execute
