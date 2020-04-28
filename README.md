@@ -25,11 +25,16 @@
 
 ### Note : jalr is different from I Type as we had followed the version similar to https://www.kvakil.me/venus
 
-## Instructions to setup GUI 
+## Instructions to setup GUI for Phase 2
 1.	Extract RISCVSim.tar.gz
 2.	Run the install script
 3.	Run the Risc-V simulator from the shortcut.
-	
+
+## Instructions to setup GUI for Phase 3 (incorporates the Phase 2 as well.)
+1.	Go to the directory Phase III and extract RISCVSim.tar.xz
+2.	Run the install Script.
+3	Run the Simulator from the desktop shortcut.
+
 ### Note: This install script is specific to Linux. For more details please refer to requirements.txt
 
 ##  Instructions to Use CLI
@@ -40,13 +45,13 @@
 		make p3 INP=path/to/file (without the asm extension)
 
 Example: <br />
-	make INP=test
+	make p2 INP=test
 	
 Example 2: <br />
-	make INP=bubble
+	make p3 INP=bubble
 
 Example 3: <br />
-	make INP=fib
+	make p3 INP=fib
 #### Note: File needs to be in same directory as the Makefile
 
 ## Contributions
