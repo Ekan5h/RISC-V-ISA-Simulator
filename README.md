@@ -24,7 +24,7 @@
 		jalr rd immed(rs1)
 
 ### Note : jalr is different from I Type as we had followed the version similar to https://www.kvakil.me/venus
-#### Note : We recommend cloning the source directly from github.com/Ekan5h/RISC-V-ISASimulator directly to set it up.
+#### Note : We recommend cloning the source directly from https://github.com/Ekan5h/RISC-V-ISA-Simulator directly to set it up.
 ## Instructions to setup GUI for Phase 2
 1.	Extract RISCVSim.tar.gz
 2.	Run the install script
