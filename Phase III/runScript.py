@@ -89,7 +89,9 @@ while True:
 			count_branch_hazards_stalls+=1
 			master_PC = control_hazard_PC
 			out_states[0] = State(0)
-		
+		elif(control_hazard and data_hazard[0] and prediction_enabled):
+				btb.changeState(in_states[1].PC)
+				
 		if data_hazard[0]:
 			count_data_hazards+=1
 			count_data_hazards_stalls+=1
