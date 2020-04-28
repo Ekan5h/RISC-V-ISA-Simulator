@@ -25,15 +25,11 @@
 
 ### Note : jalr is different from I Type as we had followed the version similar to https://www.kvakil.me/venus
 #### Note : We recommend cloning the source directly from https://github.com/Ekan5h/RISC-V-ISA-Simulator directly to set it up.
-## Instructions to setup GUI for Phase 2
+## Instructions to setup GUI for Phase 3 (incorporates Phase 2 as well)
 1.	Extract RISCVSim.tar.gz
 2.	Run the install script
 3.	Run the Risc-V simulator from the shortcut.
 
-## Instructions to setup GUI for Phase 3 (incorporates the Phase 2 as well.)
-1.	Go to the directory Phase III and extract RISCVSim.tar.xz
-2.	Run the install Script.
-3	Run the Simulator from the desktop shortcut.
 
 ### Note: This install script is specific to Linux. For more details please refer to requirements.txt
 
