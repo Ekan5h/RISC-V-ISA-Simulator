@@ -15,7 +15,8 @@ else:
 # wb_inp = State()
 print_Final_register=True
 print_Final_Mem=True
-proc=ProcessingUnit(f'{f_name}',enable_prediction=True)
+prediction_enabled=True
+proc=ProcessingUnit(f'{f_name}',enable_prediction=prediction_enabled)
 in_states=[State() for i in range(5)]
 out_states=[]
 master_PC=0
@@ -157,7 +158,7 @@ while True:
 			count_branch_hazards_stalls+=1
 			master_PC = control_hazard_PC
 			out_states[0] = State(0)
-		elif (control_hazard and doStall):
+		elif (control_hazard and doStall and prediction_enabled):
 				btb.changeState(in_states[1].PC)
 
 		if doStall:
